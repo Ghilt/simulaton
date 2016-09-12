@@ -1,0 +1,46 @@
+engine
+	int tick;
+	tick(
+		tick++;
+		target.tick
+		target (simulation)
+	)
+
+
+
+
+Simulation (interface/absclass)
+
+	int ticksAlive;
+	int ticksBirth;
+
+	tick()
+
+
+RegionSimul extends locationSimul
+	sizeX,sizeY
+	weathersimul
+	geoSimul;
+	array<Simulation> simuls;
+
+
+HumanSimul
+	locationsimul locationSimul
+	arrayTalents<>
+	arrayNeeds<>
+	array<Experiences>
+
+Need
+	vital
+	int value
+	
+	tick()
+
+Entrepeneur extends talent
+	parent;
+	array<LifeExperiences>
+
+	tick(
+		if(){
+			parent.giveMission(create factory)
+		}
