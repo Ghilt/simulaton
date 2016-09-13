@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace SictalSim
 {
-    class Simulator 
+    class Logger
     {
+        internal static void printInfo(string info)
+        {
+            Console.WriteLine(info);
+        }
     }
 }
