@@ -43,10 +43,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\Basis.cs" />
+    <Compile Include="Attributes\Effect.cs" />
+    <Compile Include="Attributes\Need.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Simulation\Human.cs" />
-    <Compile Include="Simulation\Location.cs" />
+    <Compile Include="Attributes\Location.cs" />
     <Compile Include="Simulation\Region.cs" />
     <Compile Include="Simulation\Simulator.cs" />
     <Compile Include="Program.cs" />

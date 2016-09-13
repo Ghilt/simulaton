@@ -28,5 +28,7 @@ namespace SictalSim
         public abstract void PerformTick();
 
         public abstract string GetCurrentInfoLog();
+
+        public abstract void Terminate();
     }
 }
