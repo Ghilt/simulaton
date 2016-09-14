@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\ModifyNeedEffect.cs" />
     <Compile Include="Attributes\Effect.cs" />
     <Compile Include="Attributes\Need.cs" />
+    <Compile Include="Attributes\TerminateTriggerEffect.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Simulation\Human.cs" />

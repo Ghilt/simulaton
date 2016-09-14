@@ -16,9 +16,7 @@ namespace SictalSim.Simulation
         public Human(int ticksBirth, Location location) : base(ticksBirth)
         {
             this.location = location;
-            this.needs = new Dictionary<int, Need>();
-            needs.Add(Need.ID_HUNGER, NeedFactory.CreateBasicNeed(Need.ID_HUNGER));
-            needs.Add(Need.ID_HEALTH, new Need(Need.ID_HEALTH,0.8f));
+            this.needs = NeedFactory.CreateBasicBiologicalNeeds(this);
         }
 
 
@@ -28,7 +26,7 @@ namespace SictalSim.Simulation
             foreach (Need need in needs.Values)
             {
                 need.Tick();
-                need.Affect(needs);
+                need.Affect();
             }
 
         }
@@ -38,9 +36,9 @@ namespace SictalSim.Simulation
             return "Human, at x: " + location.GetX() + " y: " + location.GetY() + " Hunger: " + needs[Need.ID_HUNGER].ToString() + " Health: " + needs[Need.ID_HEALTH].ToString();
         }
 
-        public override void Terminate()
+        public override void OnTerminate()
         {
-            throw new NotImplementedException();
+            Logger.PrintInfo("Captain Albert Alexander died");
         }
     }
 }

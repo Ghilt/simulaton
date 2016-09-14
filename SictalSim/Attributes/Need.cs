@@ -11,25 +11,34 @@ namespace SictalSim.Attributes
         public const int ID_HEALTH = 0;
         public const int ID_HUNGER = 1;
 
-        private int id;
-        private float amount; // between 0 and 1
+        public int id { get; private set; }
+        public float amount { get; private set; } // between 0 and 1
         private float rate;
-        private Dictionary<int, Effect> effects;
-
-        public Need(int id, float amount, float rate, Dictionary<int, Effect> effects)
-        {
-            this.id = id;
-            this.amount = amount;
-            this.rate = rate;
-            this.effects = effects;
-        }
+        private List<Effect> effects;
+        private TerminateTriggerEffect terminateTriggerEffect;
 
         public Need(int id, float amount)
         {
             this.id = id;
             this.amount = amount;
             this.rate = 0;
-            this.effects = new Dictionary<int, Effect>();
+            this.effects = new List<Effect>();
+        }
+
+        public Need(int id, float amount, float rate) : this(id, amount)
+        {
+            this.rate = rate;
+        }
+
+        public Need(int id, float amount, float rate, List<Effect> effects) : this(id, amount, rate)
+        {
+            this.effects = effects;
+        }
+
+        public Need(int id, float amount, float rate, Effect effect) : this(id, amount, rate)
+        {
+            this.effects = new List<Effect>();
+            this.effects.Add(effect);
         }
 
         public void Tick()
@@ -40,25 +49,17 @@ namespace SictalSim.Attributes
             amount = isOutOfLimit ? newValue : relevantLimit;
         }
 
-        internal void Affect(Dictionary<int, Need> attributes)
+        internal void Affect()
         {
-            foreach (Effect effect in effects.Values)
+            foreach (Effect effect in effects)
             {
-                Need need;
-                if (attributes.TryGetValue(effect.getNeedId(), out need))
-                {
-                    effect.modifyNeed(need, amount);
-                } else
-                {
-                    // No effect for now
-                }
-
+                effect.OnTrigger(this);
             }
         }
 
         public void Modify(float quantity)
         {
-            amount -= quantity;
+            amount -= amount < quantity ? amount : quantity;
         }
 
         public override string ToString()
@@ -66,15 +67,30 @@ namespace SictalSim.Attributes
             return ((int)(amount * 100) + "%");
         }
 
+        internal void addEffect(Effect effect)
+        {
+            effects.Add(effect);
+        }
     }
 
     class NeedFactory
     {
-        public static Need CreateBasicNeed(int id)
+
+        internal static Dictionary<int, Need> CreateBasicBiologicalNeeds(Simulator parent)
         {
-            Dictionary<int, Effect> effects = new Dictionary<int, Effect>();
-            effects.Add(Need.ID_HEALTH, new Effect(Need.ID_HEALTH, 0.2f, -0.01f));
-            return new Need(id, 0.5f, 0.01f, effects);
+            Random r = new Random((int)DateTime.Now.Ticks);
+            float startingHealth = (float)r.NextDouble();
+            float startingHunger = 0.6f * (float)r.NextDouble();
+            float startingMetabolism = 0.09f * (float)r.NextDouble();
+            float startingHungerDamageThreshold = 0.4f * (float)r.NextDouble();
+            float startingHungerImpact = -0.04f * (float)r.NextDouble();
+
+
+            Dictionary<int, Need> needs = new Dictionary<int, Need>();
+            needs.Add(Need.ID_HEALTH, new Need(Need.ID_HEALTH, startingHealth, 0, new TerminateTriggerEffect(parent, 0f, 0.001f)));
+            Need hunger = new Need(Need.ID_HUNGER, startingHunger, startingMetabolism, new ModifyNeedEffect(needs[Need.ID_HEALTH], startingHungerDamageThreshold, startingHungerImpact));
+            needs.Add(Need.ID_HUNGER, hunger);
+            return needs;
         }
     }
 

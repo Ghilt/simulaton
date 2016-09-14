@@ -20,19 +20,34 @@ namespace SictalSim
 
         public void Start()
         {
-            Logger.printInfo("Started");
-            while (true)
+            List<Simulator> entitiesToRemove = new List<Simulator>();
+            Logger.PrintInfo("Started, press any key to continue");
+            Console.ReadKey();
+            while (entities.Count != 0)
             {
                 tick++;
                 foreach (Simulator sim in entities)
                 {
                     sim.Tick();
+                    int status = sim.CheckStatus();
+                    if (status == Simulator.SIMULATION_STATUS_TERMINATED)
+                    {
+                        entitiesToRemove.Add(sim);
+                    }
                 }
+
+                foreach (Simulator sim in entitiesToRemove)
+                {
+                    entities.Remove(sim);
+                }
+                entitiesToRemove.Clear();
+
                 Console.ReadKey();  
-                Logger.printInfo("\ntick: " + tick);
+                Logger.PrintInfo("\ntick: " + tick);
             }
-            Logger.printInfo("finished");
-            Console.ReadKey();
+            Logger.PrintInfo("finished, press enter to exit");
+            Console.ReadLine();
+            
         }
 
         public void AddSimulator(Simulator sim)

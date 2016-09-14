@@ -8,7 +8,7 @@ namespace SictalSim
 {
     class Logger
     {
-        internal static void printInfo(string info)
+        internal static void PrintInfo(string info)
         {
             Console.WriteLine(info);
         }

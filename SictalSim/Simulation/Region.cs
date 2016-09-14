@@ -39,7 +39,7 @@ namespace SictalSim.Simulation
             return "Region, width: " + width + " Length: " + length;
         }
 
-        public override void Terminate()
+        public override void OnTerminate()
         {
             throw new NotImplementedException();
         }
