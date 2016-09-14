@@ -8,6 +8,7 @@ namespace SictalSim.Attributes
 {
     class Need
     {
+        public const int ID_HEALTH = 0;
         public const int ID_HUNGER = 1;
 
         private int id;
@@ -23,21 +24,30 @@ namespace SictalSim.Attributes
             this.effects = effects;
         }
 
-        public void Tick()
+        public Need(int id, float amount)
         {
-            float outOfLimit = rate > 0 ? 1 : 0;
-            float newValue = amount + rate;
-            amount = newValue < outOfLimit ? newValue : outOfLimit;
+            this.id = id;
+            this.amount = amount;
+            this.rate = 0;
+            this.effects = new Dictionary<int, Effect>();
         }
 
-        internal void Affect(Dictionary<int, Basis> attributes)
+        public void Tick()
+        {
+            float relevantLimit = rate > 0 ? 1 : 0;
+            float newValue = amount + rate;
+            bool isOutOfLimit = relevantLimit == 1 ? newValue < relevantLimit : newValue > relevantLimit;
+            amount = isOutOfLimit ? newValue : relevantLimit;
+        }
+
+        internal void Affect(Dictionary<int, Need> attributes)
         {
             foreach (Effect effect in effects.Values)
             {
-                Basis basis;
-                if (attributes.TryGetValue(effect.getBasisId(), out basis))
+                Need need;
+                if (attributes.TryGetValue(effect.getNeedId(), out need))
                 {
-                    effect.modifyBasis(basis, amount);
+                    effect.modifyNeed(need, amount);
                 } else
                 {
                     // No effect for now
@@ -46,14 +56,14 @@ namespace SictalSim.Attributes
             }
         }
 
-        public void Satisfy(int quantity)
+        public void Modify(float quantity)
         {
             amount -= quantity;
         }
 
         public override string ToString()
         {
-            return amount * 100 + "%";
+            return ((int)(amount * 100) + "%");
         }
 
     }
@@ -63,7 +73,7 @@ namespace SictalSim.Attributes
         public static Need CreateBasicNeed(int id)
         {
             Dictionary<int, Effect> effects = new Dictionary<int, Effect>();
-            effects.Add(Basis.ID_HEALTH, new Effect(Basis.ID_HEALTH, 0.2f, 0.01f));
+            effects.Add(Need.ID_HEALTH, new Effect(Need.ID_HEALTH, 0.2f, -0.01f));
             return new Need(id, 0.5f, 0.01f, effects);
         }
     }

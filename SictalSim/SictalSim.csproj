@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\Basis.cs" />
     <Compile Include="Attributes\Effect.cs" />
     <Compile Include="Attributes\Need.cs" />
     <Compile Include="Engine.cs" />

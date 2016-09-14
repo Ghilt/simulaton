@@ -10,16 +10,16 @@ namespace SictalSim.Attributes
     {
         private float magnitude;
         private float threshold;
-        private int basisId;
+        private int needId;
 
-        public Effect(int basisId, float thresholdPercentage, float magnitude)
+        public Effect(int needId, float thresholdPercentage, float magnitude)
         {
-            this.basisId = basisId;
+            this.needId = needId;
             this.threshold = thresholdPercentage;
             this.magnitude = magnitude;
         }
 
-        internal void modifyBasis(Basis target, float amount)
+        internal void modifyNeed(Need target, float amount)
         {
             if (amount < threshold)
             {
@@ -31,9 +31,9 @@ namespace SictalSim.Attributes
             } 
         }
 
-        internal int getBasisId()
+        internal int getNeedId()
         {
-            return basisId;
+            return needId;
         }
     }
 }
