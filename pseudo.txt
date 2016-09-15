@@ -7,8 +7,6 @@ engine
 	)
 
 
-
-
 Simulation (interface/absclass)
 
 	int ticksAlive;
@@ -29,6 +27,7 @@ HumanSimul
 	arrayTalents<>
 	arrayNeeds<>
 	array<Experiences>
+	array<Goals/Dreams>
 
 Need
 	vital
