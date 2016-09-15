@@ -3,11 +3,9 @@ engine
 	tick(
 		tick++;
 		target.tick
+		target.checkStatus()
 		target (simulation)
 	)
-
-
-
 
 Simulation (interface/absclass)
 
@@ -15,6 +13,7 @@ Simulation (interface/absclass)
 	int ticksBirth;
 
 	tick()
+	terminate
 
 
 RegionSimul extends locationSimul
