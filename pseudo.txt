@@ -28,6 +28,7 @@ HumanSimul
 	arrayTalents<>
 	arrayNeeds<>
 	array<Experiences>
+	array<Goals/Dreams>
 
 Need
 	vital
