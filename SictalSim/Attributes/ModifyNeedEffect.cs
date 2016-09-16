@@ -11,8 +11,9 @@ namespace SictalSim.Attributes
         private float magnitude;
         private float threshold;
         private Need target;
+        private float importance;
 
-        public ModifyNeedEffect(Need target, float thresholdPercentage, float magnitude)
+        public ModifyNeedEffect(Need target, float thresholdPercentage, float magnitude, float importance)
         {
             this.target = target;
             this.threshold = thresholdPercentage;
@@ -34,6 +35,11 @@ namespace SictalSim.Attributes
             {
                 target.Modify(-magnitude);
             }
+        }
+
+        public float GetImportance()
+        {
+            return importance;
         }
     }
 }

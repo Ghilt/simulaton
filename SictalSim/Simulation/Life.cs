@@ -24,6 +24,8 @@ namespace SictalSim.Simulation
         {
             location.Move();
             needs.tick();
+            Need pressingDesire = needs.getMostImportantNeed();
+            //talents.ActUpon(pressingDesire)
         }
 
         public override string GetCurrentInfoLog()

@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,12 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\BiologicalNeedFactory.cs" />
-    <Compile Include="Attributes\Class1.cs" />
+    <Compile Include="Attributes\Needs.cs" />
     <Compile Include="Attributes\ModifyNeedEffect.cs" />
     <Compile Include="Attributes\Effect.cs" />
     <Compile Include="Attributes\Need.cs" />
     <Compile Include="Attributes\NeedFactory.cs" />
-    <Compile Include="Attributes\TerminateTriggerEffect.cs" />
+    <Compile Include="Attributes\TerminateEffect.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Simulation\Life.cs" />

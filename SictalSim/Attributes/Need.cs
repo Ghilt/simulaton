@@ -14,31 +14,27 @@ namespace SictalSim.Attributes
         public int id { get; private set; }
         public float amount { get; private set; } // between 0 and 1
         private float rate;
+        private float effectImportance;
         private List<Effect> effects;
-        private TerminateTriggerEffect terminateTriggerEffect;
+        private TerminateEffect terminateTriggerEffect;
 
-        public Need(int id, float amount)
+
+        public Need(int id, float amount, float rate, List<Effect> effects)
         {
             this.id = id;
             this.amount = amount;
-            this.rate = 0;
-            this.effects = new List<Effect>();
-        }
-
-        public Need(int id, float amount, float rate) : this(id, amount)
-        {
             this.rate = rate;
-        }
-
-        public Need(int id, float amount, float rate, List<Effect> effects) : this(id, amount, rate)
-        {
             this.effects = effects;
+            foreach (Effect effect in effects)
+            {
+                this.effectImportance *= effect.GetImportance(); 
+            }
         }
 
-        public Need(int id, float amount, float rate, Effect effect) : this(id, amount, rate)
+        public Need(int id, float amount, float rate, Effect effect)
+            : this(id, amount, rate, new List<Effect>() { effect })
         {
-            this.effects = new List<Effect>();
-            this.effects.Add(effect);
+            
         }
 
         public void Tick()
@@ -70,6 +66,11 @@ namespace SictalSim.Attributes
         internal void addEffect(Effect effect)
         {
             effects.Add(effect);
+        }
+
+        internal float getImportance()
+        {
+            return effectImportance*amount;
         }
     }
 

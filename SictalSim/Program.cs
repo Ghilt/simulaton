@@ -15,10 +15,16 @@ namespace SictalSim
             Engine engine = new Engine();
             Region r = new Region(0, 100, 100);
             Life h = new Life(0, new BiologicalNeedFactory(), new Location(r, 50, 50));
-            Life h2 = new Life(0, new BiologicalNeedFactory(), new Location(r, 10, 10));
+            Life h2 = new Life(0, new BiologicalNeedFactory(), new Location(r, 20, 10));
+            Life h3 = new Life(0, new BiologicalNeedFactory(), new Location(r, 10, 20));
+            Life h4 = new Life(0, new BiologicalNeedFactory(), new Location(r, 40, 10));
+            Life h5 = new Life(0, new BiologicalNeedFactory(), new Location(r, 10, 20));
             //engine.AddSimulator(r);
             engine.AddSimulator(h);
             engine.AddSimulator(h2);
+            engine.AddSimulator(h3);
+            engine.AddSimulator(h4);
+            engine.AddSimulator(h5);
             engine.Start();
         }
     }

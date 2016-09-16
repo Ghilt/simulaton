@@ -10,5 +10,7 @@ namespace SictalSim.Attributes
     {
 
         void OnTrigger(Need source);
+
+        float GetImportance();
     }
 }
