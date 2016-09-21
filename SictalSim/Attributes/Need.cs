@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SictalSim.Attributes
 {
-    class Need
+    public class Need
     {
         public const int ID_HEALTH = 0;
         public const int ID_HUNGER = 1;
@@ -16,8 +16,6 @@ namespace SictalSim.Attributes
         private float rate;
         private float effectImportance;
         private List<Effect> effects;
-        private TerminateEffect terminateTriggerEffect;
-
 
         public Need(int id, float amount, float rate, List<Effect> effects)
         {
@@ -31,10 +29,14 @@ namespace SictalSim.Attributes
             }
         }
 
-        public Need(int id, float amount, float rate, Effect effect)
-            : this(id, amount, rate, new List<Effect>() { effect })
+        public Need(int id, float amount, float rate, Effect effect) : this(id, amount, rate, new List<Effect>() { effect })
         {
             
+        }
+
+        public Need(int id, float amount, float rate) : this(id, amount, rate, new List<Effect>())
+        {
+
         }
 
         public void Tick()
@@ -55,7 +57,15 @@ namespace SictalSim.Attributes
 
         public void Modify(float quantity)
         {
-            amount -= amount < quantity ? amount : quantity;
+            amount += quantity;
+            if (amount > 1)
+            {
+                amount = 1;
+            }
+            else if (amount < 0)
+            {
+                amount = 0;
+            } 
         }
 
         public override string ToString()
@@ -63,7 +73,7 @@ namespace SictalSim.Attributes
             return ((int)(amount * 100) + "%");
         }
 
-        internal void addEffect(Effect effect)
+        public void addEffect(Effect effect)
         {
             effects.Add(effect);
         }

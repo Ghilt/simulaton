@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SictalSim.Attributes
 {
-    class Needs : Dictionary<int, Need>
+    public class Needs : Dictionary<int, Need>
     {
         List<Need> sortedOnImportance;
 

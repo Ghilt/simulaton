@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SictalSim.Attributes
 {
-    interface Effect
+    public interface Effect
     {
 
         void OnTrigger(Need source);

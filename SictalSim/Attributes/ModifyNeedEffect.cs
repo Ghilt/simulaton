@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SictalSim.Attributes
 {
-    class ModifyNeedEffect : Effect
+    public class ModifyNeedEffect : Effect
     {
         private float magnitude;
         private float threshold;
@@ -18,6 +18,7 @@ namespace SictalSim.Attributes
             this.target = target;
             this.threshold = thresholdPercentage;
             this.magnitude = magnitude;
+            this.importance = importance;
         }
 
         internal int getNeedId()
@@ -29,11 +30,11 @@ namespace SictalSim.Attributes
         {
             if (source.amount < threshold)
             {
-                target.Modify(magnitude);
+                target.Modify(-magnitude);
             }
             else if (source.amount > 1 - threshold)
             {
-                target.Modify(-magnitude);
+                target.Modify(magnitude);
             }
         }
 
