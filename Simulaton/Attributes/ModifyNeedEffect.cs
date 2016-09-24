@@ -30,11 +30,11 @@ namespace Simulaton.Attributes
         {
             if (source.amount < threshold)
             {
-                target.Modify(-magnitude);
+                target.Modify(magnitude);
             }
             else if (source.amount > 1 - threshold)
             {
-                target.Modify(magnitude);
+                target.Modify(-magnitude);
             }
         }
 

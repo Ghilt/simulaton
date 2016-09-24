@@ -19,12 +19,16 @@ namespace Simulaton
             Life h3 = new Life(0, new BiologicalNeedFactory(), new Location(r, 10, 20));
             Life h4 = new Life(0, new BiologicalNeedFactory(), new Location(r, 40, 10));
             Life h5 = new Life(0, new BiologicalNeedFactory(), new Location(r, 10, 20));
+
+            Ability search = new Ability(Ability.ID_SEARCH,h);
+            search.AddConsequence(new Consequence(Need.ID_NURISHMENT, search, 0.01f));
+            h.AddAbility(search);
             //engine.AddSimulator(r);
             engine.AddSimulator(h);
-            engine.AddSimulator(h2);
-            engine.AddSimulator(h3);
-            engine.AddSimulator(h4);
-            engine.AddSimulator(h5);
+            //engine.AddSimulator(h2);
+            //engine.AddSimulator(h3);
+            //engine.AddSimulator(h4);
+            //engine.AddSimulator(h5);
             engine.Start();
         }
     }

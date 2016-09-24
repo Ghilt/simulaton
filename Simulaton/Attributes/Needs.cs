@@ -18,7 +18,8 @@ namespace Simulaton.Attributes
         private void UpdateSortedList()
         {
             sortedOnImportance = this.ToList().Select(pair => pair.Value).ToList(); // todo refactor
-            sortedOnImportance.Sort((need1, need2) => need1.getImportance().CompareTo(need2.getImportance()));
+            sortedOnImportance.Sort((need1, need2) => need1.GetImportance().CompareTo(need2.GetImportance()));
+            sortedOnImportance.Reverse();
         }
 
         internal void tick()

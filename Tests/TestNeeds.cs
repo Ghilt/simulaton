@@ -24,7 +24,7 @@ namespace Tests
         {
             testTarget = new Need(0, 1f, 0f);
             effect = new ModifyNeedEffect(testTarget, 0.2f, 1f, 1f);
-            testTarget.addEffect(effect);
+            testTarget.AddEffect(effect);
 
             effect.OnTrigger(testTarget);
             Assert.AreEqual(1.0f, testTarget.amount);

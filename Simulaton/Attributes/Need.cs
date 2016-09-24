@@ -9,7 +9,7 @@ namespace Simulaton.Attributes
     public class Need
     {
         public const int ID_HEALTH = 0;
-        public const int ID_HUNGER = 1;
+        public const int ID_NURISHMENT = 1;
 
         public int id { get; private set; }
         public float amount { get; private set; } // between 0 and 1
@@ -23,6 +23,7 @@ namespace Simulaton.Attributes
             this.amount = amount;
             this.rate = rate;
             this.effects = effects;
+            this.effectImportance = 1.0f;
             foreach (Effect effect in effects)
             {
                 this.effectImportance *= effect.GetImportance(); 
@@ -73,14 +74,15 @@ namespace Simulaton.Attributes
             return ((int)(amount * 100) + "%");
         }
 
-        public void addEffect(Effect effect)
+        public void AddEffect(Effect effect)
         {
             effects.Add(effect);
+            this.effectImportance *= effect.GetImportance();
         }
 
-        internal float getImportance()
+        internal float GetImportance()
         {
-            return effectImportance*amount;
+            return effectImportance*(1.0f-amount);
         }
     }
 
