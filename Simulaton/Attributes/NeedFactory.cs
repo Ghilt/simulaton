@@ -4,13 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SictalSim.Attributes
+namespace Simulaton.Attributes
 {
-    public interface Effect
+    interface NeedFactory
     {
-
-        void OnTrigger(Need source);
-
-        float GetImportance();
+        Needs CreateNeeds(Simulator owner);
     }
 }

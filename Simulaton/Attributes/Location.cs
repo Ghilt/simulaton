@@ -1,7 +1,7 @@
-﻿using SictalSim.Simulation;
+﻿using Simulaton.Simulation;
 using System;
 
-namespace SictalSim.Attributes
+namespace Simulaton.Attributes
 {
     class Location
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SictalSim.Attributes
+namespace Simulaton.Attributes
 {
     public class Needs : Dictionary<int, Need>
     {
@@ -17,7 +17,7 @@ namespace SictalSim.Attributes
 
         private void UpdateSortedList()
         {
-            sortedOnImportance = this.ToList().Select(pair => pair.Value).ToList();
+            sortedOnImportance = this.ToList().Select(pair => pair.Value).ToList(); // todo refactor
             sortedOnImportance.Sort((need1, need2) => need1.getImportance().CompareTo(need2.getImportance()));
         }
 

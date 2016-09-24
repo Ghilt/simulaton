@@ -1,11 +1,11 @@
-﻿using SictalSim.Attributes;
+﻿using Simulaton.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SictalSim.Simulation
+namespace Simulaton.Simulation
 {
     class Life : Simulator
     {
@@ -24,7 +24,7 @@ namespace SictalSim.Simulation
         {
             location.Move();
             needs.tick();
-            Need pressingDesire = needs.getMostImportantNeed();
+            //Need pressingDesire = needs.getMostImportantNeed();
             //talents.ActUpon(pressingDesire)
         }
 

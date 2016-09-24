@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SictalSim.Simulation
+namespace Simulaton.Simulation
 {
 
     // interesting resource http://www.redblobgames.com/grids/hexagons/

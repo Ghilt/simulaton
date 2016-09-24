@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SictalSim.Attributes;
+using Simulaton.Attributes;
 
 namespace Tests
 {

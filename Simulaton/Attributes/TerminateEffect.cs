@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SictalSim.Attributes
+namespace Simulaton.Attributes
 {
     class TerminateEffect : Effect
     {

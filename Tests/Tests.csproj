@@ -58,9 +58,9 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SictalSim\SictalSim.csproj">
+    <ProjectReference Include="..\Simulaton\Simulaton.csproj">
       <Project>{f07f90a2-c6bc-44bc-a0b3-9f76f0925008}</Project>
-      <Name>SictalSim</Name>
+      <Name>Simulaton</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

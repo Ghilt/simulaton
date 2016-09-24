@@ -1,12 +1,12 @@
-﻿using SictalSim.Attributes;
-using SictalSim.Simulation;
+﻿using Simulaton.Attributes;
+using Simulaton.Simulation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SictalSim
+namespace Simulaton
 {
     class Program
     {
