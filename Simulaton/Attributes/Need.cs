@@ -9,7 +9,7 @@ namespace Simulaton.Attributes
     public class Need
     {
         public const int ID_HEALTH = 0;
-        public const int ID_NURISHMENT = 1;
+        public const int ID_NOURISHMENT = 1;
 
         public int id { get; private set; }
         public float amount { get; private set; } // between 0 and 1
@@ -17,27 +17,13 @@ namespace Simulaton.Attributes
         private float effectImportance;
         private List<Effect> effects;
 
-        public Need(int id, float amount, float rate, List<Effect> effects)
+        public Need(int id, float amount, float rate)
         {
             this.id = id;
             this.amount = amount;
             this.rate = rate;
-            this.effects = effects;
             this.effectImportance = 1.0f;
-            foreach (Effect effect in effects)
-            {
-                this.effectImportance *= effect.GetImportance(); 
-            }
-        }
-
-        public Need(int id, float amount, float rate, Effect effect) : this(id, amount, rate, new List<Effect>() { effect })
-        {
-            
-        }
-
-        public Need(int id, float amount, float rate) : this(id, amount, rate, new List<Effect>())
-        {
-
+            effects = new List<Effect>();
         }
 
         public void Tick()
@@ -52,7 +38,7 @@ namespace Simulaton.Attributes
         {
             foreach (Effect effect in effects)
             {
-                effect.OnTrigger(this);
+                effect.OnTrigger();
             }
         }
 

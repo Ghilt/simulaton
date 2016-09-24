@@ -10,11 +10,13 @@ namespace Simulaton.Attributes
     {
         private float magnitude;
         private float threshold;
+        private Need source;
         private Need target;
         private float importance;
 
-        public ModifyNeedEffect(Need target, float thresholdPercentage, float magnitude, float importance)
+        public ModifyNeedEffect(Need source, Need target, float thresholdPercentage, float magnitude, float importance)
         {
+            this.source = source;
             this.target = target;
             this.threshold = thresholdPercentage;
             this.magnitude = magnitude;
@@ -26,7 +28,7 @@ namespace Simulaton.Attributes
             return target.id;
         }
 
-        public void OnTrigger(Need source)
+        public void OnTrigger()
         {
             if (source.amount < threshold)
             {

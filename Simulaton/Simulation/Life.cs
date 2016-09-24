@@ -36,7 +36,7 @@ namespace Simulaton.Simulation
 
         public override string GetCurrentInfoLog()
         {
-            return "Lifeform, at x: " + location.GetX() + " y: " + location.GetY() + " Food: " + needs[Need.ID_NURISHMENT].ToString() + " Health: " + needs[Need.ID_HEALTH].ToString();
+            return "Lifeform, at x: " + location.GetX() + " y: " + location.GetY() + " Food: " + needs[Need.ID_NOURISHMENT].ToString() + " Health: " + needs[Need.ID_HEALTH].ToString();
         }
 
         public override void OnTerminate()

@@ -21,7 +21,7 @@ namespace Simulaton
             Life h5 = new Life(0, new BiologicalNeedFactory(), new Location(r, 10, 20));
 
             Ability search = new Ability(Ability.ID_SEARCH,h);
-            search.AddConsequence(new Consequence(Need.ID_NURISHMENT, search, 0.01f));
+            search.AddConsequence(new Consequence(Need.ID_NOURISHMENT, search, 0.01f));
             h.AddAbility(search);
             //engine.AddSimulator(r);
             engine.AddSimulator(h);

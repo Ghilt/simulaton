@@ -20,10 +20,17 @@ namespace Simulaton.Attributes
             float startingHungerImportance = 1.0f + 0.0f * (float)randomizer.NextDouble(); // max
 
 
+            Need health = new Need(Need.ID_HEALTH, startingHealth, 0);
+            TerminateEffect terminate = new TerminateEffect(health, owner, 0f, 0.001f);
+            health.AddEffect(terminate);
+
+            Need hunger = new Need(Need.ID_NOURISHMENT, startingHunger, startingMetabolism);
+            ModifyNeedEffect hungerMod = new ModifyNeedEffect(hunger, health, startingHungerDamageThreshold, startingHungerImpact, startingHungerImportance);
+            hunger.AddEffect(hungerMod);
+
             Needs needs = new Needs();
-            needs.Add(Need.ID_HEALTH, new Need(Need.ID_HEALTH, startingHealth, 0, new TerminateEffect(owner, 0f, 0.001f)));
-            Need hunger = new Need(Need.ID_NURISHMENT, startingHunger, startingMetabolism, new ModifyNeedEffect(needs[Need.ID_HEALTH], startingHungerDamageThreshold, startingHungerImpact, startingHungerImportance));
-            needs.Add(Need.ID_NURISHMENT, hunger);
+            needs.Add(Need.ID_HEALTH, health);
+            needs.Add(Need.ID_NOURISHMENT, hunger);
             return needs;
         }
     }

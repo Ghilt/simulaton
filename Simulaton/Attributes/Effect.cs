@@ -9,7 +9,7 @@ namespace Simulaton.Attributes
     public interface Effect
     {
 
-        void OnTrigger(Need source);
+        void OnTrigger();
 
         float GetImportance();
     }
