@@ -66,7 +66,7 @@ namespace Simulaton.Attributes
             this.effectImportance *= effect.GetImportance();
         }
 
-        internal float GetImportance()
+        public float GetImportance()
         {
             return effectImportance*(1.0f-amount);
         }
