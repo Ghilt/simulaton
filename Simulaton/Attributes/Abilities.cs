@@ -14,7 +14,7 @@ namespace Simulaton.Attributes
             {
                 if (ability.DoesSatisfyNeed(needId))
                 {
-                    ability.Execute();
+                    ability.Execute(needId);
                 }
 
             }

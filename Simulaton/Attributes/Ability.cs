@@ -32,7 +32,7 @@ namespace Simulaton.Attributes
         {
             foreach (Consequence consequence in consequences) // TODO: maintain data on which needs are being satisfied in map?
             {
-                if (consequence.needId == needId)
+                if (consequence.DoesSatisfyNeed(needId))
                 {
                     return true;
                 }
@@ -40,10 +40,13 @@ namespace Simulaton.Attributes
             return false;
         }
 
-        internal void Execute()
+        internal void Execute(int needIdTriggering)
         {
-            Logger.PrintInfo("Performing ability: " + id );
-            parent.AffectedBy(consequences);
+            Logger.PrintInfo("Searching for: $", needIdTriggering);
+            foreach (Consequence consequence in consequences)
+            {
+                consequence.Trigger(parent, needIdTriggering);
+            }
         }
     }
 }

@@ -34,6 +34,11 @@ namespace Simulaton.Simulation
             actions.ActUpon(pressingDesire.id);
         }
 
+        internal void ModifyNeed(int needIdTrigger, float magnitude)
+        {
+            needs[needIdTrigger].Modify(magnitude);
+        }
+
         public override string GetCurrentInfoLog()
         {
             return "Lifeform, at x: " + location.GetX() + " y: " + location.GetY() + " Food: " + needs[Need.ID_NOURISHMENT].ToString() + " Health: " + needs[Need.ID_HEALTH].ToString();
@@ -42,15 +47,6 @@ namespace Simulaton.Simulation
         public override void OnTerminate()
         {
             Logger.PrintInfo("Captain Albert Alexander died");
-        }
-
-        internal void AffectedBy(List<Consequence> consequences)
-        {
-            foreach (Consequence consequence in consequences)
-            {
-                needs[consequence.needId].Modify(consequence.magnitude);
-            }
-
         }
     }
 }
