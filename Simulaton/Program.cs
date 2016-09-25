@@ -20,8 +20,8 @@ namespace Simulaton
             Life h4 = new Life(0, new BiologicalNeedFactory(), new Location(r, 40, 10));
             Life h5 = new Life(0, new BiologicalNeedFactory(), new Location(r, 10, 20));
 
-            Ability search = new Ability(Ability.ID_SEARCH,h);
-            SatisfyConsequence finding = new SatisfyConsequence(SatisfyConsequence.VERSATILITY_ALL, 0.01f);
+            Ability search = new Ability(Ability.ID_SEARCH, h);
+            SatisfyConsequence finding = new SatisfyConsequence(SatisfyConsequence.VERSATILITY_SPECIFIC, 0.01f);
             finding.AddsatisfiableNeed(Need.ID_NOURISHMENT);
             search.AddConsequence(finding);
             h.AddAbility(search);

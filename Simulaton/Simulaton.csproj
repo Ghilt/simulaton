@@ -47,6 +47,7 @@
     <Compile Include="Attributes\BiologicalNeedFactory.cs" />
     <Compile Include="Attributes\Abilities.cs" />
     <Compile Include="Attributes\Ability.cs" />
+    <Compile Include="Interval.cs" />
     <Compile Include="Events\Consequence.cs" />
     <Compile Include="Events\SatisfyConsequence.cs" />
     <Compile Include="Attributes\Needs.cs" />
