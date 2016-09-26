@@ -42,7 +42,6 @@ namespace Simulaton.Attributes
 
         internal void Execute(int needIdTriggering)
         {
-            Logger.PrintInfo("Searching for: $", needIdTriggering);
             foreach (Consequence consequence in consequences)
             {
                 consequence.Trigger(parent, needIdTriggering);

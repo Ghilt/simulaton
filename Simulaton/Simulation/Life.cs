@@ -32,6 +32,7 @@ namespace Simulaton.Simulation
             needs.tick();
             Need pressingDesire = needs.getMostImportantNeed();
             actions.ActUpon(pressingDesire.id);
+            Logger.PrintInfo("Most pressing need: $ ", pressingDesire.id);
         }
 
         internal void ModifyNeed(int needIdTrigger, float magnitude)

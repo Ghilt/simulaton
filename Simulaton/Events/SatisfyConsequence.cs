@@ -13,11 +13,11 @@ namespace Simulaton.Attributes
         public const int VERSATILITY_ALL = 0;
         public const int VERSATILITY_SPECIFIC = 1;
 
-        private float magnitude;
+        private Interval magnitude;
         private int versatilityLevel;
         private HashSet<int> satisfiableNeedIds;
 
-        public SatisfyConsequence(int versatilityLevel, float magnitude)
+        public SatisfyConsequence(int versatilityLevel, Interval magnitude)
         {
             this.versatilityLevel = versatilityLevel;
             this.magnitude = magnitude;
@@ -43,7 +43,9 @@ namespace Simulaton.Attributes
 
         public void Trigger(Life target, int needIdTrigger)
         {
-            target.ModifyNeed(needIdTrigger, magnitude);
+            float amount = magnitude.value;
+            Logger.PrintInfo("Searching for: $, found " + ((int)(amount * 100) + "%"), needIdTrigger);
+            target.ModifyNeed(needIdTrigger, amount);
         }
     }
 }
