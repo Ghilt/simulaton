@@ -10,16 +10,19 @@ namespace Simulaton.Attributes
     class SatisfyConsequence : Consequence
     {
 
-        public const int VERSATILITY_ALL = 0;
-        public const int VERSATILITY_SPECIFIC = 1;
+        public const int SATISFY_ANY_ONE = 0;
+        public const int SATISFY_SPECIFIC = 1;
+        public const int SATISFY_GROUP_SPECIFIC = 2;
 
+        private Resource resource;
         private Interval magnitude;
-        private int versatilityLevel;
+        private int satisfyMode;
         private HashSet<int> satisfiableNeedIds;
 
-        public SatisfyConsequence(int versatilityLevel, Interval magnitude)
+        public SatisfyConsequence(int satisfyMode, Interval magnitude, Resource resource)
         {
-            this.versatilityLevel = versatilityLevel;
+            this.resource = resource;
+            this.satisfyMode = satisfyMode;
             this.magnitude = magnitude;
             satisfiableNeedIds = new HashSet<int>();
         }
@@ -31,21 +34,45 @@ namespace Simulaton.Attributes
 
         public bool DoesSatisfyNeed(int needId)
         {
-            switch (versatilityLevel) { 
-                case VERSATILITY_ALL:
+            switch (satisfyMode) { 
+                case SATISFY_ANY_ONE:
                     return true;
-                case VERSATILITY_SPECIFIC:
+                case SATISFY_SPECIFIC:
+                case SATISFY_GROUP_SPECIFIC:
                     return satisfiableNeedIds.Contains(needId);
                 default:
+                    throw new Exception("Developer Exception: DoesSatisfyNeed(), Unknown Satisfy mode: " + satisfyMode);
                     return false;
             }
         }
 
-        public void Trigger(Life target, int needIdTrigger)
+        public void Trigger(Life owner, int needIdTrigger)
         {
-            float amount = magnitude.value;
-            Logger.PrintInfo("Searching for: $, found " + ((int)(amount * 100) + "%"), needIdTrigger);
-            target.ModifyNeed(needIdTrigger, amount);
+
+            switch (satisfyMode)
+            {
+                case SATISFY_ANY_ONE:
+                case SATISFY_SPECIFIC:
+                    float amount = extractFromSource(needIdTrigger);
+                    owner.ModifyNeed(needIdTrigger, amount);
+                    Logger.PrintInfo("Searching for: $, found " + ((int)(amount * 100) + "%"), needIdTrigger);
+                    break;
+                case SATISFY_GROUP_SPECIFIC:
+                    foreach (int needId in satisfiableNeedIds)
+                    {
+                        owner.ModifyNeed(needIdTrigger, extractFromSource(needId));
+                    }
+                    break;
+                default:
+                    throw new Exception("Developer Exception: Trigger(), Unknown Satisfy mode " + satisfyMode);
+            }
+
+        }
+
+        private float extractFromSource(int needId)
+        {
+            float amountSatisfiedModifier = (resource == null) ? 1f*magnitude.value : resource.Extract(needId) * magnitude.value;
+            return amountSatisfiedModifier;
         }
     }
 }

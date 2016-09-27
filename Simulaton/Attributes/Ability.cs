@@ -13,6 +13,7 @@ namespace Simulaton.Attributes
 
         public int id { get; private set; }
         private List<Consequence> consequences;
+        private Resource resource;
         private Life parent;
 
 
@@ -46,6 +47,11 @@ namespace Simulaton.Attributes
             {
                 consequence.Trigger(parent, needIdTriggering);
             }
+        }
+
+        internal Resource GetResources()
+        {
+            return resource;
         }
     }
 }

@@ -22,7 +22,8 @@ namespace Simulaton
 
             Ability search = new Ability(Ability.ID_SEARCH, h);
             Interval searchPower = new Interval(0.0f, 0.1f, -1);
-            SatisfyConsequence finding = new SatisfyConsequence(SatisfyConsequence.VERSATILITY_SPECIFIC, searchPower);
+            SatisfyConsequence finding = new SatisfyConsequence(SatisfyConsequence.SATISFY_SPECIFIC, searchPower, h.GetLocation());
+
             finding.AddsatisfiableNeed(Need.ID_NOURISHMENT);
             search.AddConsequence(finding);
             h.AddAbility(search);

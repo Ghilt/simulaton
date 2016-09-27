@@ -40,9 +40,14 @@ namespace Simulaton.Simulation
             needs[needIdTrigger].Modify(magnitude);
         }
 
+        internal Location GetLocation()
+        {
+            return location;
+        }
+
         public override string GetCurrentInfoLog()
         {
-            return "Lifeform, at x: " + location.GetX() + " y: " + location.GetY() + " Food: " + needs[Need.ID_NOURISHMENT].ToString() + " Health: " + needs[Need.ID_HEALTH].ToString();
+            return "Lifeform, at x: " + location.x + " y: " + location.y + " Food: " + needs[Need.ID_NOURISHMENT].ToString() + " Health: " + needs[Need.ID_HEALTH].ToString();
         }
 
         public override void OnTerminate()

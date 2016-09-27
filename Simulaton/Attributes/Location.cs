@@ -3,11 +3,11 @@ using System;
 
 namespace Simulaton.Attributes
 {
-    class Location
+    class Location : Resource
     {
         private readonly Region space;
-        private int x;
-        private int y;
+        public int x { get; private set; }
+        public int y { get; private set; }
 
         public Location(Region region, int x, int y)
         {
@@ -24,14 +24,9 @@ namespace Simulaton.Attributes
             y += r.Next(y == 0 ? 0 : -1, y == space.GetLength() ? 0 : 2);
         }
 
-        internal int GetX()
+        public float Extract(int needId)
         {
-            return x;
-        }
-
-        internal int GetY()
-        {
-            return y;
+            return space.Extract(x, y, needId);
         }
     }
 }

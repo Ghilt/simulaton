@@ -12,11 +12,13 @@ namespace Simulaton.Simulation
     {
         private int width;
         private int length;
+        private Interval resourcesAvailable;
 
         public Region(int ticksBirth, int width, int length) : base(ticksBirth)
         {
             this.width = width;
             this.length = length;
+            resourcesAvailable = new Interval(0.1f, 0.9f);
         }
 
         internal int GetWidth()
@@ -31,7 +33,13 @@ namespace Simulaton.Simulation
 
         public override void PerformTick()
         {
-           //do nothing yet
+            //do nothing yet
+        }
+
+        internal float Extract(int x, int y, int needId)
+        {
+            //TODO
+            return resourcesAvailable.value;
         }
 
         public override string GetCurrentInfoLog()
