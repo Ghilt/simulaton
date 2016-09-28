@@ -39,7 +39,7 @@ namespace Simulaton.Simulation
         internal float Extract(int x, int y, int needId)
         {
             //TODO
-            return resourcesAvailable.value;
+            return resourcesAvailable.NextFloat();
         }
 
         public override string GetCurrentInfoLog()

@@ -42,7 +42,6 @@ namespace Simulaton.Attributes
                     return satisfiableNeedIds.Contains(needId);
                 default:
                     throw new Exception("Developer Exception: DoesSatisfyNeed(), Unknown Satisfy mode: " + satisfyMode);
-                    return false;
             }
         }
 
@@ -71,7 +70,7 @@ namespace Simulaton.Attributes
 
         private float extractFromSource(int needId)
         {
-            float amountSatisfiedModifier = (resource == null) ? 1f*magnitude.value : resource.Extract(needId) * magnitude.value;
+            float amountSatisfiedModifier = (resource == null) ? 1f*magnitude.NextFloat() : resource.Extract(needId) * magnitude.NextFloat();
             return amountSatisfiedModifier;
         }
     }
