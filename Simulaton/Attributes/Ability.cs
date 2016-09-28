@@ -10,11 +10,11 @@ namespace Simulaton.Attributes
     class Ability
     {
         public const int ID_SEARCH = 0;
+        public const int ID_SLEEP = 1;
 
         public int id { get; private set; }
         private List<Consequence> consequences;
         private Life parent;
-
 
         public Ability(int id, Life parent)
         {

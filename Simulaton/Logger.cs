@@ -8,10 +8,11 @@ namespace Simulaton
 {
     class Logger
     {
-        private static Dictionary<int, string> needTranslations = new Dictionary<int, string>()
+        public static Dictionary<int, string> needTranslations = new Dictionary<int, string>()
         {
             { Attributes.Need.ID_HEALTH, "Health"},
-            { Attributes.Need.ID_NOURISHMENT, "Nourishment"}
+            { Attributes.Need.ID_NOURISHMENT, "Nourishment"},
+            { Attributes.Need.ID_ENERGY, "Energy"}
         };
 
         internal static void PrintInfo(string info)

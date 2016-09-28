@@ -47,7 +47,12 @@ namespace Simulaton.Simulation
 
         public override string GetCurrentInfoLog()
         {
-            return "Lifeform, at x: " + location.x + " y: " + location.y + " Food: " + needs[Need.ID_NOURISHMENT].ToString() + " Health: " + needs[Need.ID_HEALTH].ToString();
+            string info = "Lifeform, at x: " + location.x + " y: " + location.y;
+            foreach (Need n in needs.Values)
+            {
+                info += "\n" + Logger.needTranslations[n.id] + ": " + needs[n.id].ToString();
+            }
+            return info;
         }
 
         public override void OnTerminate()

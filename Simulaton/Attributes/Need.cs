@@ -10,6 +10,7 @@ namespace Simulaton.Attributes
     {
         public const int ID_HEALTH = 0;
         public const int ID_NOURISHMENT = 1;
+        public const int ID_ENERGY = 2;
 
         public int id { get; private set; }
         public float amount { get; private set; } // between 0 and 1
@@ -22,7 +23,7 @@ namespace Simulaton.Attributes
             this.id = id;
             this.amount = amount;
             this.rate = rate;
-            this.effectImportance = 1.0f;
+            this.effectImportance = 0.0f;
             effects = new List<Effect>();
         }
 
@@ -52,7 +53,7 @@ namespace Simulaton.Attributes
             else if (amount < 0)
             {
                 amount = 0;
-            } 
+            }
         }
 
         public override string ToString()
@@ -63,12 +64,15 @@ namespace Simulaton.Attributes
         public void AddEffect(Effect effect)
         {
             effects.Add(effect);
-            this.effectImportance *= effect.GetImportance();
+            if (effect.GetImportance() > effectImportance)
+            {
+                this.effectImportance = effect.GetImportance();
+            }
         }
 
         public float GetImportance()
         {
-            return effectImportance*(1.0f-amount);
+            return effectImportance * (1.0f - amount);
         }
     }
 

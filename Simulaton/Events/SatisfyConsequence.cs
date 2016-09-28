@@ -54,7 +54,7 @@ namespace Simulaton.Attributes
                 case SATISFY_SPECIFIC:
                     float amount = extractFromSource(needIdTrigger);
                     owner.ModifyNeed(needIdTrigger, amount);
-                    Logger.PrintInfo("Searching for: $, found " + ((int)(amount * 100) + "%"), needIdTrigger);
+                    Logger.PrintInfo("Using action to fix: $, found " + ((int)(amount * 100) + "%"), needIdTrigger);
                     break;
                 case SATISFY_GROUP_SPECIFIC:
                     foreach (int needId in satisfiableNeedIds)

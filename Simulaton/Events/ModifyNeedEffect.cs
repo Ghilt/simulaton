@@ -13,14 +13,16 @@ namespace Simulaton.Attributes
         private Need source;
         private Need target;
         private float importance;
+        private Func<float, float, bool> condition;
 
-        public ModifyNeedEffect(Need source, Need target, float thresholdPercentage, float magnitude, float importance)
+        public ModifyNeedEffect(Need source, Need target, float magnitude, float importance, float threshold, Func<float, float, bool> condition)
         {
             this.source = source;
             this.target = target;
-            this.threshold = thresholdPercentage;
+            this.threshold = threshold;
             this.magnitude = magnitude;
             this.importance = importance;
+            this.condition = condition;
         }
 
         internal int getNeedId()
@@ -30,14 +32,11 @@ namespace Simulaton.Attributes
 
         public void OnTrigger()
         {
-            if (source.amount < threshold)
+            if (condition(source.amount, threshold))
             {
                 target.Modify(magnitude);
             }
-            else if (source.amount > 1 - threshold)
-            {
-                target.Modify(-magnitude);
-            }
+
         }
 
         public float GetImportance()
