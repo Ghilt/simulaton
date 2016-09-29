@@ -25,9 +25,9 @@ namespace Simulaton
 
         public void Tick()
         {
+            if (loggActive) Logger.PrintInfo(this, GetCurrentInfoLog());
             ticksAlive++;
             PerformTick();
-            if (loggActive) Logger.PrintInfo(GetCurrentInfoLog());
         }
 
         public abstract void PerformTick();

@@ -34,6 +34,7 @@ namespace Simulaton.Attributes
             {
                 if (consequence.DoesSatisfyNeed(needId))
                 {
+                    Logger.PrintInfo(this, Logger.Ability[id] +" satisfies need- " + Logger.Need[needId] );
                     return true;
                 }
             }
@@ -42,6 +43,7 @@ namespace Simulaton.Attributes
 
         internal void Execute(int needIdTriggering)
         {
+            Logger.PrintInfo(this, "Do " + Logger.Ability[id]);
             foreach (Consequence consequence in consequences)
             {
                 consequence.Trigger(parent, needIdTriggering);

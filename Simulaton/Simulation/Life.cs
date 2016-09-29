@@ -14,7 +14,8 @@ namespace Simulaton.Simulation
         private Needs needs;
         private Abilities actions;
 
-        public Life(int ticksBirth, NeedFactory needFactory, Location location) : base(ticksBirth)
+        public Life(int ticksBirth, NeedFactory needFactory, Location location)
+            : base(ticksBirth)
         {
             this.location = location;
             this.needs = needFactory.CreateNeeds(this);
@@ -23,7 +24,7 @@ namespace Simulaton.Simulation
 
         public void AddAbility(Ability action)
         {
-            actions.Add(action.id ,action);
+            actions.Add(action.id, action);
         }
 
         public override void PerformTick()
@@ -31,8 +32,8 @@ namespace Simulaton.Simulation
             location.Move();
             needs.tick();
             Need pressingDesire = needs.getMostImportantNeed();
+            Logger.PrintInfo(this, "Most pressing need- " + Logger.Need[pressingDesire.id]);
             actions.ActUpon(pressingDesire.id);
-            Logger.PrintInfo("Most pressing need: $ ", pressingDesire.id);
         }
 
         internal void ModifyNeed(int needIdTrigger, float magnitude)
@@ -50,14 +51,14 @@ namespace Simulaton.Simulation
             string info = "Lifeform, at x: " + location.x + " y: " + location.y;
             foreach (Need n in needs.Values)
             {
-                info += "\n" + Logger.needTranslations[n.id] + ": " + needs[n.id].ToString();
+                info += " , " + Logger.Need[n.id] + ": " + needs[n.id].ToString();
             }
             return info;
         }
 
         public override void OnTerminate()
         {
-            Logger.PrintInfo("Captain Albert Alexander died");
+            Logger.PrintInfo(this, "Captain Albert Alexander died");
         }
     }
 }

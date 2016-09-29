@@ -21,10 +21,12 @@ namespace Simulaton
         public void Start()
         {
             List<Simulator> entitiesToRemove = new List<Simulator>();
-            Logger.PrintInfo("Started, press any key to continue");
-            Console.ReadKey();
+            Logger.PrintInfo(this, "Started, press any key to continue");
+            Console.ReadKey(true);
             while (entities.Count != 0)
             {
+
+                Logger.PrintInfo(this, "Tick (" + tick + ")");
                 tick++;
                 foreach (Simulator sim in entities)
                 {
@@ -42,12 +44,12 @@ namespace Simulaton
                 }
                 entitiesToRemove.Clear();
 
-                Console.ReadKey();  
-                Logger.PrintInfo("\ntick: " + tick);
+                Logger.PrintInfo(this, "> \n");
+                Console.ReadKey(true);
             }
-            Logger.PrintInfo("finished, press enter to exit");
+            Logger.PrintInfo(this, "finished, press enter to exit");
             Console.ReadLine();
-            
+
         }
 
         public void AddSimulator(Simulator sim)

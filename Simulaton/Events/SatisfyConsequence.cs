@@ -34,7 +34,8 @@ namespace Simulaton.Attributes
 
         public bool DoesSatisfyNeed(int needId)
         {
-            switch (satisfyMode) { 
+            switch (satisfyMode)
+            {
                 case SATISFY_ANY_ONE:
                     return true;
                 case SATISFY_SPECIFIC:
@@ -54,7 +55,7 @@ namespace Simulaton.Attributes
                 case SATISFY_SPECIFIC:
                     float amount = extractFromSource(needIdTrigger);
                     owner.ModifyNeed(needIdTrigger, amount);
-                    Logger.PrintInfo("Using action to fix: $, found " + ((int)(amount * 100) + "%"), needIdTrigger);
+                    Logger.PrintInfo(this, Logger.Need[needIdTrigger] + ", +" + ((int)(amount * 100) + "%"));
                     break;
                 case SATISFY_GROUP_SPECIFIC:
                     foreach (int needId in satisfiableNeedIds)
@@ -70,7 +71,7 @@ namespace Simulaton.Attributes
 
         private float extractFromSource(int needId)
         {
-            float amountSatisfiedModifier = (resource == null) ? 1f*magnitude.NextFloat() : resource.Extract(needId) * magnitude.NextFloat();
+            float amountSatisfiedModifier = (resource == null) ? 1f * magnitude.NextFloat() : resource.Extract(needId) * magnitude.NextFloat();
             return amountSatisfiedModifier;
         }
     }
