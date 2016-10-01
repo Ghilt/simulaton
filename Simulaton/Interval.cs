@@ -49,5 +49,10 @@ namespace Simulaton
             //value = min + (float) rand * range;
             return min + (float)rand * range;
         }
+
+        internal float getPowerLevel()
+        {
+            return min + range / 2;
+        }
     }
 }

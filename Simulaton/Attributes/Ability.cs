@@ -23,30 +23,43 @@ namespace Simulaton.Attributes
             this.consequences = new List<Consequence>();
         }
 
+        internal float EvaluateEffectiveness(Needs needs)
+        {
+            float value = 0;
+            foreach (Consequence consequence in consequences)
+            {
+                foreach (Need need in needs.SortedOnImportance())
+                {
+                    if (consequence.DoesSatisfyNeed(need.id))
+                    {
+                        value += need.GetImportance() * consequence.getMagnitude();
+                        if (!consequence.CanSatisfyMultipleNeeds()) break;
+
+                    }
+                }
+            }
+            return value;
+        }
+
         public void AddConsequence(Consequence consequence)
         {
             consequences.Add(consequence);
         }
 
-        internal bool DoesSatisfyNeed(int needId)
-        {
-            foreach (Consequence consequence in consequences) // TODO: maintain data on which needs are being satisfied in map?
-            {
-                if (consequence.DoesSatisfyNeed(needId))
-                {
-                    Logger.PrintInfo(this, Logger.Ability[id] +" satisfies need- " + Logger.Need[needId] );
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        internal void Execute(int needIdTriggering)
+        internal void Execute(IEnumerable<Need> sortedOnImportance)
         {
             Logger.PrintInfo(this, "Do " + Logger.Ability[id]);
+
             foreach (Consequence consequence in consequences)
             {
-                consequence.Trigger(parent, needIdTriggering);
+                foreach (Need need in sortedOnImportance)
+                {
+                    if (consequence.DoesSatisfyNeed(need.id))
+                    {
+                        consequence.Trigger(parent, need.id);
+                        break;
+                    }
+                }
             }
         }
 

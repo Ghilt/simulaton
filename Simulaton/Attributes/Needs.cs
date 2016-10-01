@@ -32,6 +32,11 @@ namespace Simulaton.Attributes
             UpdateSortedList();
         }
 
+        internal IEnumerable<Need> SortedOnImportance()
+        {
+            return sortedOnImportance;
+        }
+
         internal Need getMostImportantNeed()
         {
             return sortedOnImportance[0];

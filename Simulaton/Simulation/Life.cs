@@ -13,10 +13,12 @@ namespace Simulaton.Simulation
         private Location location;
         private Needs needs;
         private Abilities actions;
+        private Brain brain;
 
         public Life(int ticksBirth, NeedFactory needFactory, Location location)
             : base(ticksBirth)
         {
+            this.brain = new Brain();
             this.location = location;
             this.needs = needFactory.CreateNeeds(this);
             this.actions = new Abilities();
@@ -31,14 +33,22 @@ namespace Simulaton.Simulation
         {
             location.Move();
             needs.tick();
-            Need pressingDesire = needs.getMostImportantNeed();
-            Logger.PrintInfo(this, "Most pressing need- " + Logger.Need[pressingDesire.id]);
-            actions.ActUpon(pressingDesire.id);
+            brain.MakeDecision(needs, actions);
         }
 
         internal void ModifyNeed(int needIdTrigger, float magnitude)
         {
-            needs[needIdTrigger].Modify(magnitude);
+            Need toModify;
+            needs.TryGetValue(needIdTrigger, out toModify);
+            if (toModify != null)
+            {
+                toModify.Modify(magnitude);
+
+            }
+            else
+            {
+                Logger.PrintInfo(this, "Tried to modify need " + Logger.Need[needIdTrigger] + " but Life did not have it");
+            }
         }
 
         internal Location GetLocation()

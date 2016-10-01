@@ -48,7 +48,10 @@ namespace Simulaton.Attributes
 
         public void Trigger(Life owner, int needIdTrigger)
         {
-
+            if (!DoesSatisfyNeed(needIdTrigger))
+            {
+                throw new Exception("Developer Exception: Trigger(), Trying to use ability for incopmpatible need " + " -> " + Logger.Need[needIdTrigger]);
+            }
             switch (satisfyMode)
             {
                 case SATISFY_ANY_ONE:
@@ -73,6 +76,16 @@ namespace Simulaton.Attributes
         {
             float amountSatisfiedModifier = (resource == null) ? 1f * magnitude.NextFloat() : resource.Extract(needId) * magnitude.NextFloat();
             return amountSatisfiedModifier;
+        }
+
+        public bool CanSatisfyMultipleNeeds()
+        {
+            return satisfyMode == SATISFY_GROUP_SPECIFIC;
+        }
+
+        public float getMagnitude()
+        {
+            return magnitude.getPowerLevel();
         }
     }
 }
