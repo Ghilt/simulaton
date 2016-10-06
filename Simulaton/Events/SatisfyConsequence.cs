@@ -87,5 +87,20 @@ namespace Simulaton.Attributes
         {
             return magnitude.getPowerLevel();
         }
+
+        public float EvaluateEffectiveness(Needs needsOfSituation)
+        {
+            float value = 0;
+            foreach (Need need in needsOfSituation.SortedOnImportance())
+            {
+                if (DoesSatisfyNeed(need.id))
+                {
+                    value += need.GetImportance() * getMagnitude();
+                    if (!CanSatisfyMultipleNeeds()) break;
+
+                }
+            }
+            return value;
+        }
     }
 }

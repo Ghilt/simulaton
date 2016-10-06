@@ -28,15 +28,7 @@ namespace Simulaton.Attributes
             float value = 0;
             foreach (Consequence consequence in consequences)
             {
-                foreach (Need need in needs.SortedOnImportance())
-                {
-                    if (consequence.DoesSatisfyNeed(need.id))
-                    {
-                        value += need.GetImportance() * consequence.getMagnitude();
-                        if (!consequence.CanSatisfyMultipleNeeds()) break;
-
-                    }
-                }
+                value += consequence.EvaluateEffectiveness(needs);
             }
             return value;
         }

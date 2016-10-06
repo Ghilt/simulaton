@@ -11,7 +11,7 @@ namespace Simulaton.Attributes
     {
         bool DoesSatisfyNeed(int needId);
         void Trigger(Life target, int needIdTrigger);
-        bool CanSatisfyMultipleNeeds();
         float getMagnitude();
+        float EvaluateEffectiveness(Needs needsOfSituation);
     }
 }
