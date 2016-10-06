@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Simulaton.Simulation;
+using Simulaton.Events;
 
 namespace Simulaton.Attributes
 {
     interface Consequence
     {
-        bool DoesSatisfyNeed(int needId);
         void Trigger(Life target, int needIdTrigger);
         float getMagnitude();
-        float EvaluateEffectiveness(Needs needsOfSituation);
+        EvaluableResult EvaluateEffectiveness(int targetNeedId);
     }
 }

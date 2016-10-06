@@ -21,15 +21,15 @@ namespace Simulaton
             Life h5 = new Life(0, new BiologicalNeedFactory(), new Location(r, 10, 20));
 
             Ability search = new Ability(Ability.ID_SEARCH, h);
+            search.AddsatisfiableNeed(Need.ID_NOURISHMENT);
             Interval searchPower = new Interval(0.0f, 0.4f, -1);
-            SatisfyConsequence finding = new SatisfyConsequence(SatisfyConsequence.SATISFY_SPECIFIC, searchPower, h.GetLocation());
-            finding.AddsatisfiableNeed(Need.ID_NOURISHMENT);
+            SatisfyConsequence finding = new SatisfyConsequence(searchPower, h.GetLocation());
             search.AddConsequence(finding);
 
             Ability sleep = new Ability(Ability.ID_SLEEP, h);
+            sleep.AddsatisfiableNeed(Need.ID_ENERGY);
             Interval sleepPower = new Interval(0.0f, 0.2f);
-            SatisfyConsequence asleep = new SatisfyConsequence(SatisfyConsequence.SATISFY_SPECIFIC, sleepPower, null);
-            asleep.AddsatisfiableNeed(Need.ID_ENERGY);
+            SatisfyConsequence asleep = new SatisfyConsequence(Need.ID_ENERGY, sleepPower, null);
             sleep.AddConsequence(asleep);
 
             h.AddAbility(search);

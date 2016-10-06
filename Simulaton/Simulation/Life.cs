@@ -11,7 +11,7 @@ namespace Simulaton.Simulation
     {
 
         private Location location;
-        private Needs needs;
+        public Needs needs { private set; get; }
         private Abilities actions;
         private Brain brain;
 

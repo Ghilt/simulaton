@@ -32,9 +32,10 @@ namespace Simulaton
         public float NextFloat()
         {
             bool negativeLuck = luckModifier < 0;
-            if (negativeLuck) luckModifier *= -1;
+            float modifier = luckModifier;
+            if (negativeLuck) modifier *= -1;
             double rand = random.NextDouble();
-            for (int i = 0; i < luckModifier; i++)
+            for (int i = 0; i < modifier; i++)
             {
                 double contender = random.NextDouble();
                 if (negativeLuck)
@@ -52,7 +53,8 @@ namespace Simulaton
 
         internal float getPowerLevel()
         {
-            return min + range / 2;
+            float modifier = 2 - luckModifier;
+            return min + range / (modifier>0 ? modifier: 2);
         }
     }
 }

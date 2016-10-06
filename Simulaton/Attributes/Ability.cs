@@ -1,4 +1,5 @@
-﻿using Simulaton.Simulation;
+﻿using Simulaton.Events;
+using Simulaton.Simulation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,48 +13,57 @@ namespace Simulaton.Attributes
         public const int ID_SEARCH = 0;
         public const int ID_SLEEP = 1;
 
+        public const int SATISFY_ANY_ONE = 0;
+        public const int SATISFY_SPECIFIC = 1;
+        public const int SATISFY_GROUP_SPECIFIC = 2;
+
         public int id { get; private set; }
         private List<Consequence> consequences;
         private Life parent;
+        private HashSet<int> satisfiableNeedIds;
 
         public Ability(int id, Life parent)
         {
             this.id = id;
             this.parent = parent;
             this.consequences = new List<Consequence>();
+            this.satisfiableNeedIds = new HashSet<int>();
         }
 
-        internal float EvaluateEffectiveness(Needs needs)
+        internal List<EvaluableResult> GetPrediction(int targetId)
         {
-            float value = 0;
+            List<EvaluableResult> impact = new List<EvaluableResult>();
             foreach (Consequence consequence in consequences)
             {
-                value += consequence.EvaluateEffectiveness(needs);
+                impact.Add(consequence.EvaluateEffectiveness(targetId));
             }
-            return value;
+            return impact;
         }
+
+        public void AddsatisfiableNeed(int needId)
+        {
+            satisfiableNeedIds.Add(needId);
+        }
+
 
         public void AddConsequence(Consequence consequence)
         {
             consequences.Add(consequence);
         }
 
-        internal void Execute(IEnumerable<Need> sortedOnImportance)
+        internal void Execute(int targetId)
         {
             Logger.PrintInfo(this, "Do " + Logger.Ability[id]);
 
             foreach (Consequence consequence in consequences)
             {
-                foreach (Need need in sortedOnImportance)
-                {
-                    if (consequence.DoesSatisfyNeed(need.id))
-                    {
-                        consequence.Trigger(parent, need.id);
-                        break;
-                    }
-                }
+                consequence.Trigger(parent, targetId);
             }
         }
 
+        internal bool Satisfies(int id)
+        {
+            return satisfiableNeedIds.Contains(id);
+        }
     }
 }

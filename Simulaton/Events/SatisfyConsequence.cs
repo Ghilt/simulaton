@@ -4,72 +4,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Simulaton.Simulation;
+using Simulaton.Events;
 
 namespace Simulaton.Attributes
 {
     class SatisfyConsequence : Consequence
     {
-
-        public const int SATISFY_ANY_ONE = 0;
-        public const int SATISFY_SPECIFIC = 1;
-        public const int SATISFY_GROUP_SPECIFIC = 2;
+        private const int SATISFY_ANY = -1;
 
         private Resource resource;
         private Interval magnitude;
-        private int satisfyMode;
-        private HashSet<int> satisfiableNeedIds;
+        private int needSatisfied;
 
-        public SatisfyConsequence(int satisfyMode, Interval magnitude, Resource resource)
+        public SatisfyConsequence(int needSatisfied, Interval magnitude, Resource resource)
         {
             this.resource = resource;
-            this.satisfyMode = satisfyMode;
             this.magnitude = magnitude;
-            satisfiableNeedIds = new HashSet<int>();
+            this.needSatisfied = needSatisfied;
         }
 
-        public void AddsatisfiableNeed(int needId)
+        public SatisfyConsequence(Interval magnitude, Resource resource)
         {
-            satisfiableNeedIds.Add(needId);
-        }
-
-        public bool DoesSatisfyNeed(int needId)
-        {
-            switch (satisfyMode)
-            {
-                case SATISFY_ANY_ONE:
-                    return true;
-                case SATISFY_SPECIFIC:
-                case SATISFY_GROUP_SPECIFIC:
-                    return satisfiableNeedIds.Contains(needId);
-                default:
-                    throw new Exception("Developer Exception: DoesSatisfyNeed(), Unknown Satisfy mode: " + satisfyMode);
-            }
+            this.resource = resource;
+            this.magnitude = magnitude;
+            this.needSatisfied = SATISFY_ANY;
         }
 
         public void Trigger(Life owner, int needIdTrigger)
         {
-            if (!DoesSatisfyNeed(needIdTrigger))
-            {
-                throw new Exception("Developer Exception: Trigger(), Trying to use ability for incopmpatible need " + " -> " + Logger.Need[needIdTrigger]);
-            }
-            switch (satisfyMode)
-            {
-                case SATISFY_ANY_ONE:
-                case SATISFY_SPECIFIC:
-                    float amount = extractFromSource(needIdTrigger);
-                    owner.ModifyNeed(needIdTrigger, amount);
-                    Logger.PrintInfo(this, Logger.Need[needIdTrigger] + ", +" + ((int)(amount * 100) + "%"));
-                    break;
-                case SATISFY_GROUP_SPECIFIC:
-                    foreach (int needId in satisfiableNeedIds)
-                    {
-                        owner.ModifyNeed(needIdTrigger, extractFromSource(needId));
-                    }
-                    break;
-                default:
-                    throw new Exception("Developer Exception: Trigger(), Unknown Satisfy mode " + satisfyMode);
-            }
+            int realTarget = needSatisfied == SATISFY_ANY  ? needIdTrigger : needSatisfied;
 
+            float amount = extractFromSource(realTarget);
+            owner.ModifyNeed(realTarget, amount);
+            Logger.PrintInfo(this, Logger.Need[realTarget] + ", +" + ((int)(amount * 100) + "%"));
         }
 
         private float extractFromSource(int needId)
@@ -78,29 +45,15 @@ namespace Simulaton.Attributes
             return amountSatisfiedModifier;
         }
 
-        public bool CanSatisfyMultipleNeeds()
-        {
-            return satisfyMode == SATISFY_GROUP_SPECIFIC;
-        }
-
         public float getMagnitude()
         {
             return magnitude.getPowerLevel();
         }
 
-        public float EvaluateEffectiveness(Needs needsOfSituation)
+        public EvaluableResult EvaluateEffectiveness(int targetNeedId)
         {
-            float value = 0;
-            foreach (Need need in needsOfSituation.SortedOnImportance())
-            {
-                if (DoesSatisfyNeed(need.id))
-                {
-                    value += need.GetImportance() * getMagnitude();
-                    if (!CanSatisfyMultipleNeeds()) break;
-
-                }
-            }
-            return value;
+            int realTarget = needSatisfied == SATISFY_ANY ? targetNeedId : needSatisfied;
+            return new EvaluableResult(targetNeedId, getMagnitude());
         }
     }
 }
