@@ -8,10 +8,10 @@ using Simulaton.Events;
 
 namespace Simulaton.Attributes
 {
-    interface Consequence
+    interface AbilityEvent
     {
         void Trigger(Life target, int needIdTrigger);
-        float getMagnitude();
-        EvaluableResult EvaluateEffectiveness(int targetNeedId);
+        float GetMagnitude();
+        EvaluableResult EvaluateResult(int targetNeedId);
     }
 }

@@ -18,7 +18,7 @@ namespace Simulaton.Attributes
         public const int SATISFY_GROUP_SPECIFIC = 2;
 
         public int id { get; private set; }
-        private List<Consequence> consequences;
+        private List<AbilityEvent> consequences;
         private Life parent;
         private HashSet<int> satisfiableNeedIds;
 
@@ -26,16 +26,16 @@ namespace Simulaton.Attributes
         {
             this.id = id;
             this.parent = parent;
-            this.consequences = new List<Consequence>();
+            this.consequences = new List<AbilityEvent>();
             this.satisfiableNeedIds = new HashSet<int>();
         }
 
         internal List<EvaluableResult> GetPrediction(int targetId)
         {
             List<EvaluableResult> impact = new List<EvaluableResult>();
-            foreach (Consequence consequence in consequences)
+            foreach (AbilityEvent consequence in consequences)
             {
-                impact.Add(consequence.EvaluateEffectiveness(targetId));
+                impact.Add(consequence.EvaluateResult(targetId));
             }
             return impact;
         }
@@ -46,7 +46,7 @@ namespace Simulaton.Attributes
         }
 
 
-        public void AddConsequence(Consequence consequence)
+        public void AddConsequence(AbilityEvent consequence)
         {
             consequences.Add(consequence);
         }
@@ -55,7 +55,7 @@ namespace Simulaton.Attributes
         {
             Logger.PrintInfo(this, "Do " + Logger.Ability[id]);
 
-            foreach (Consequence consequence in consequences)
+            foreach (AbilityEvent consequence in consequences)
             {
                 consequence.Trigger(parent, targetId);
             }

@@ -62,17 +62,17 @@ namespace Simulaton
             float energyImportance = rand.FloatNear(0.8f);
 
             Property health = new Property(Property.ID_HEALTH, startingHealth, 0);
-            TerminateEffect terminate = new TerminateEffect(health, human, 0f, 0.001f);
+            TerminateEvent terminate = new TerminateEvent(health, human, 0f, 0.001f);
             health.AddEffect(terminate);
 
             Property energy = new Property(Property.ID_ENERGY, startingEnergy, energyRate);
-            ModifyPropertyEffect decHealthMod = new ModifyPropertyEffect(energy, health, -energyImpact, energyImportance, energyThreshold, ((x, threshold) => x < threshold));
+            ModifyPropertyEvent decHealthMod = new ModifyPropertyEvent(energy, health, -energyImpact, energyImportance, energyThreshold, ((x, threshold) => x < threshold));
             energy.AddEffect(decHealthMod);
 
             Property hunger = new Property(Property.ID_NOURISHMENT, startingHunger, startingRate);
-            ModifyPropertyEffect dmgHealthMod = new ModifyPropertyEffect(hunger, health, hungerImpact1, hungerImportance, hungerThreshold, ((x, threshold) => x < threshold));
-            ModifyPropertyEffect dmgEnergyMod = new ModifyPropertyEffect(hunger, energy, hungerImpact1, hungerImportance, hungerThreshold, ((x, threshold) => x < threshold));
-            ModifyPropertyEffect healthyMod = new ModifyPropertyEffect(hunger, health, hungerImpact2, hungerImportance, 1 - hungerThreshold, ((x, threshold) => x > threshold));
+            ModifyPropertyEvent dmgHealthMod = new ModifyPropertyEvent(hunger, health, hungerImpact1, hungerImportance, hungerThreshold, ((x, threshold) => x < threshold));
+            ModifyPropertyEvent dmgEnergyMod = new ModifyPropertyEvent(hunger, energy, hungerImpact1, hungerImportance, hungerThreshold, ((x, threshold) => x < threshold));
+            ModifyPropertyEvent healthyMod = new ModifyPropertyEvent(hunger, health, hungerImpact2, hungerImportance, 1 - hungerThreshold, ((x, threshold) => x > threshold));
             hunger.AddEffect(dmgHealthMod);
             hunger.AddEffect(dmgEnergyMod);
             hunger.AddEffect(healthyMod);

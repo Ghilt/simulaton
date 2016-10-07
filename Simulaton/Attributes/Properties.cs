@@ -27,12 +27,11 @@ namespace Simulaton.Attributes
             sortedOnImportance.Reverse();
         }
 
-        internal void tick()
+        internal void OnTick()
         {
-            foreach (Property need in this.Values)
+            foreach (Property property in this.Values)
             {
-                need.Tick();
-                need.Affect();
+                property.OnTick();
             }
             UpdateSortedList();
         }

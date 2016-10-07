@@ -27,10 +27,10 @@ namespace Simulaton
         {
             if (loggActive) Logger.PrintInfo(this, GetCurrentInfoLog());
             ticksAlive++;
-            PerformTick();
+            OnTick();
         }
 
-        public abstract void PerformTick();
+        public abstract void OnTick();
 
         public abstract string GetCurrentInfoLog();
 

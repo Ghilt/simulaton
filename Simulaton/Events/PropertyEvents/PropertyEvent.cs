@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Attributes
 {
-    public interface Effect
+    public interface PropertyEvent
     {
 
-        void OnTrigger();
+        void Trigger();
 
         float GetImportance();
     }

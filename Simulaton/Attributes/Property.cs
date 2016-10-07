@@ -16,7 +16,7 @@ namespace Simulaton.Attributes
         public float amount { get; private set; } // between 0 and 1
         private float rate;
         private float effectImportance;
-        private List<Effect> effects;
+        private List<PropertyEvent> effects;
 
         public Property(int id, float amount, float rate)
         {
@@ -24,22 +24,23 @@ namespace Simulaton.Attributes
             this.amount = amount;
             this.rate = rate;
             this.effectImportance = 0.0f;
-            effects = new List<Effect>();
+            effects = new List<PropertyEvent>();
         }
 
-        public void Tick()
+        public void OnTick()
         {
             float relevantLimit = rate > 0 ? 1 : 0;
             float newValue = amount + rate;
             bool isOutOfLimit = relevantLimit == 1 ? newValue < relevantLimit : newValue > relevantLimit;
             amount = isOutOfLimit ? newValue : relevantLimit;
+            TriggerEvents();
         }
 
-        internal void Affect()
+        private void TriggerEvents()
         {
-            foreach (Effect effect in effects)
+            foreach (PropertyEvent effect in effects)
             {
-                effect.OnTrigger();
+                effect.Trigger();
             }
         }
 
@@ -61,7 +62,7 @@ namespace Simulaton.Attributes
             return ((int)(amount * 100) + "%");
         }
 
-        public void AddEffect(Effect effect)
+        public void AddEffect(PropertyEvent effect)
         {
             effects.Add(effect);
             if (effect.GetImportance() > effectImportance)

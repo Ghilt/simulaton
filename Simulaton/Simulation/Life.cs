@@ -34,10 +34,10 @@ namespace Simulaton.Simulation
             actions.Add(action.id, action);
         }
 
-        public override void PerformTick()
+        public override void OnTick()
         {
             location.Move();
-            properties.tick();
+            properties.OnTick();
             brain.MakeDecision(properties, actions);
         }
 

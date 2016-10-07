@@ -8,7 +8,7 @@ using Simulaton.Events;
 
 namespace Simulaton.Attributes
 {
-    class SatisfyConsequence : Consequence
+    class SatisfyConsequence : AbilityEvent
     {
         private const int SATISFY_ANY = -1;
 
@@ -45,15 +45,15 @@ namespace Simulaton.Attributes
             return amountSatisfiedModifier;
         }
 
-        public float getMagnitude()
+        public float GetMagnitude()
         {
             return magnitude.getPowerLevel();
         }
 
-        public EvaluableResult EvaluateEffectiveness(int targetNeedId)
+        public EvaluableResult EvaluateResult(int targetNeedId)
         {
             int realTarget = needSatisfied == SATISFY_ANY ? targetNeedId : needSatisfied;
-            return new EvaluableResult(targetNeedId, getMagnitude());
+            return new EvaluableResult(targetNeedId, GetMagnitude());
         }
     }
 }

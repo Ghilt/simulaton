@@ -31,7 +31,7 @@ namespace Simulaton.Simulation
             return length;
         }
 
-        public override void PerformTick()
+        public override void OnTick()
         {
             //do nothing yet
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Attributes
 {
-    public class ModifyPropertyEffect : Effect
+    public class ModifyPropertyEvent : PropertyEvent
     {
         private float magnitude;
         private float threshold;
@@ -15,7 +15,7 @@ namespace Simulaton.Attributes
         private float importance;
         private Func<float, float, bool> condition;
 
-        public ModifyPropertyEffect(Property source, Property target, float magnitude, float importance, float threshold, Func<float, float, bool> condition)
+        public ModifyPropertyEvent(Property source, Property target, float magnitude, float importance, float threshold, Func<float, float, bool> condition)
         {
             this.source = source;
             this.target = target;
@@ -30,13 +30,12 @@ namespace Simulaton.Attributes
             return target.id;
         }
 
-        public void OnTrigger()
+        public void Trigger()
         {
             if (condition(source.amount, threshold))
             {
                 target.Modify(magnitude);
             }
-
         }
 
         public float GetImportance()

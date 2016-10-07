@@ -9,7 +9,7 @@ namespace Tests
     {
 
         Property testTarget;
-        ModifyPropertyEffect effect;
+        ModifyPropertyEvent effect;
 
         //[TestInitialize]
         //public void TestModifyNeedEffectOnTrigger()
@@ -23,10 +23,10 @@ namespace Tests
         public void TestModifyNeedEffectOnTrigger()
         {
             testTarget = new Property(0, 1f, 0f);
-            effect = new ModifyPropertyEffect(testTarget, testTarget, -1f, 1f, 0.2f, ((x, threshold) => x < threshold));
+            effect = new ModifyPropertyEvent(testTarget, testTarget, -1f, 1f, 0.2f, ((x, threshold) => x < threshold));
             testTarget.AddEffect(effect);
 
-            effect.OnTrigger();
+            effect.Trigger();
             Assert.AreEqual(1.0f, testTarget.amount);
         }
 
@@ -36,9 +36,9 @@ namespace Tests
             float amount = 0.2f;
             testTarget = new Property(0, amount, 0f);
             float highestImportance = 0.5f;
-            Effect effect1 = new ModifyPropertyEffect(testTarget, testTarget, -1f, 0.3f, 0.2f, ((x, threshold) => x > threshold));
-            Effect effect2 = new ModifyPropertyEffect(testTarget, testTarget, -1f, 0.4f, 0.2f, ((x, threshold) => x > threshold));
-            Effect effect3 = new ModifyPropertyEffect(testTarget, testTarget, -1f, highestImportance, 0.2f, ((x, threshold) => x > threshold));
+            PropertyEvent effect1 = new ModifyPropertyEvent(testTarget, testTarget, -1f, 0.3f, 0.2f, ((x, threshold) => x > threshold));
+            PropertyEvent effect2 = new ModifyPropertyEvent(testTarget, testTarget, -1f, 0.4f, 0.2f, ((x, threshold) => x > threshold));
+            PropertyEvent effect3 = new ModifyPropertyEvent(testTarget, testTarget, -1f, highestImportance, 0.2f, ((x, threshold) => x > threshold));
             testTarget.AddEffect(effect1);
             testTarget.AddEffect(effect2);
             testTarget.AddEffect(effect3);

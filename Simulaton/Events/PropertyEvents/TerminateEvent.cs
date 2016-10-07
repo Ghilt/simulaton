@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Attributes
 {
-    class TerminateEffect : Effect
+    class TerminateEvent : PropertyEvent
     {
         private float lowerBound;
         private float upperBound;
         private Property source;
         private Simulator target;
 
-        public TerminateEffect(Property source, Simulator target, float triggerValue, float margin)
+        public TerminateEvent(Property source, Simulator target, float triggerValue, float margin)
         {
             this.source = source;
             this.target = target;
@@ -21,7 +21,7 @@ namespace Simulaton.Attributes
             this.upperBound = triggerValue + margin;
         }
 
-        public void OnTrigger()
+        public void Trigger()
         {
             if (source.amount > lowerBound  && source.amount < upperBound)
             {
