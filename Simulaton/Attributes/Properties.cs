@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Attributes
 {
-    public class Needs : Dictionary<int, Need>
+    public class Properties : Dictionary<int, Property>
     {
-        List<Need> sortedOnImportance;
+        List<Property> sortedOnImportance;
 
-        public Needs()
+        public Properties()
         {
             UpdateSortedList();
         }
@@ -24,7 +24,7 @@ namespace Simulaton.Attributes
 
         internal void tick()
         {
-            foreach (Need need in this.Values)
+            foreach (Property need in this.Values)
             {
                 need.Tick();
                 need.Affect();
@@ -32,12 +32,12 @@ namespace Simulaton.Attributes
             UpdateSortedList();
         }
 
-        internal IEnumerable<Need> SortedOnImportance()
+        internal IEnumerable<Property> SortedOnImportance()
         {
             return sortedOnImportance;
         }
 
-        internal Need getMostImportantNeed()
+        internal Property getMostImportantNeed()
         {
             return sortedOnImportance[0];
         }

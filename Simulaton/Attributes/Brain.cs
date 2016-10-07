@@ -15,17 +15,17 @@ namespace Simulaton.Attributes
 
         }
 
-        public void MakeDecision(Needs needs, Abilities abilities)
+        public void MakeDecision(Properties needs, Abilities abilities)
         {
 
-            Need pressingDesire = needs.getMostImportantNeed();
+            Property pressingDesire = needs.getMostImportantNeed();
             Logger.PrintInfo(this, "Most pressing need- " + Logger.Need[pressingDesire.id]);
             float largestValue = 0.0f;
             Ability toDo = null;
-            Need willActUpon = null;
+            Property willActUpon = null;
             foreach (Ability action in abilities.Values)
             {
-                Need target;
+                Property target;
                 if (!TryGetBestMatch(needs, action, out target))
                 {
                     continue;
@@ -54,9 +54,9 @@ namespace Simulaton.Attributes
             }
         }
 
-        private bool TryGetBestMatch(Needs needs, Ability action, out Need match)
+        private bool TryGetBestMatch(Properties needs, Ability action, out Property match)
         {
-            foreach (Need need in needs.SortedOnImportance())
+            foreach (Property need in needs.SortedOnImportance())
             {
                 if (action.Satisfies(need.id))
                 {
@@ -69,7 +69,7 @@ namespace Simulaton.Attributes
 
         }
 
-        private float Evaluate(Needs needs, List<EvaluableResult> prediction)
+        private float Evaluate(Properties needs, List<EvaluableResult> prediction)
         {
             float value = 0;
             foreach (EvaluableResult result in prediction)

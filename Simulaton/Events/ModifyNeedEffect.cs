@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Attributes
 {
-    public class ModifyNeedEffect : Effect
+    public class ModifyPropertyEffect : Effect
     {
         private float magnitude;
         private float threshold;
-        private Need source;
-        private Need target;
+        private Property source;
+        private Property target;
         private float importance;
         private Func<float, float, bool> condition;
 
-        public ModifyNeedEffect(Need source, Need target, float magnitude, float importance, float threshold, Func<float, float, bool> condition)
+        public ModifyPropertyEffect(Property source, Property target, float magnitude, float importance, float threshold, Func<float, float, bool> condition)
         {
             this.source = source;
             this.target = target;

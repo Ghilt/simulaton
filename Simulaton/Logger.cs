@@ -18,9 +18,9 @@ namespace Simulaton
 
         public static Dictionary<int, string> Need = new Dictionary<int, string>()
         {
-            { Attributes.Need.ID_HEALTH, "Health"},
-            { Attributes.Need.ID_NOURISHMENT, "Nourishment"},
-            { Attributes.Need.ID_ENERGY, "Energy"}
+            { Attributes.Property.ID_HEALTH, "Health"},
+            { Attributes.Property.ID_NOURISHMENT, "Nourishment"},
+            { Attributes.Property.ID_ENERGY, "Energy"}
         };
 
         public static Dictionary<int, string> Ability = new Dictionary<int, string>()

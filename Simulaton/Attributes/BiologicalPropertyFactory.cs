@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Attributes
 {
-    class BiologicalNeedFactory : NeedFactory
+    class BiologicalPropertyFactory : PropertyFactory
     {
         private static Random randomizer = new Random();
 
-        public Needs CreateNeeds(Simulator owner)
+        public Properties CreateNeeds(Simulator owner)
         {
             //Health
             float startingHealth = (float)randomizer.NextDouble();
@@ -30,26 +30,26 @@ namespace Simulaton.Attributes
             float energyImpact = 0.02f * (float)randomizer.NextDouble();
             float energyImportance = 0.8f + 0.2f * (float)randomizer.NextDouble();
 
-            Need health = new Need(Need.ID_HEALTH, startingHealth, 0);
+            Property health = new Property(Property.ID_HEALTH, startingHealth, 0);
             TerminateEffect terminate = new TerminateEffect(health, owner, 0f, 0.001f);
             health.AddEffect(terminate);
 
-            Need energy = new Need(Need.ID_ENERGY, startingEnergy, energyRate);
-            ModifyNeedEffect decHealthMod = new ModifyNeedEffect(energy, health, -energyImpact, energyImportance, energyThreshold, ((x, threshold) => x < threshold));
+            Property energy = new Property(Property.ID_ENERGY, startingEnergy, energyRate);
+            ModifyPropertyEffect decHealthMod = new ModifyPropertyEffect(energy, health, -energyImpact, energyImportance, energyThreshold, ((x, threshold) => x < threshold));
             energy.AddEffect(decHealthMod);
 
-            Need hunger = new Need(Need.ID_NOURISHMENT, startingHunger, startingRate);
-            ModifyNeedEffect dmgHealthMod = new ModifyNeedEffect(hunger, health, hungerImpact1, hungerImportance, hungerThreshold, ((x, threshold) => x < threshold));
-            ModifyNeedEffect dmgEnergyMod = new ModifyNeedEffect(hunger, energy, hungerImpact1, hungerImportance, hungerThreshold, ((x, threshold) => x < threshold));
-            ModifyNeedEffect healthyMod = new ModifyNeedEffect(hunger, health, hungerImpact2, hungerImportance, 1 - hungerThreshold, ((x, threshold) => x > threshold));
+            Property hunger = new Property(Property.ID_NOURISHMENT, startingHunger, startingRate);
+            ModifyPropertyEffect dmgHealthMod = new ModifyPropertyEffect(hunger, health, hungerImpact1, hungerImportance, hungerThreshold, ((x, threshold) => x < threshold));
+            ModifyPropertyEffect dmgEnergyMod = new ModifyPropertyEffect(hunger, energy, hungerImpact1, hungerImportance, hungerThreshold, ((x, threshold) => x < threshold));
+            ModifyPropertyEffect healthyMod = new ModifyPropertyEffect(hunger, health, hungerImpact2, hungerImportance, 1 - hungerThreshold, ((x, threshold) => x > threshold));
             hunger.AddEffect(dmgHealthMod);
             hunger.AddEffect(dmgEnergyMod);
             hunger.AddEffect(healthyMod);
 
-            Needs needs = new Needs();
-            needs.Add(Need.ID_HEALTH, health);
-            needs.Add(Need.ID_NOURISHMENT, hunger);
-            needs.Add(Need.ID_ENERGY, energy);
+            Properties needs = new Properties();
+            needs.Add(Property.ID_HEALTH, health);
+            needs.Add(Property.ID_NOURISHMENT, hunger);
+            needs.Add(Property.ID_ENERGY, energy);
             return needs;
         }
     }

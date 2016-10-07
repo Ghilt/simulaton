@@ -11,11 +11,11 @@ namespace Simulaton.Simulation
     {
 
         private Location location;
-        public Needs needs { private set; get; }
+        public Properties needs { private set; get; }
         private Abilities actions;
         private Brain brain;
 
-        public Life(int ticksBirth, NeedFactory needFactory, Location location)
+        public Life(int ticksBirth, PropertyFactory needFactory, Location location)
             : base(ticksBirth)
         {
             this.brain = new Brain();
@@ -38,7 +38,7 @@ namespace Simulaton.Simulation
 
         internal void ModifyNeed(int needIdTrigger, float magnitude)
         {
-            Need toModify;
+            Property toModify;
             needs.TryGetValue(needIdTrigger, out toModify);
             if (toModify != null)
             {
@@ -59,7 +59,7 @@ namespace Simulaton.Simulation
         public override string GetCurrentInfoLog()
         {
             string info = "Lifeform, at x: " + location.x + " y: " + location.y;
-            foreach (Need n in needs.Values)
+            foreach (Property n in needs.Values)
             {
                 info += " , " + Logger.Need[n.id] + ": " + needs[n.id].ToString();
             }

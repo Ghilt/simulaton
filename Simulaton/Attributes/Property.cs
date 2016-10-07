@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Attributes
 {
-    public class Need
+    public class Property
     {
         public const int ID_HEALTH = 0;
         public const int ID_NOURISHMENT = 1;
@@ -18,7 +18,7 @@ namespace Simulaton.Attributes
         private float effectImportance;
         private List<Effect> effects;
 
-        public Need(int id, float amount, float rate)
+        public Property(int id, float amount, float rate)
         {
             this.id = id;
             this.amount = amount;

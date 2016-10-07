@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\BiologicalNeedFactory.cs" />
+    <Compile Include="Attributes\BiologicalPropertyFactory.cs" />
     <Compile Include="Attributes\Abilities.cs" />
     <Compile Include="Attributes\Ability.cs" />
     <Compile Include="Attributes\Brain.cs" />
@@ -53,18 +53,18 @@
     <Compile Include="Interval.cs" />
     <Compile Include="Events\Consequence.cs" />
     <Compile Include="Events\SatisfyConsequence.cs" />
-    <Compile Include="Attributes\Needs.cs" />
+    <Compile Include="Attributes\Properties.cs" />
     <Compile Include="Events\ModifyNeedEffect.cs" />
     <Compile Include="Events\Effect.cs" />
-    <Compile Include="Attributes\Need.cs" />
-    <Compile Include="Attributes\NeedFactory.cs" />
+    <Compile Include="Attributes\Property.cs" />
+    <Compile Include="Attributes\PropertyFactory.cs" />
     <Compile Include="Events\TerminateEffect.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Simulation\Life.cs" />
     <Compile Include="Attributes\Location.cs" />
     <Compile Include="Simulation\Region.cs" />
-    <Compile Include="Simulation\Simulator.cs" />
+    <Compile Include="Simulation\Entity.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

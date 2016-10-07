@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Attributes
 {
-    interface NeedFactory
+    interface PropertyFactory
     {
-        Needs CreateNeeds(Simulator owner);
+        Properties CreateNeeds(Simulator owner);
     }
 }
