@@ -10,7 +10,7 @@ namespace Simulaton
 {
     class DebugSetup
     {
-        private static Random randomizer = new Random();
+        private static GenerateRandom rand = new GenerateRandom();
 
         internal static Life CreateHuman()
         {
@@ -44,22 +44,22 @@ namespace Simulaton
         private static void AddProperties(Life human)
         {
             //Health
-            float startingHealth = (float)randomizer.NextDouble();
+            float startingHealth = (float)rand.NextDouble();
 
             //Hunger
-            float startingHunger = 0.4f + 0.3f * (float)randomizer.NextDouble();
-            float startingRate = -0.09f * (float)randomizer.NextDouble();
-            float hungerThreshold = 0.3f * (float)randomizer.NextDouble();
-            float hungerImpact1 = -0.03f * (float)randomizer.NextDouble();
-            float hungerImpact2 = 0.1f * (float)randomizer.NextDouble();
-            float hungerImportance = 0.8f + 0.2f * (float)randomizer.NextDouble();
+            float startingHunger = rand.FloatNear(0.55f);
+            float startingRate = rand.FloatNear(-0.04f, 0.01f);
+            float hungerThreshold = rand.FloatNear(0.25f);
+            float hungerImpact1 = rand.FloatNear(-0.03f);
+            float hungerImpact2 = rand.FloatNear(0.1f);
+            float hungerImportance = rand.FloatNear(0.9f);
 
             //Energy
-            float startingEnergy = 0.8f + 0.2f * (float)randomizer.NextDouble();
-            float energyRate = -0.08f - 0.2f * (float)randomizer.NextDouble();
-            float energyThreshold = 0.2f * (float)randomizer.NextDouble();
-            float energyImpact = 0.02f * (float)randomizer.NextDouble();
-            float energyImportance = 0.8f + 0.2f * (float)randomizer.NextDouble();
+            float startingEnergy = rand.FloatNear(0.8f);
+            float energyRate = rand.FloatNear(-0.05f, 0.01f);
+            float energyThreshold = rand.FloatNear(0.17f);
+            float energyImpact = rand.FloatNear(0.08f);
+            float energyImportance = rand.FloatNear(0.8f);
 
             Property health = new Property(Property.ID_HEALTH, startingHealth, 0);
             TerminateEffect terminate = new TerminateEffect(health, human, 0f, 0.001f);
@@ -80,6 +80,22 @@ namespace Simulaton
             human.AddProperty(health);
             human.AddProperty(hunger);
             human.AddProperty(energy);
+        }
+    }
+
+    class GenerateRandom : Random
+    {
+
+        public float FloatNear(float midPoint)
+        {
+            return FloatNear(midPoint, 0.1f);
+        }
+
+        public float FloatNear(float midPoint, float range)
+        {
+            float ret = (float)((midPoint - range / 2) + range * NextDouble());
+            if ((midPoint < 0) != (ret < 0)) return 0; // dont let it swap sign
+            return Math.Abs(ret) > 1.0f ? (ret > 0 ? 1.0f : -1.0f) : ret; // if out of bounds(1.0f/-1.0f) return bound
         }
     }
 }
