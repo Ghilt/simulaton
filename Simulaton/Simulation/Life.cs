@@ -11,17 +11,22 @@ namespace Simulaton.Simulation
     {
 
         private Location location;
-        public Properties needs { private set; get; }
+        public Properties properties { private set; get; }
         private Abilities actions;
         private Brain brain;
 
-        public Life(int ticksBirth, PropertyFactory needFactory, Location location)
+        public Life(int ticksBirth, Location location)
             : base(ticksBirth)
         {
             this.brain = new Brain();
             this.location = location;
-            this.needs = needFactory.CreateNeeds(this);
+            this.properties = new Properties();
             this.actions = new Abilities();
+        }
+
+        public void AddProperty(Property property)
+        {
+            properties.Add(property);
         }
 
         public void AddAbility(Ability action)
@@ -32,14 +37,14 @@ namespace Simulaton.Simulation
         public override void PerformTick()
         {
             location.Move();
-            needs.tick();
-            brain.MakeDecision(needs, actions);
+            properties.tick();
+            brain.MakeDecision(properties, actions);
         }
 
-        internal void ModifyNeed(int needIdTrigger, float magnitude)
+        internal void ModifyProperty(int needIdTrigger, float magnitude)
         {
             Property toModify;
-            needs.TryGetValue(needIdTrigger, out toModify);
+            properties.TryGetValue(needIdTrigger, out toModify);
             if (toModify != null)
             {
                 toModify.Modify(magnitude);
@@ -59,9 +64,9 @@ namespace Simulaton.Simulation
         public override string GetCurrentInfoLog()
         {
             string info = "Lifeform, at x: " + location.x + " y: " + location.y;
-            foreach (Property n in needs.Values)
+            foreach (Property n in properties.Values)
             {
-                info += " , " + Logger.Need[n.id] + ": " + needs[n.id].ToString();
+                info += " , " + Logger.Need[n.id] + ": " + properties[n.id].ToString();
             }
             return info;
         }

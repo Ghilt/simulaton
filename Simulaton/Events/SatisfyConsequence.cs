@@ -35,7 +35,7 @@ namespace Simulaton.Attributes
             int realTarget = needSatisfied == SATISFY_ANY  ? needIdTrigger : needSatisfied;
 
             float amount = extractFromSource(realTarget);
-            owner.ModifyNeed(realTarget, amount);
+            owner.ModifyProperty(realTarget, amount);
             Logger.PrintInfo(this, Logger.Need[realTarget] + ", +" + ((int)(amount * 100) + "%"));
         }
 

@@ -1,16 +1,47 @@
-﻿using System;
+﻿using Simulaton.Attributes;
+using Simulaton.Simulation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simulaton.Attributes
+namespace Simulaton
 {
-    class BiologicalPropertyFactory : PropertyFactory
+    class DebugSetup
     {
         private static Random randomizer = new Random();
 
-        public Properties CreateNeeds(Simulator owner)
+        internal static Life CreateHuman()
+        {
+            Region r = new Region(0, 100, 100);
+            Life human = new Life(0, new Location(r, 50, 50));
+
+            AddProperties(human);
+            AddAbilities(human);
+
+            return human;
+        }
+
+        private static void AddAbilities(Life human)
+        {
+            Ability search = new Ability(Ability.ID_SEARCH, human);
+            search.AddsatisfiableNeed(Property.ID_NOURISHMENT);
+            Interval searchPower = new Interval(0.0f, 0.4f, -1);
+            SatisfyConsequence finding = new SatisfyConsequence(searchPower, human.GetLocation());
+            search.AddConsequence(finding);
+
+            Ability sleep = new Ability(Ability.ID_SLEEP, human);
+            sleep.AddsatisfiableNeed(Property.ID_ENERGY);
+            Interval sleepPower = new Interval(0.0f, 0.2f);
+            SatisfyConsequence asleep = new SatisfyConsequence(Property.ID_ENERGY, sleepPower, null);
+            sleep.AddConsequence(asleep);
+
+            human.AddAbility(search);
+            human.AddAbility(sleep);
+        }
+
+        private static void AddProperties(Life human)
         {
             //Health
             float startingHealth = (float)randomizer.NextDouble();
@@ -31,7 +62,7 @@ namespace Simulaton.Attributes
             float energyImportance = 0.8f + 0.2f * (float)randomizer.NextDouble();
 
             Property health = new Property(Property.ID_HEALTH, startingHealth, 0);
-            TerminateEffect terminate = new TerminateEffect(health, owner, 0f, 0.001f);
+            TerminateEffect terminate = new TerminateEffect(health, human, 0f, 0.001f);
             health.AddEffect(terminate);
 
             Property energy = new Property(Property.ID_ENERGY, startingEnergy, energyRate);
@@ -46,11 +77,9 @@ namespace Simulaton.Attributes
             hunger.AddEffect(dmgEnergyMod);
             hunger.AddEffect(healthyMod);
 
-            Properties needs = new Properties();
-            needs.Add(Property.ID_HEALTH, health);
-            needs.Add(Property.ID_NOURISHMENT, hunger);
-            needs.Add(Property.ID_ENERGY, energy);
-            return needs;
+            human.AddProperty(health);
+            human.AddProperty(hunger);
+            human.AddProperty(energy);
         }
     }
 }

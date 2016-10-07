@@ -15,10 +15,15 @@ namespace Simulaton.Attributes
             UpdateSortedList();
         }
 
+        public void Add(Property property)
+        {
+            Add(property.id, property);
+        }
+
         private void UpdateSortedList()
         {
             sortedOnImportance = this.ToList().Select(pair => pair.Value).ToList(); // todo refactor
-            sortedOnImportance.Sort((need1, need2) => need1.GetImportance().CompareTo(need2.GetImportance()));
+            sortedOnImportance.Sort((property1, property2) => property1.GetImportance().CompareTo(property2.GetImportance()));
             sortedOnImportance.Reverse();
         }
 
@@ -37,7 +42,7 @@ namespace Simulaton.Attributes
             return sortedOnImportance;
         }
 
-        internal Property getMostImportantNeed()
+        internal Property getMostImportantProperty()
         {
             return sortedOnImportance[0];
         }

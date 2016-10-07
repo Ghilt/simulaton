@@ -44,20 +44,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\BiologicalPropertyFactory.cs" />
     <Compile Include="Attributes\Abilities.cs" />
     <Compile Include="Attributes\Ability.cs" />
     <Compile Include="Attributes\Brain.cs" />
     <Compile Include="Attributes\Resource.cs" />
+    <Compile Include="DebugSetup.cs" />
     <Compile Include="Events\EvaluableResult.cs" />
     <Compile Include="Interval.cs" />
     <Compile Include="Events\Consequence.cs" />
     <Compile Include="Events\SatisfyConsequence.cs" />
     <Compile Include="Attributes\Properties.cs" />
-    <Compile Include="Events\ModifyNeedEffect.cs" />
+    <Compile Include="Events\ModifyPropertyEffect.cs" />
     <Compile Include="Events\Effect.cs" />
     <Compile Include="Attributes\Property.cs" />
-    <Compile Include="Attributes\PropertyFactory.cs" />
     <Compile Include="Events\TerminateEffect.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="Logger.cs" />
