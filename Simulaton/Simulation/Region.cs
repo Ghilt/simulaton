@@ -36,7 +36,7 @@ namespace Simulaton.Simulation
             //do nothing yet
         }
 
-        internal float Extract(int x, int y, int needId)
+        internal float Extract(int x, int y, int propertyId)
         {
             //TODO
             return resourcesAvailable.NextFloat();

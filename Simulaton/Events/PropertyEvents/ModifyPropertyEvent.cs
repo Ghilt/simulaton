@@ -25,7 +25,7 @@ namespace Simulaton.Attributes
             this.condition = condition;
         }
 
-        internal int getNeedId()
+        internal int getpropertyId()
         {
             return target.id;
         }

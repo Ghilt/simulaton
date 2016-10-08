@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simulaton.Attributes
+namespace Simulaton.Events
 {
-    interface Resource
+    interface Requirement
     {
-        float Extract(int propertyId);
+        bool IsFulfilled();
     }
 }

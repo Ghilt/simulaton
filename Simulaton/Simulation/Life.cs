@@ -29,6 +29,11 @@ namespace Simulaton.Simulation
             properties.Add(property);
         }
 
+        internal bool TryGetPropertyValue(int propertyId, out float value)
+        {
+            return properties.TryGetValue(propertyId, out value);
+        }
+
         public void AddAbility(Ability action)
         {
             actions.Add(action.id, action);
@@ -41,10 +46,10 @@ namespace Simulaton.Simulation
             brain.MakeDecision(properties, actions);
         }
 
-        internal void ModifyProperty(int needIdTrigger, float magnitude)
+        internal void ModifyProperty(int propertyIdTrigger, float magnitude)
         {
             Property toModify;
-            properties.TryGetValue(needIdTrigger, out toModify);
+            properties.TryGetValue(propertyIdTrigger, out toModify);
             if (toModify != null)
             {
                 toModify.Modify(magnitude);
@@ -52,7 +57,7 @@ namespace Simulaton.Simulation
             }
             else
             {
-                Logger.PrintInfo(this, "Tried to modify need " + Logger.Need[needIdTrigger] + " but Life did not have it");
+                Logger.PrintInfo(this, "Tried to modify need " + Logger.Property[propertyIdTrigger] + " but Life did not have it");
             }
         }
 
@@ -66,7 +71,7 @@ namespace Simulaton.Simulation
             string info = "Lifeform, at x: " + location.x + " y: " + location.y;
             foreach (Property n in properties.Values)
             {
-                info += " , " + Logger.Need[n.id] + ": " + properties[n.id].ToString();
+                info += " , " + Logger.Property[n.id] + ": " + Logger.FloatToPercent(properties[n.id].amount);
             }
             return info;
         }

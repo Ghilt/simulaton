@@ -16,19 +16,29 @@ namespace Simulaton.Attributes
         public int id { get; private set; }
         private List<AbilityEvent> consequences;
         private Life parent;
-        private HashSet<int> satisfiableNeedIds;
+        private HashSet<int> satisfiablePropertyIds;
+        private List<Requirement> requirements;
 
         public Ability(int id, Life parent)
         {
             this.id = id;
             this.parent = parent;
             this.consequences = new List<AbilityEvent>();
-            this.satisfiableNeedIds = new HashSet<int>();
+            this.requirements = new List<Requirement>();
+            this.satisfiablePropertyIds = new HashSet<int>();
         }
 
         internal List<EvaluableResult> GetPrediction(int targetId)
         {
             List<EvaluableResult> impact = new List<EvaluableResult>();
+            foreach (Requirement requirement in requirements)
+            {
+                if (!requirement.IsFulfilled())
+                {
+                    Logger.PrintInfo(this, Logger.Ability[id] + " not possible, failing requirements");
+                    return impact;
+                }
+            }
             foreach (AbilityEvent consequence in consequences)
             {
                 impact.Add(consequence.EvaluateResult(targetId));
@@ -36,15 +46,20 @@ namespace Simulaton.Attributes
             return impact;
         }
 
-        public void AddSatisfiableProperty(int needId)
+        public void AddSatisfiableProperty(int propertyId)
         {
-            satisfiableNeedIds.Add(needId);
+            satisfiablePropertyIds.Add(propertyId);
         }
 
 
         public void AddConsequence(AbilityEvent consequence)
         {
             consequences.Add(consequence);
+        }
+
+        internal void AddRequirement(Requirement requirement)
+        {
+            requirements.Add(requirement);
         }
 
         internal void Execute(int targetId)
@@ -59,7 +74,7 @@ namespace Simulaton.Attributes
 
         internal bool Satisfies(int id)
         {
-            return satisfiableNeedIds.Contains(id);
+            return satisfiablePropertyIds.Contains(id);
         }
     }
 }

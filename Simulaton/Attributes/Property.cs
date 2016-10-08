@@ -8,6 +8,7 @@ namespace Simulaton.Attributes
 {
     public class Property
     {
+
         public const int ID_HEALTH = 0;
         public const int ID_NOURISHMENT = 1;
         public const int ID_ENERGY = 2;
@@ -33,6 +34,7 @@ namespace Simulaton.Attributes
             float newValue = amount + rate;
             bool isOutOfLimit = relevantLimit == 1 ? newValue < relevantLimit : newValue > relevantLimit;
             amount = isOutOfLimit ? newValue : relevantLimit;
+            Logger.PrintInfo(this,  "Tick " + Logger.Property[id] + " " + Logger.FloatToPercentWithSign(rate));
             TriggerEvents();
         }
 
@@ -55,11 +57,6 @@ namespace Simulaton.Attributes
             {
                 amount = 0;
             }
-        }
-
-        public override string ToString()
-        {
-            return ((int)(amount * 100) + "%");
         }
 
         public void AddEffect(PropertyEvent effect)

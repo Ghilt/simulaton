@@ -36,6 +36,21 @@ namespace Simulaton.Attributes
             UpdateSortedList();
         }
 
+        internal bool TryGetValue(int propertyId, out float value)
+        {
+            Property outProp;
+            if (TryGetValue(propertyId, out outProp))
+            {
+                value = outProp.amount;
+                return true;
+            } 
+            else
+            {
+                value = -1;
+                return false;
+            }
+        }
+
         internal IEnumerable<Property> SortedOnImportance()
         {
             return sortedOnImportance;

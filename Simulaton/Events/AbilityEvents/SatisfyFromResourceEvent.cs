@@ -21,18 +21,18 @@ namespace Simulaton.Attributes
 
         public SatisfyFromResourceEvent(Interval magnitude, Resource resource) : this(SATISFY_ANY, magnitude, resource) { }
 
-        public override void Trigger(Life owner, int needIdTrigger)
+        public override void Trigger(Life owner, int propertyIdTrigger)
         {
-            int realTarget = needSatisfied == SATISFY_ANY ? needIdTrigger : needSatisfied;
+            int realTarget = needSatisfied == SATISFY_ANY ? propertyIdTrigger : needSatisfied;
 
             float amount = extractFromSource(realTarget);
             owner.ModifyProperty(realTarget, amount);
-            Logger.PrintInfo(this, Logger.Need[realTarget] + ", +" + ((int)(amount * 100) + "%"));
+            Logger.PrintInfo(this, "\t " + Logger.Property[realTarget] + ", +" + Logger.FloatToPercent(amount));
         }
 
-        private float extractFromSource(int needId)
+        private float extractFromSource(int propertyId)
         {
-            float amountSatisfiedModifier = (resource == null) ? 1f * magnitude.NextFloat() : resource.Extract(needId) * magnitude.NextFloat();
+            float amountSatisfiedModifier = (resource == null) ? 1f * magnitude.NextFloat() : resource.Extract(propertyId) * magnitude.NextFloat();
             return amountSatisfiedModifier;
         }
 

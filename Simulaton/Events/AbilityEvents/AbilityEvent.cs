@@ -10,8 +10,8 @@ namespace Simulaton.Attributes
 {
     interface AbilityEvent
     {
-        void Trigger(Life target, int needIdTrigger);
+        void Trigger(Life target, int propertyIdTrigger);
         float GetMagnitude();
-        EvaluableResult EvaluateResult(int targetNeedId);
+        EvaluableResult EvaluateResult(int targetpropertyId);
     }
 }

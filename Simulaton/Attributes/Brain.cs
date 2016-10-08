@@ -19,7 +19,7 @@ namespace Simulaton.Attributes
         {
 
             Property pressingDesire = needs.getMostImportantProperty();
-            Logger.PrintInfo(this, "Most pressing need- " + Logger.Need[pressingDesire.id]);
+            Logger.PrintInfo(this, "Most pressing need- " + Logger.Property[pressingDesire.id]);
             float largestValue = 0.0f;
             Ability toDo = null;
             Property willActUpon = null;
@@ -45,7 +45,7 @@ namespace Simulaton.Attributes
             }
             if (toDo != null)
             {
-                Logger.PrintInfo(this, "Most fitting action- " + Logger.Ability[toDo.id] + " to get " + Logger.Need[willActUpon.id]);
+                Logger.PrintInfo(this, "Most fitting action- " + Logger.Ability[toDo.id] + " to get " + Logger.Property[willActUpon.id]);
                 toDo.Execute(willActUpon.id);
             }
             else
@@ -72,10 +72,15 @@ namespace Simulaton.Attributes
         private float Evaluate(Properties needs, List<EvaluableResult> prediction)
         {
             float value = 0;
+            if (prediction.Count == 0)
+            {
+                Logger.PrintInfo(this, "\tNo effect");
+            }
             foreach (EvaluableResult result in prediction)
             {
-                value += needs[result.needId].GetImportance() * result.magnitude;
-                Logger.PrintInfo(this, "\t"+ Logger.Need[result.needId] + " increases value by " + needs[result.needId].GetImportance() + " * " +  result.magnitude  + " = "+ value);
+                float change = needs[result.propertyId].GetImportance() * result.magnitude;
+                value += change;
+                Logger.PrintInfo(this, "\t("+ Logger.Property[result.propertyId] + " effect) " + Logger.FloatToPercent(needs[result.propertyId].GetImportance()) + " * " + Logger.FloatToPercent(result.magnitude)  + " = "+ Logger.FloatToPercentWithSign(change));
             }
             return value;
         }

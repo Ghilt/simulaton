@@ -51,6 +51,8 @@
     <Compile Include="DebugSetup.cs" />
     <Compile Include="Events\AbilityEvents\SatisfyFromResourceEvent.cs" />
     <Compile Include="Events\EvaluableResult.cs" />
+    <Compile Include="Events\PropertyRequirement.cs" />
+    <Compile Include="Events\Requirement.cs" />
     <Compile Include="Interval.cs" />
     <Compile Include="Events\AbilityEvents\AbilityEvent.cs" />
     <Compile Include="Events\AbilityEvents\SatisfyEvent.cs" />

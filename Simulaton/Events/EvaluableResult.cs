@@ -8,12 +8,12 @@ namespace Simulaton.Events
 {
     class EvaluableResult
     {
-        public int needId { private set; get; }
+        public int propertyId { private set; get; }
         public float magnitude { private set; get; }
 
-        public EvaluableResult(int needId, float magnitude)
+        public EvaluableResult(int propertyId, float magnitude)
         {
-            this.needId = needId;
+            this.propertyId = propertyId;
             this.magnitude = magnitude;
         }
     }

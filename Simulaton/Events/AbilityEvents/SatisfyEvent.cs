@@ -27,16 +27,16 @@ namespace Simulaton.Attributes
             this.needSatisfied = SATISFY_ANY;
         }
 
-        public virtual void Trigger(Life owner, int needIdTrigger)
+        public virtual void Trigger(Life owner, int propertyIdTrigger)
         {
-            int realTarget = needSatisfied == SATISFY_ANY  ? needIdTrigger : needSatisfied;
+            int realTarget = needSatisfied == SATISFY_ANY ? propertyIdTrigger : needSatisfied;
 
             float amount = extractFromSource(realTarget);
             owner.ModifyProperty(realTarget, amount);
-            Logger.PrintInfo(this, Logger.Need[realTarget] + ", +" + ((int)(amount * 100) + "%"));
+            Logger.PrintInfo(this, "\t " + Logger.Property[realTarget] + ", " + Logger.FloatToPercentWithSign(amount));
         }
 
-        private float extractFromSource(int needId)
+        private float extractFromSource(int propertyId)
         {
             float amountSatisfiedModifier = magnitude.NextFloat();
             return amountSatisfiedModifier;
@@ -47,10 +47,10 @@ namespace Simulaton.Attributes
             return magnitude.getPowerLevel();
         }
 
-        public EvaluableResult EvaluateResult(int targetNeedId)
+        public EvaluableResult EvaluateResult(int targetpropertyId)
         {
-            int realTarget = needSatisfied == SATISFY_ANY ? targetNeedId : needSatisfied;
-            return new EvaluableResult(targetNeedId, GetMagnitude());
+            int realTarget = needSatisfied == SATISFY_ANY ? targetpropertyId : needSatisfied;
+            return new EvaluableResult(realTarget   , GetMagnitude());
         }
     }
 }

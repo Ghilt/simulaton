@@ -1,4 +1,5 @@
 ﻿using Simulaton.Attributes;
+using Simulaton.Events;
 using Simulaton.Simulation;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,7 @@ namespace Simulaton
             SatisfyEvent tieringFromWork = new SatisfyEvent(Property.ID_ENERGY, gettingTiredBy);
             search.AddConsequence(finding);
             search.AddConsequence(tieringFromWork);
+            search.AddRequirement(new PropertyRequirement(human, Property.ID_ENERGY, 0.2f, ((x, threshold) => x > threshold)));
 
             Ability sleep = new Ability(Ability.ID_SLEEP, human);
             sleep.AddSatisfiableProperty(Property.ID_ENERGY);

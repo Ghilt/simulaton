@@ -18,7 +18,7 @@ namespace Simulaton
             Console.SetBufferSize(width, height);
         }
 
-        public static Dictionary<int, string> Need = new Dictionary<int, string>()
+        public static Dictionary<int, string> Property = new Dictionary<int, string>()
         {
             { Attributes.Property.ID_HEALTH, "Health"},
             { Attributes.Property.ID_NOURISHMENT, "Nourishment"},
@@ -34,6 +34,17 @@ namespace Simulaton
         internal static void PrintInfo(Object obj, string info)
         {
             Console.WriteLine("{0," + leftColumnWidth + "}{1,-" + rightColumnWidth + "}", obj.GetType().Name + ":\t\t", info);
+        }
+
+        internal static string FloatToPercentWithSign(float value)
+        {
+            string formatted = ((int)(value * 100) + "%");
+            return value >= 0 ? "+" + formatted : formatted;
+        }
+
+        internal static string FloatToPercent(float value)
+        {
+            return ((int)(value * 100) + "%");
         }
     }
 }

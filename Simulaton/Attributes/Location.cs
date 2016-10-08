@@ -24,9 +24,9 @@ namespace Simulaton.Attributes
             y += r.Next(y == 0 ? 0 : -1, y == space.GetLength() ? 0 : 2);
         }
 
-        public float Extract(int needId)
+        public float Extract(int propertyId)
         {
-            return space.Extract(x, y, needId);
+            return space.Extract(x, y, propertyId);
         }
     }
 }
