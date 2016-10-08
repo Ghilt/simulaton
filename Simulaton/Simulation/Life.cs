@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Simulation
 {
-    class Life : Simulator
+    public class Life : Entity
     {
 
         private Location location;
@@ -53,11 +53,10 @@ namespace Simulaton.Simulation
             if (toModify != null)
             {
                 toModify.Modify(magnitude);
-
             }
             else
             {
-                Logger.PrintInfo(this, "Tried to modify need " + Logger.Property[propertyIdTrigger] + " but Life did not have it");
+                Logger.PrintInfo(this, "Tried to modify property " + Logger.Property[propertyIdTrigger] + " but Life did not have it");
             }
         }
 

@@ -8,7 +8,7 @@ namespace Simulaton.Simulation
 {
 
     // interesting resource http://www.redblobgames.com/grids/hexagons/
-    class Region : Simulator
+    public class Region : Entity
     {
         private int width;
         private int length;

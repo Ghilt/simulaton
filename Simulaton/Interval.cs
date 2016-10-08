@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simulaton
 {
-    class Interval
+    public class Interval
     {
         //private static Random rand = new Random();
         private static Random random = new Random();
@@ -54,7 +54,7 @@ namespace Simulaton
         internal float getPowerLevel()
         {
             float modifier = 2 - luckModifier;
-            return min + range / (modifier>0 ? modifier: 2);
+            return min + range / (modifier > 0 ? modifier : 2);
         }
     }
 }

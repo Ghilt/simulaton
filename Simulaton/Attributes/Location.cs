@@ -3,7 +3,7 @@ using System;
 
 namespace Simulaton.Attributes
 {
-    class Location : Resource
+    public class Location : Resource
     {
         private readonly Region space;
         public int x { get; private set; }

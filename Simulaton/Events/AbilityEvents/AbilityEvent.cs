@@ -8,7 +8,7 @@ using Simulaton.Events;
 
 namespace Simulaton.Attributes
 {
-    interface AbilityEvent
+    public interface AbilityEvent
     {
         void Trigger(Life target, int propertyIdTrigger);
         float GetMagnitude();

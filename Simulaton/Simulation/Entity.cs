@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simulaton
 {
-    abstract class Simulator 
+    public abstract class Entity 
     {
         public static int SIMULATION_STATUS_ALIVE = 0;
         public static int SIMULATION_STATUS_TERMINATED = 1;
@@ -16,7 +16,7 @@ namespace Simulaton
         private bool loggActive;
         private int simulationStatus;
 
-        public Simulator(int ticksBirth)
+        public Entity(int ticksBirth)
         {
             this.ticksBirth = ticksBirth;
             simulationStatus = SIMULATION_STATUS_ALIVE;

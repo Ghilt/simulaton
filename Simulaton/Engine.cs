@@ -10,17 +10,17 @@ namespace Simulaton
     class Engine
     {
         private int tick;
-        private List<Simulator> entities;
+        private List<Entity> entities;
 
         public Engine()
         {
             tick = 0;
-            entities = new List<Simulator>();
+            entities = new List<Entity>();
         }
 
         public void Start()
         {
-            List<Simulator> entitiesToRemove = new List<Simulator>();
+            List<Entity> entitiesToRemove = new List<Entity>();
             Logger.PrintInfo(this, "Started, press any key to continue");
             Console.ReadKey(true);
             while (entities.Count != 0)
@@ -28,17 +28,17 @@ namespace Simulaton
 
                 Logger.PrintInfo(this, "Tick (" + tick + ")");
                 tick++;
-                foreach (Simulator sim in entities)
+                foreach (Entity sim in entities)
                 {
                     sim.Tick();
                     int status = sim.CheckStatus();
-                    if (status == Simulator.SIMULATION_STATUS_TERMINATED)
+                    if (status == Entity.SIMULATION_STATUS_TERMINATED)
                     {
                         entitiesToRemove.Add(sim);
                     }
                 }
 
-                foreach (Simulator sim in entitiesToRemove)
+                foreach (Entity sim in entitiesToRemove)
                 {
                     entities.Remove(sim);
                 }
@@ -52,7 +52,7 @@ namespace Simulaton
 
         }
 
-        public void AddSimulator(Simulator sim)
+        public void AddSimulator(Entity sim)
         {
             entities.Add(sim);
         }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Attributes
 {
-    class Ability
+    public class Ability
     {
         public const int ID_SEARCH = 0;
         public const int ID_SLEEP = 1;
@@ -28,7 +28,7 @@ namespace Simulaton.Attributes
             this.satisfiablePropertyIds = new HashSet<int>();
         }
 
-        internal List<EvaluableResult> GetPrediction(int targetId)
+        public List<EvaluableResult> GetPrediction(int targetId)
         {
             List<EvaluableResult> impact = new List<EvaluableResult>();
             foreach (Requirement requirement in requirements)

@@ -14,7 +14,7 @@ namespace Simulaton.Attributes
 
         private Resource resource;
 
-        public SatisfyFromResourceEvent(int needSatisfied, Interval magnitude, Resource resource) : base(needSatisfied,magnitude)
+        public SatisfyFromResourceEvent(int propertySatisfied, Interval magnitude, Resource resource) : base(propertySatisfied,magnitude)
         {
             this.resource = resource;
         }
@@ -23,7 +23,7 @@ namespace Simulaton.Attributes
 
         public override void Trigger(Life owner, int propertyIdTrigger)
         {
-            int realTarget = needSatisfied == SATISFY_ANY ? propertyIdTrigger : needSatisfied;
+            int realTarget = propertySatisfied == SATISFY_ANY ? propertyIdTrigger : propertySatisfied;
 
             float amount = extractFromSource(realTarget);
             owner.ModifyProperty(realTarget, amount);

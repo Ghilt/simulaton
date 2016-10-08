@@ -15,10 +15,10 @@ namespace Simulaton.Attributes
 
         }
 
-        public void MakeDecision(Properties needs, Abilities abilities)
+        public void MakeDecision(Properties properties, Abilities abilities)
         {
 
-            Property pressingDesire = needs.getMostImportantProperty();
+            Property pressingDesire = properties.getMostImportantProperty();
             Logger.PrintInfo(this, "Most pressing need- " + Logger.Property[pressingDesire.id]);
             float largestValue = 0.0f;
             Ability toDo = null;
@@ -26,14 +26,14 @@ namespace Simulaton.Attributes
             foreach (Ability action in abilities.Values)
             {
                 Property target;
-                if (!TryGetBestMatch(needs, action, out target))
+                if (!TryGetBestMatch(properties, action, out target))
                 {
                     continue;
                 }
 
                 List<EvaluableResult> prediction = action.GetPrediction(target.id);
                 Logger.PrintInfo(this, Logger.Ability[action.id] + " is evaluated as: ");
-                float value = Evaluate(needs, prediction);
+                float value = Evaluate(properties, prediction);
 
                 if (value > largestValue)
                 {
@@ -54,13 +54,13 @@ namespace Simulaton.Attributes
             }
         }
 
-        private bool TryGetBestMatch(Properties needs, Ability action, out Property match)
+        private bool TryGetBestMatch(Properties properties, Ability action, out Property match)
         {
-            foreach (Property need in needs.SortedOnImportance())
+            foreach (Property property in properties.SortedOnImportance())
             {
-                if (action.Satisfies(need.id))
+                if (action.Satisfies(property.id))
                 {
-                    match = need;
+                    match = property;
                     return true;
                 }
             }
@@ -69,7 +69,7 @@ namespace Simulaton.Attributes
 
         }
 
-        private float Evaluate(Properties needs, List<EvaluableResult> prediction)
+        private float Evaluate(Properties properties, List<EvaluableResult> prediction)
         {
             float value = 0;
             if (prediction.Count == 0)
@@ -78,9 +78,9 @@ namespace Simulaton.Attributes
             }
             foreach (EvaluableResult result in prediction)
             {
-                float change = needs[result.propertyId].GetImportance() * result.magnitude;
+                float change = properties[result.propertyId].GetImportance() * result.magnitude;
                 value += change;
-                Logger.PrintInfo(this, "\t("+ Logger.Property[result.propertyId] + " effect) " + Logger.FloatToPercent(needs[result.propertyId].GetImportance()) + " * " + Logger.FloatToPercent(result.magnitude)  + " = "+ Logger.FloatToPercentWithSign(change));
+                Logger.PrintInfo(this, "\t("+ Logger.Property[result.propertyId] + " effect) " + Logger.FloatToPercent(properties[result.propertyId].GetImportance()) + " * " + Logger.FloatToPercent(result.magnitude)  + " = "+ Logger.FloatToPercentWithSign(change));
             }
             return value;
         }

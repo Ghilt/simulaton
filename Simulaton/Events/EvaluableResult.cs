@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Events
 {
-    class EvaluableResult
+    public class EvaluableResult
     {
         public int propertyId { private set; get; }
         public float magnitude { private set; get; }
