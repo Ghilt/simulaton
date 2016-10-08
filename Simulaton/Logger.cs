@@ -8,6 +8,8 @@ namespace Simulaton
 {
     class Logger
     {
+        private const int leftColumnWidth = 30;
+        private const int rightColumnWidth = 60;
         static Logger()
         {
             int width = 120 > Console.LargestWindowWidth ? Console.LargestWindowWidth : 120;
@@ -31,7 +33,7 @@ namespace Simulaton
 
         internal static void PrintInfo(Object obj, string info)
         {
-            Console.WriteLine("{0,22}{1,-60}", obj.GetType().Name + ":\t\t", info);
+            Console.WriteLine("{0," + leftColumnWidth + "}{1,-" + rightColumnWidth + "}", obj.GetType().Name + ":\t\t", info);
         }
     }
 }
