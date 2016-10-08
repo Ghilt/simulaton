@@ -11,7 +11,7 @@ namespace Simulaton
         static Logger()
         {
             int width = 120 > Console.LargestWindowWidth ? Console.LargestWindowWidth : 120;
-            int height = 70 > Console.LargestWindowHeight ? Console.LargestWindowHeight : 70;
+            int height = 50 > Console.LargestWindowHeight ? Console.LargestWindowHeight : 50;
             Console.SetWindowSize(width, height);
             Console.SetBufferSize(width, height);
         }

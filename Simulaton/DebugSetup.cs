@@ -26,15 +26,18 @@ namespace Simulaton
         private static void AddAbilities(Life human)
         {
             Ability search = new Ability(Ability.ID_SEARCH, human);
-            search.AddsatisfiableNeed(Property.ID_NOURISHMENT);
-            Interval searchPower = new Interval(0.0f, 0.4f, -1);
-            SatisfyConsequence finding = new SatisfyConsequence(searchPower, human.GetLocation());
+            search.AddSatisfiableProperty(Property.ID_NOURISHMENT);
+            Interval searchPower = new Interval(0.1f, 0.4f, -1);
+            Interval gettingTiredBy = new Interval(-0.05f, -0.1f);
+            SatisfyEvent finding = new SatisfyFromResourceEvent(searchPower, human.GetLocation());
+            SatisfyEvent tieringFromWork = new SatisfyEvent(Property.ID_ENERGY, gettingTiredBy);
             search.AddConsequence(finding);
+            search.AddConsequence(tieringFromWork);
 
             Ability sleep = new Ability(Ability.ID_SLEEP, human);
-            sleep.AddsatisfiableNeed(Property.ID_ENERGY);
+            sleep.AddSatisfiableProperty(Property.ID_ENERGY);
             Interval sleepPower = new Interval(0.0f, 0.2f);
-            SatisfyConsequence asleep = new SatisfyConsequence(Property.ID_ENERGY, sleepPower, null);
+            SatisfyEvent asleep = new SatisfyEvent(Property.ID_ENERGY, sleepPower);
             sleep.AddConsequence(asleep);
 
             human.AddAbility(search);

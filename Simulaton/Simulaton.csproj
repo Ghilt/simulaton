@@ -49,10 +49,11 @@
     <Compile Include="Attributes\Brain.cs" />
     <Compile Include="Attributes\Resource.cs" />
     <Compile Include="DebugSetup.cs" />
+    <Compile Include="Events\AbilityEvents\SatisfyFromResourceEvent.cs" />
     <Compile Include="Events\EvaluableResult.cs" />
     <Compile Include="Interval.cs" />
     <Compile Include="Events\AbilityEvents\AbilityEvent.cs" />
-    <Compile Include="Events\AbilityEvents\SatisfyConsequence.cs" />
+    <Compile Include="Events\AbilityEvents\SatisfyEvent.cs" />
     <Compile Include="Attributes\Properties.cs" />
     <Compile Include="Events\PropertyEvents\ModifyPropertyEvent.cs" />
     <Compile Include="Events\PropertyEvents\PropertyEvent.cs" />

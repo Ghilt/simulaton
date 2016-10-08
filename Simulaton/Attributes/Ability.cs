@@ -13,10 +13,6 @@ namespace Simulaton.Attributes
         public const int ID_SEARCH = 0;
         public const int ID_SLEEP = 1;
 
-        public const int SATISFY_ANY_ONE = 0;
-        public const int SATISFY_SPECIFIC = 1;
-        public const int SATISFY_GROUP_SPECIFIC = 2;
-
         public int id { get; private set; }
         private List<AbilityEvent> consequences;
         private Life parent;
@@ -40,7 +36,7 @@ namespace Simulaton.Attributes
             return impact;
         }
 
-        public void AddsatisfiableNeed(int needId)
+        public void AddSatisfiableProperty(int needId)
         {
             satisfiableNeedIds.Add(needId);
         }

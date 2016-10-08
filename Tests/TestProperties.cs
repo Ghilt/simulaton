@@ -5,7 +5,7 @@ using Simulaton.Attributes;
 namespace Tests
 {
     [TestClass]
-    public class TestNeeds
+    public class TestProperties
     {
 
         Property testTarget;
@@ -20,7 +20,7 @@ namespace Tests
         //}
 
         [TestMethod]
-        public void TestModifyNeedEffectOnTrigger()
+        public void TestModifyPropertyEventOnTrigger()
         {
             testTarget = new Property(0, 1f, 0f);
             effect = new ModifyPropertyEvent(testTarget, testTarget, -1f, 1f, 0.2f, ((x, threshold) => x < threshold));

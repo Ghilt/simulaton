@@ -8,29 +8,26 @@ using Simulaton.Events;
 
 namespace Simulaton.Attributes
 {
-    class SatisfyConsequence : AbilityEvent
+    class SatisfyEvent : AbilityEvent
     {
         private const int SATISFY_ANY = -1;
 
-        private Resource resource;
-        private Interval magnitude;
-        private int needSatisfied;
+        public Interval magnitude { get; private set; }
+        public int needSatisfied { get; private set; }
 
-        public SatisfyConsequence(int needSatisfied, Interval magnitude, Resource resource)
+        public SatisfyEvent(int needSatisfied, Interval magnitude)
         {
-            this.resource = resource;
             this.magnitude = magnitude;
             this.needSatisfied = needSatisfied;
         }
 
-        public SatisfyConsequence(Interval magnitude, Resource resource)
+        public SatisfyEvent(Interval magnitude)
         {
-            this.resource = resource;
             this.magnitude = magnitude;
             this.needSatisfied = SATISFY_ANY;
         }
 
-        public void Trigger(Life owner, int needIdTrigger)
+        public virtual void Trigger(Life owner, int needIdTrigger)
         {
             int realTarget = needSatisfied == SATISFY_ANY  ? needIdTrigger : needSatisfied;
 
@@ -41,7 +38,7 @@ namespace Simulaton.Attributes
 
         private float extractFromSource(int needId)
         {
-            float amountSatisfiedModifier = (resource == null) ? 1f * magnitude.NextFloat() : resource.Extract(needId) * magnitude.NextFloat();
+            float amountSatisfiedModifier = magnitude.NextFloat();
             return amountSatisfiedModifier;
         }
 
