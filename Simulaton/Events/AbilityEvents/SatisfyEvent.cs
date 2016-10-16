@@ -14,9 +14,11 @@ namespace Simulaton.Attributes
 
         public Interval magnitude { get; private set; }
         public int propertySatisfied { get; private set; }
+        public Life target { get; private set; }
 
-        public SatisfyEvent(int propertySatisfied, Interval magnitude)
+        public SatisfyEvent(Life target ,int propertySatisfied, Interval magnitude)
         {
+            this.target = target;
             this.magnitude = magnitude;
             this.propertySatisfied = propertySatisfied;
         }
@@ -27,12 +29,12 @@ namespace Simulaton.Attributes
             this.propertySatisfied = SATISFY_ANY;
         }
 
-        public virtual void Trigger(Life owner, int propertyIdTrigger)
+        public virtual void Trigger(int propertyIdTrigger)
         {
             int realTarget = propertySatisfied == SATISFY_ANY ? propertyIdTrigger : propertySatisfied;
 
             float amount = extractFromSource(realTarget);
-            owner.ModifyProperty(realTarget, amount);
+            target.ModifyProperty(realTarget, amount);
             Logger.PrintInfo(this, "\t " + Logger.Property[realTarget] + ", " + Logger.FloatToPercentWithSign(amount));
         }
 

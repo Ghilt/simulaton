@@ -14,19 +14,19 @@ namespace Simulaton.Attributes
 
         private Resource resource;
 
-        public SatisfyFromResourceEvent(int propertySatisfied, Interval magnitude, Resource resource) : base(propertySatisfied,magnitude)
+        public SatisfyFromResourceEvent(Life target, int propertySatisfied, Interval magnitude, Resource resource) : base(target, propertySatisfied, magnitude)
         {
             this.resource = resource;
         }
 
-        public SatisfyFromResourceEvent(Interval magnitude, Resource resource) : this(SATISFY_ANY, magnitude, resource) { }
+        public SatisfyFromResourceEvent(Life target, Interval magnitude, Resource resource) : this(target, SATISFY_ANY, magnitude, resource) { }
 
-        public override void Trigger(Life owner, int propertyIdTrigger)
+        public override void Trigger(int propertyIdTrigger)
         {
             int realTarget = propertySatisfied == SATISFY_ANY ? propertyIdTrigger : propertySatisfied;
 
             float amount = extractFromSource(realTarget);
-            owner.ModifyProperty(realTarget, amount);
+            target.ModifyProperty(realTarget, amount);
             Logger.PrintInfo(this, "\t " + Logger.Property[realTarget] + ", +" + Logger.FloatToPercent(amount));
         }
 

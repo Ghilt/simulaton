@@ -68,7 +68,7 @@ namespace Simulaton.Attributes
 
             foreach (AbilityEvent consequence in consequences)
             {
-                consequence.Trigger(parent, targetId);
+                consequence.Trigger(targetId);
             }
         }
 

@@ -30,8 +30,8 @@ namespace Simulaton
             search.AddSatisfiableProperty(Property.ID_NOURISHMENT);
             Interval searchPower = new Interval(0.1f, 0.4f, -1);
             Interval gettingTiredBy = new Interval(-0.05f, -0.1f);
-            SatisfyEvent finding = new SatisfyFromResourceEvent(searchPower, human.GetLocation());
-            SatisfyEvent tieringFromWork = new SatisfyEvent(Property.ID_ENERGY, gettingTiredBy);
+            SatisfyEvent finding = new SatisfyFromResourceEvent(human, searchPower, human.GetLocation());
+            SatisfyEvent tieringFromWork = new SatisfyEvent(human, Property.ID_ENERGY, gettingTiredBy);
             search.AddConsequence(finding);
             search.AddConsequence(tieringFromWork);
             search.AddRequirement(new PropertyRequirement(human, Property.ID_ENERGY, 0.2f, ((x, threshold) => x > threshold)));
@@ -39,7 +39,7 @@ namespace Simulaton
             Ability sleep = new Ability(Ability.ID_SLEEP, human);
             sleep.AddSatisfiableProperty(Property.ID_ENERGY);
             Interval sleepPower = new Interval(0.0f, 0.2f);
-            SatisfyEvent asleep = new SatisfyEvent(Property.ID_ENERGY, sleepPower);
+            SatisfyEvent asleep = new SatisfyEvent(human, Property.ID_ENERGY, sleepPower);
             sleep.AddConsequence(asleep);
 
             human.AddAbility(search);
