@@ -13,10 +13,9 @@ namespace Simulaton
     {
         private static GenerateRandom rand = new GenerateRandom();
 
-        internal static Life CreateHuman()
+        internal static Life CreateHuman(string name, Region region)
         {
-            Region r = new Region(0, 100, 100);
-            Life human = new Life(0, new Location(r, 50, 50));
+            Life human = new Life(0, name, new Location(region, 50, 50));
 
             AddProperties(human);
             AddAbilities(human);
@@ -31,19 +30,26 @@ namespace Simulaton
             Interval searchPower = new Interval(0.1f, 0.4f, -1);
             Interval gettingTiredBy = new Interval(-0.05f, -0.1f);
             SatisfyEvent finding = new SatisfyFromResourceEvent(human, searchPower, human.GetLocation());
-            SatisfyEvent tieringFromWork = new SatisfyEvent(human, Property.ID_ENERGY, gettingTiredBy);
+            SatisfyEvent tieringFromWork = new SatisfyEvent(Property.ID_ENERGY, gettingTiredBy);
             search.AddConsequence(finding);
             search.AddConsequence(tieringFromWork);
             search.AddRequirement(new PropertyRequirement(human, Property.ID_ENERGY, 0.2f, ((x, threshold) => x > threshold)));
 
             Ability sleep = new Ability(Ability.ID_SLEEP, human);
             sleep.AddSatisfiableProperty(Property.ID_ENERGY);
-            Interval sleepPower = new Interval(0.0f, 0.2f);
-            SatisfyEvent asleep = new SatisfyEvent(human, Property.ID_ENERGY, sleepPower);
+            Interval sleepPower = new Interval(0.0f, 0.4f);
+            SatisfyEvent asleep = new SatisfyEvent(Property.ID_ENERGY, sleepPower);
             sleep.AddConsequence(asleep);
+
+            InteractionAbility socialize = new InteractionAbility(Ability.ID_SOCIALIZE, human);
+            socialize.AddSatisfiableProperty(Property.ID_SOCIAL_INTERACTION);
+            Interval socializePower = new Interval(0.1f, 0.2f);
+            SatisfyEvent socializing = new SatisfyEvent(Property.ID_SOCIAL_INTERACTION, socializePower);
+            socialize.AddConsequence(socializing);
 
             human.AddAbility(search);
             human.AddAbility(sleep);
+            human.AddAbility(socialize);
         }
 
         private static void AddProperties(Life human)
@@ -66,6 +72,13 @@ namespace Simulaton
             float energyImpact = rand.FloatNear(0.08f);
             float energyImportance = rand.FloatNear(0.8f);
 
+            //Social Interaction
+            float startingSocial = rand.FloatNear(0.8f);
+            float socialRate = rand.FloatNear(-0.05f, 0.01f);
+            float socialThreshold = rand.FloatNear(0.5f);
+            float socialImpact = rand.FloatNear(0.03f);
+            float socialImportance = rand.FloatNear(0.7f);
+
             Property health = new Property(Property.ID_HEALTH, startingHealth, 0);
             TerminateEvent terminate = new TerminateEvent(health, human, 0f, 0.001f);
             health.AddEffect(terminate);
@@ -82,9 +95,16 @@ namespace Simulaton
             hunger.AddEffect(dmgEnergyMod);
             hunger.AddEffect(healthyMod);
 
+            Property social = new Property(Property.ID_SOCIAL_INTERACTION, startingSocial, socialRate);
+            ModifyPropertyEvent drainEnergyMod = new ModifyPropertyEvent(social, energy, socialImpact, socialImportance, socialThreshold, ((x, threshold) => x < threshold));
+            ModifyPropertyEvent energeticMod = new ModifyPropertyEvent(social, energy, socialImpact, socialImportance, socialThreshold, ((x, threshold) => x > threshold));
+            social.AddEffect(drainEnergyMod);
+            social.AddEffect(energeticMod);
+
             human.AddProperty(health);
             human.AddProperty(hunger);
             human.AddProperty(energy);
+            human.AddProperty(social);
         }
     }
 

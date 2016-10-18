@@ -47,11 +47,14 @@
     <Compile Include="Attributes\Abilities.cs" />
     <Compile Include="Attributes\Ability.cs" />
     <Compile Include="Attributes\Brain.cs" />
+    <Compile Include="Attributes\InteractionAbility.cs" />
     <Compile Include="Attributes\Resource.cs" />
     <Compile Include="DebugSetup.cs" />
     <Compile Include="Events\AbilityEvents\SatisfyFromResourceEvent.cs" />
     <Compile Include="Events\EvaluableResult.cs" />
+    <Compile Include="Events\Event.cs" />
     <Compile Include="Events\PropertyRequirement.cs" />
+    <Compile Include="Events\RequestEvent.cs" />
     <Compile Include="Events\Requirement.cs" />
     <Compile Include="Interval.cs" />
     <Compile Include="Events\AbilityEvents\AbilityEvent.cs" />

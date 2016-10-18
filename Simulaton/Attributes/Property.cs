@@ -12,6 +12,7 @@ namespace Simulaton.Attributes
         public const int ID_HEALTH = 0;
         public const int ID_NOURISHMENT = 1;
         public const int ID_ENERGY = 2;
+        public const int ID_SOCIAL_INTERACTION = 3;
 
         public int id { get; private set; }
         public float amount { get; private set; } // between 0 and 1

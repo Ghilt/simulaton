@@ -14,11 +14,9 @@ namespace Simulaton.Attributes
 
         public Interval magnitude { get; private set; }
         public int propertySatisfied { get; private set; }
-        public Life target { get; private set; }
 
-        public SatisfyEvent(Life target ,int propertySatisfied, Interval magnitude)
+        public SatisfyEvent(int propertySatisfied, Interval magnitude)
         {
-            this.target = target;
             this.magnitude = magnitude;
             this.propertySatisfied = propertySatisfied;
         }
@@ -29,7 +27,7 @@ namespace Simulaton.Attributes
             this.propertySatisfied = SATISFY_ANY;
         }
 
-        public virtual void Trigger(int propertyIdTrigger)
+        public virtual void Trigger(int propertyIdTrigger, Life target)
         {
             int realTarget = propertySatisfied == SATISFY_ANY ? propertyIdTrigger : propertySatisfied;
 

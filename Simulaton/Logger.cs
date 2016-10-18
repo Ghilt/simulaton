@@ -22,13 +22,15 @@ namespace Simulaton
         {
             { Attributes.Property.ID_HEALTH, "Health"},
             { Attributes.Property.ID_NOURISHMENT, "Nourishment"},
-            { Attributes.Property.ID_ENERGY, "Energy"}
+            { Attributes.Property.ID_ENERGY, "Energy"},
+            { Attributes.Property.ID_SOCIAL_INTERACTION, "Social interaction"}
         };
 
         public static Dictionary<int, string> Ability = new Dictionary<int, string>()
         {
             { Attributes.Ability.ID_SEARCH, "Search"},
-            { Attributes.Ability.ID_SLEEP, "Sleep"}
+            { Attributes.Ability.ID_SLEEP, "Sleep"},
+            { Attributes.Ability.ID_SOCIALIZE, "Socialize"}
         };
 
         internal static void PrintInfo(Object obj, string info)

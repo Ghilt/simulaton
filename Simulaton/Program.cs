@@ -13,15 +13,17 @@ namespace Simulaton
         static void Main(string[] args)
         {
             Engine engine = new Engine();
-            Region r = new Region(0, 100, 100);
+            Region region = new Region(0, 100, 100);
 
-            //engine.AddSimulator(r);
-            Life human = DebugSetup.CreateHuman();
-            engine.AddSimulator(human);
-            //engine.AddSimulator(h2);
-            //engine.AddSimulator(h3);
-            //engine.AddSimulator(h4);
-            //engine.AddSimulator(h5);
+            Life humanDobbs = DebugSetup.CreateHuman("Dobby", region);
+            Life humanMarco = DebugSetup.CreateHuman("Mark", region);
+
+            region.AddEntity(humanDobbs);
+            region.AddEntity(humanMarco);
+
+            engine.AddEntity(humanDobbs);
+            engine.AddEntity(region);
+            engine.AddEntity(humanMarco);
             engine.Start();
         }
     }

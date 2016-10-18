@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Attributes
 {
-    class Abilities : Dictionary<int, Ability>
+    public class Abilities : Dictionary<int, Ability>
     {
       
     }

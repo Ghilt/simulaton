@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Simulaton.Events;
 
 namespace Simulaton.Simulation
 {
@@ -11,14 +12,14 @@ namespace Simulaton.Simulation
     {
 
         private Location location;
-        public Properties properties { private set; get; }
         private Abilities actions;
-        private Brain brain;
+        public Properties properties { private set; get; }
+        public Brain brain { private set; get; }
 
-        public Life(int ticksBirth, Location location)
-            : base(ticksBirth)
+        public Life(int ticksBirth, String name, Location location)
+            : base(ticksBirth, name)
         {
-            this.brain = new Brain();
+            this.brain = new Brain(this);
             this.location = location;
             this.properties = new Properties();
             this.actions = new Abilities();
@@ -41,9 +42,15 @@ namespace Simulaton.Simulation
 
         public override void OnTick()
         {
+            printProperties();
             location.Move();
             properties.OnTick();
             brain.MakeDecision(properties, actions);
+        }
+
+        public override void OnEvent(Event exteriorEvent)
+        {
+            exteriorEvent.Handle(this);
         }
 
         internal void ModifyProperty(int propertyIdTrigger, float magnitude)
@@ -65,19 +72,22 @@ namespace Simulaton.Simulation
             return location;
         }
 
-        public override string GetCurrentInfoLog()
+        private void printProperties()
         {
-            string info = "Lifeform, at x: " + location.x + " y: " + location.y;
+            Logger.PrintInfo(this, "_________________________________________");
+            Logger.PrintInfo(this, name + ", at x: " + location.x + " y: " + location.y);
+            string info = "";
             foreach (Property n in properties.Values)
             {
-                info += " , " + Logger.Property[n.id] + ": " + Logger.FloatToPercent(properties[n.id].amount);
+                info += " " + Logger.Property[n.id] + ": " + Logger.FloatToPercent(properties[n.id].amount);
             }
-            return info;
+            Logger.PrintInfo(this, info);
         }
 
         public override void OnTerminate()
         {
-            Logger.PrintInfo(this, "Captain Albert Alexander died");
+            Logger.PrintInfo(this, name + " died");
         }
+
     }
 }

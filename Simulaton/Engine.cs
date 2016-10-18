@@ -52,7 +52,7 @@ namespace Simulaton
 
         }
 
-        public void AddSimulator(Entity sim)
+        public void AddEntity(Entity sim)
         {
             entities.Add(sim);
         }

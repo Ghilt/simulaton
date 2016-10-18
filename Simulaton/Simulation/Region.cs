@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Simulaton.Events;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,10 +15,13 @@ namespace Simulaton.Simulation
         private int length;
         private Interval resourcesAvailable;
 
-        public Region(int ticksBirth, int width, int length) : base(ticksBirth)
+        private List<Entity> entities;
+
+        public Region(int ticksBirth, int width, int length) : base(ticksBirth, "Plain plains, Nevada")
         {
             this.width = width;
             this.length = length;
+            entities = new List<Entity>();
             resourcesAvailable = new Interval(0.1f, 0.9f);
         }
 
@@ -31,9 +35,14 @@ namespace Simulaton.Simulation
             return length;
         }
 
+        public void AddEntity(Entity entity)
+        {
+            entities.Add(entity);
+        }
+
         public override void OnTick()
         {
-            //do nothing yet
+            
         }
 
         internal float Extract(int x, int y, int propertyId)
@@ -42,14 +51,20 @@ namespace Simulaton.Simulation
             return resourcesAvailable.NextFloat();
         }
 
-        public override string GetCurrentInfoLog()
-        {
-            return "Region, width: " + width + " Length: " + length;
-        }
-
         public override void OnTerminate()
         {
             throw new NotImplementedException();
+        }
+
+        public override void OnEvent(Event exteriorEvent)
+        {
+            foreach (Entity thing in entities) //TODO should not propagate everything to everyone
+            {
+                if (exteriorEvent.GetSender() != thing)
+                {
+                    thing.PostEvent(exteriorEvent);
+                }
+            }
         }
     }
 }

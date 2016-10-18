@@ -1,4 +1,5 @@
 ﻿using Simulaton.Events;
+using Simulaton.Simulation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Attributes
 {
-    class Brain
+    public class Brain
     {
-
-        public Brain()
+        private Life owner;
+        public Brain(Life owner)
         {
-
+            this.owner = owner;
         }
 
         public void MakeDecision(Properties properties, Abilities abilities)
@@ -51,6 +52,17 @@ namespace Simulaton.Attributes
             else
             {
                 Logger.PrintInfo(this, "No available action found.");
+            }
+        }
+
+        internal void MakeDecision(int propertyTargetId, InteractionAbility ability)
+        {
+            Logger.PrintInfo(this, "Interaction request for " + Logger.Ability[ability.id]);
+            List<EvaluableResult> prediction = ability.GetPrediction(propertyTargetId);
+            float value = Evaluate(owner.properties, prediction);
+            if (value > 0)
+            {
+                ability.executeInteraction(propertyTargetId, owner); //TODO Leads to undefined behavior, if you get your interaction carried out on current tick depends on order in list in engine = bad. Always postpone to next tick
             }
         }
 

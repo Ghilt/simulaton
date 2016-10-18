@@ -14,14 +14,14 @@ namespace Simulaton.Attributes
 
         private Resource resource;
 
-        public SatisfyFromResourceEvent(Life target, int propertySatisfied, Interval magnitude, Resource resource) : base(target, propertySatisfied, magnitude)
+        public SatisfyFromResourceEvent(Life target, int propertySatisfied, Interval magnitude, Resource resource) : base(propertySatisfied, magnitude)
         {
             this.resource = resource;
         }
 
         public SatisfyFromResourceEvent(Life target, Interval magnitude, Resource resource) : this(target, SATISFY_ANY, magnitude, resource) { }
 
-        public override void Trigger(int propertyIdTrigger)
+        public override void Trigger(int propertyIdTrigger, Life target)
         {
             int realTarget = propertySatisfied == SATISFY_ANY ? propertyIdTrigger : propertySatisfied;
 

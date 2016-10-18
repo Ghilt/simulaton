@@ -1,5 +1,6 @@
 ﻿using Simulaton.Simulation;
 using System;
+using Simulaton.Events;
 
 namespace Simulaton.Attributes
 {
@@ -22,6 +23,11 @@ namespace Simulaton.Attributes
 
             x += r.Next(x == 0 ? 0 : -1, x == space.GetWidth() ? 0 : 2);
             y += r.Next(y == 0 ? 0 : -1, y == space.GetLength() ? 0 : 2);
+        }
+
+        internal void PostEvent(Event e)
+        {
+            space.PostEvent(e);
         }
 
         public float Extract(int propertyId)

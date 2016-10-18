@@ -12,10 +12,11 @@ namespace Simulaton.Attributes
     {
         public const int ID_SEARCH = 0;
         public const int ID_SLEEP = 1;
+        public const int ID_SOCIALIZE = 2;
 
         public int id { get; private set; }
-        private List<AbilityEvent> consequences;
-        private Life parent;
+        public Life parent { get; private set; }
+        public List<AbilityEvent> consequences { get; private set; }
         private HashSet<int> satisfiablePropertyIds;
         private List<Requirement> requirements;
 
@@ -62,13 +63,13 @@ namespace Simulaton.Attributes
             requirements.Add(requirement);
         }
 
-        internal void Execute(int targetId)
+        internal virtual void Execute(int targetId)
         {
             Logger.PrintInfo(this, "Do " + Logger.Ability[id]);
 
             foreach (AbilityEvent consequence in consequences)
             {
-                consequence.Trigger(targetId);
+                consequence.Trigger(targetId, parent);
             }
         }
 
