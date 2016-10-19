@@ -63,13 +63,13 @@ namespace Simulaton.Attributes
             requirements.Add(requirement);
         }
 
-        internal virtual void Execute(int targetId)
+        internal virtual void Execute(int targetPropertyId)
         {
             Logger.PrintInfo(this, "Do " + Logger.Ability[id]);
 
             foreach (AbilityEvent consequence in consequences)
             {
-                consequence.Trigger(targetId, parent);
+                consequence.Trigger(targetPropertyId, parent);
             }
         }
 

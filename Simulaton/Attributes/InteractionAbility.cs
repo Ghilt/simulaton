@@ -16,7 +16,7 @@ namespace Simulaton.Attributes
 
         internal override void Execute(int targetId)
         {
-            Logger.PrintInfo(this, "Do " + Logger.Ability[id]);
+            Logger.PrintInfo(this, "Look to " + Logger.Ability[id] + ", result next tick");
             this.parent.GetLocation().PostEvent(new RequestEvent(targetId, this));
                 
         }
