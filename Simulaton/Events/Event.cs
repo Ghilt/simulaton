@@ -14,6 +14,6 @@ namespace Simulaton.Events
 
         void Handle(Life context);
 
-        bool isHandled();
+        bool IsHandled();
     }
 }

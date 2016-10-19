@@ -25,27 +25,33 @@ namespace Simulaton
 
         private static void AddAbilities(Life human)
         {
-            Ability search = new Ability(Ability.ID_SEARCH, human);
-            search.AddSatisfiableProperty(Property.ID_NOURISHMENT);
+            //Effects from actions
             Interval searchPower = new Interval(0.1f, 0.4f, -1);
             Interval gettingTiredBy = new Interval(-0.05f, -0.1f);
-            SatisfyEvent finding = new SatisfyFromResourceEvent(human, searchPower, human.GetLocation());
+            Interval socializePower = new Interval(0.1f, 0.2f);
+            Interval sleepPower = new Interval(0.0f, 0.4f);
+            Interval goodOrBadEnergy = new Interval(-0.1f, 0.1f);
+            SatisfyEvent finding = new SatisfyFromResourceEvent(searchPower, human.GetLocation());
             SatisfyEvent tieringFromWork = new SatisfyEvent(Property.ID_ENERGY, gettingTiredBy);
+            SatisfyEvent energyBoostOrSink = new SatisfyEvent(Property.ID_ENERGY, goodOrBadEnergy);
+            SatisfyEvent asleep = new SatisfyEvent(Property.ID_ENERGY, sleepPower);
+            SatisfyEvent socializing = new SatisfyEvent(Property.ID_SOCIAL_INTERACTION, socializePower);
+
+
+            Ability search = new Ability(Ability.ID_SEARCH, human);
+            search.AddSatisfiableProperty(Property.ID_NOURISHMENT);
             search.AddConsequence(finding);
             search.AddConsequence(tieringFromWork);
             search.AddRequirement(new PropertyRequirement(human, Property.ID_ENERGY, 0.2f, ((x, threshold) => x > threshold)));
 
             Ability sleep = new Ability(Ability.ID_SLEEP, human);
             sleep.AddSatisfiableProperty(Property.ID_ENERGY);
-            Interval sleepPower = new Interval(0.0f, 0.4f);
-            SatisfyEvent asleep = new SatisfyEvent(Property.ID_ENERGY, sleepPower);
             sleep.AddConsequence(asleep);
 
             InteractionAbility socialize = new InteractionAbility(Ability.ID_SOCIALIZE, human);
             socialize.AddSatisfiableProperty(Property.ID_SOCIAL_INTERACTION);
-            Interval socializePower = new Interval(0.1f, 0.2f);
-            SatisfyEvent socializing = new SatisfyEvent(Property.ID_SOCIAL_INTERACTION, socializePower);
             socialize.AddConsequence(socializing);
+            socialize.AddConsequence(energyBoostOrSink);
 
             human.AddAbility(search);
             human.AddAbility(sleep);

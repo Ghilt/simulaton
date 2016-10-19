@@ -27,7 +27,7 @@ namespace Simulaton.Attributes
 
         internal void PostEvent(Event e)
         {
-            space.PostEvent(e);
+            space.PostEventToInhabitants(e);
         }
 
         public float Extract(int propertyId)

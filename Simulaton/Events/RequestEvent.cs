@@ -36,7 +36,7 @@ namespace Simulaton.Events
             handled = true;
         }
 
-        public bool isHandled()
+        public bool IsHandled()
         {
             return handled;
         }

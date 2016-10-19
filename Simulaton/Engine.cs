@@ -31,12 +31,20 @@ namespace Simulaton
                 foreach (Entity sim in entities)
                 {
                     sim.Tick();
+
+                }
+
+                foreach (Entity sim in entities)
+                {
+                    sim.PostTick();
                     int status = sim.CheckStatus();
                     if (status == Entity.SIMULATION_STATUS_TERMINATED)
                     {
                         entitiesToRemove.Add(sim);
                     }
+
                 }
+
 
                 foreach (Entity sim in entitiesToRemove)
                 {

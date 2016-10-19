@@ -16,13 +16,12 @@ namespace Simulaton
         private int ticksAlive;
         private bool loggActive;
         private int simulationStatus;
-
-        public List<Event> events { private set; get; }
+        private EventManager eventManager;
         public string name { private set; get; }
 
         public Entity(int ticksBirth, string name)
         {
-            events = new List<Event>();
+            eventManager = new EventManager(this);
             this.name = name;
             this.ticksBirth = ticksBirth;
             simulationStatus = SIMULATION_STATUS_ALIVE;
@@ -34,17 +33,12 @@ namespace Simulaton
             //if (loggActive) Logger.PrintInfo(this, GetCurrentInfoLog());
             ticksAlive++;
             OnTick();
-            for (int i = events.Count - 1; i >= 0; i--)
-            {
-                if (!events[i].isHandled())
-                {
-                    OnEvent(events[i]);
-                } 
-                else
-                {
-                    events.RemoveAt(i);
-                }
-            }
+            eventManager.TriggerEvents();
+        }
+
+        internal void PostTick()
+        {
+            eventManager.UpdateEvents();
         }
 
         public abstract void OnTick();
@@ -57,7 +51,7 @@ namespace Simulaton
         }
 
         public void PostEvent(Event e){
-            events.Add(e);
+            eventManager.Add(e);
         }
 
         public void Terminate()

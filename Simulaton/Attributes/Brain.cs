@@ -62,7 +62,7 @@ namespace Simulaton.Attributes
             float value = Evaluate(owner.properties, prediction);
             if (value > 0)
             {
-                ability.executeInteraction(propertyTargetId, owner); //TODO Leads to undefined behavior, if you get your interaction carried out on current tick depends on order in list in engine = bad. Always postpone to next tick
+                ability.executeInteraction(propertyTargetId, owner);
             }
         }
 
@@ -92,7 +92,7 @@ namespace Simulaton.Attributes
             {
                 float change = properties[result.propertyId].GetImportance() * result.magnitude;
                 value += change;
-                Logger.PrintInfo(this, "\t("+ Logger.Property[result.propertyId] + " effect) " + Logger.FloatToPercent(properties[result.propertyId].GetImportance()) + " * " + Logger.FloatToPercent(result.magnitude)  + " = "+ Logger.FloatToPercentWithSign(change));
+                Logger.PrintInfo(this, "\t(" + Logger.Property[result.propertyId] + " effect) " + Logger.FloatToPercent(properties[result.propertyId].GetImportance()) + " * " + Logger.FloatToPercent(result.magnitude) + " = " + Logger.FloatToPercentWithSign(change));
             }
             return value;
         }

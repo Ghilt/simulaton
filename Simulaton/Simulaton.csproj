@@ -50,9 +50,11 @@
     <Compile Include="Attributes\InteractionAbility.cs" />
     <Compile Include="Attributes\Resource.cs" />
     <Compile Include="DebugSetup.cs" />
+    <Compile Include="EventManager.cs" />
     <Compile Include="Events\AbilityEvents\SatisfyFromResourceEvent.cs" />
     <Compile Include="Events\EvaluableResult.cs" />
     <Compile Include="Events\Event.cs" />
+    <Compile Include="Events\ExecuteInteractionEvent.cs" />
     <Compile Include="Events\PropertyRequirement.cs" />
     <Compile Include="Events\RequestEvent.cs" />
     <Compile Include="Events\Requirement.cs" />

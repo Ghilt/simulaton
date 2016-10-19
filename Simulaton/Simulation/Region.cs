@@ -30,6 +30,17 @@ namespace Simulaton.Simulation
             return width;
         }
 
+        internal void PostEventToInhabitants(Event e)
+        {
+            foreach (Entity thing in entities) //TODO should not propagate everything to everyone
+            {
+                if (e.GetSender() != thing)
+                {
+                    thing.PostEvent(e);
+                }
+            }
+        }
+
         internal int GetLength()
         {
             return length;
@@ -58,13 +69,7 @@ namespace Simulaton.Simulation
 
         public override void OnEvent(Event exteriorEvent)
         {
-            foreach (Entity thing in entities) //TODO should not propagate everything to everyone
-            {
-                if (exteriorEvent.GetSender() != thing)
-                {
-                    thing.PostEvent(exteriorEvent);
-                }
-            }
+            //exteriorEvent.Handle(this);
         }
     }
 }

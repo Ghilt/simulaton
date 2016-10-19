@@ -17,7 +17,6 @@ namespace Simulaton.Attributes
         internal override void Execute(int targetId)
         {
             Logger.PrintInfo(this, "Do " + Logger.Ability[id]);
-
             this.parent.GetLocation().PostEvent(new RequestEvent(targetId, this));
                 
         }
@@ -25,7 +24,6 @@ namespace Simulaton.Attributes
         internal void executeInteraction(int propertyTargetId, Life interactor)
         {
             Logger.PrintInfo(this, parent.name + " and " + interactor.name  + " " + Logger.Ability[id]);
-            //base.Execute(propertyTargetId);
             foreach (AbilityEvent consequence in consequences)
             {
                 consequence.Trigger(propertyTargetId, parent);
