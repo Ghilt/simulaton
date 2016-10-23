@@ -42,8 +42,9 @@ namespace Simulaton.Simulation
 
         public override void OnTick()
         {
+            AddSummary(CreateCurrentSummary());
             printProperties();
-            location.Move();
+            location.Move(); // todo remove
             properties.OnTick();
             brain.MakeDecision(properties, actions);
         }
@@ -87,6 +88,18 @@ namespace Simulaton.Simulation
         public override void OnTerminate()
         {
             Logger.PrintInfo(this, name + " died");
+        }
+
+
+        private Summary[] CreateCurrentSummary()
+        {
+            List<Summary> summaries = new List<Summary>();
+            foreach(Property p in properties.Values)
+            {
+                Summary summary = new Summary(Summary.TYPE_PROPERTY,p.id,p.amount);
+                summaries.Add(summary);
+            }
+            return summaries.ToArray(); ;
         }
 
     }

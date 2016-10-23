@@ -24,6 +24,9 @@ namespace Simulaton
             engine.AddEntity(humanDobbs);
             engine.AddEntity(region);
             engine.AddEntity(humanMarco);
+
+            ConsolePresenter gui = new ConsolePresenter();
+            engine.Subscribe(gui);
             engine.Start();
         }
     }

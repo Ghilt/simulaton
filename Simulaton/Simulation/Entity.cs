@@ -17,6 +17,8 @@ namespace Simulaton
         private bool loggActive;
         private int simulationStatus;
         private EventManager eventManager;
+        private SummaryManager summaryManager;
+
         public string name { private set; get; }
 
         public Entity(int ticksBirth, string name)
@@ -62,5 +64,14 @@ namespace Simulaton
 
         public abstract void OnTerminate();
 
+        internal void SetSummaryManager(SummaryManager summaryManager)
+        {
+            this.summaryManager = summaryManager;
+        }
+
+        internal void AddSummary(params Summary[] summaries)
+        {
+            summaryManager.AddSummary(this, summaries);
+        }
     }
 }
