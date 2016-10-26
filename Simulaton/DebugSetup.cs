@@ -26,7 +26,7 @@ namespace Simulaton
         private static void AddAbilities(Life human)
         {
             //Effects from actions
-            Interval searchPower = new Interval(0.1f, 0.4f, -1);
+            Interval searchPower = new Interval(0.1f, 0.3f, -1);
             Interval gettingTiredBy = new Interval(-0.05f, -0.1f);
             Interval socializePower = new Interval(0.1f, 0.2f);
             Interval sleepPower = new Interval(0.0f, 0.4f);

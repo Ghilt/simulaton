@@ -10,13 +10,6 @@ namespace Simulaton
     {
         private const int leftColumnWidth = 30;
         private const int rightColumnWidth = 60;
-        static Logger()
-        {
-            int width = 120 > Console.LargestWindowWidth ? Console.LargestWindowWidth : 120;
-            int height = 50 > Console.LargestWindowHeight ? Console.LargestWindowHeight : 50;
-            Console.SetWindowSize(width, height);
-            Console.SetBufferSize(width, height);
-        }
 
         public static Dictionary<int, string> Property = new Dictionary<int, string>()
         {

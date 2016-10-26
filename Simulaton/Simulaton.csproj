@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -49,7 +52,10 @@
     <Compile Include="Attributes\Brain.cs" />
     <Compile Include="Attributes\InteractionAbility.cs" />
     <Compile Include="Attributes\Resource.cs" />
-    <Compile Include="ConsolePresenter.cs" />
+    <Compile Include="ConsoleUi\ConsoleFrame.cs" />
+    <Compile Include="ConsoleUi\ConsolePresenter.cs" />
+    <Compile Include="ConsoleUi\LifeUiFrame.cs" />
+    <Compile Include="ConsoleUi\SubFrameParams.cs" />
     <Compile Include="DebugSetup.cs" />
     <Compile Include="Mechanics\Tick.cs" />
     <Compile Include="Simulation\EventManager.cs" />
