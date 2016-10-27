@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Simulaton.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,7 @@ namespace Simulaton
     public class Summary
     {
         public const int TYPE_PROPERTY = 0;
+        public const int TYPE_ABILITY = 1;
 
         private float amount;
         private int type;
@@ -21,9 +23,18 @@ namespace Simulaton
             this.amount = amount;
         }
 
+        public Summary(int type, int id)
+        {
+            this.type = type;
+            this.id = id;
+            this.amount = 0;
+        }
+
         public override string ToString()
         {
-            return Logger.Property[id] + " " + Logger.FloatToPercent(amount);
+            string name = (type == TYPE_PROPERTY) ? Property.Name[id] : Ability.Name[id];
+            string amount = (type == TYPE_PROPERTY) ? Logger.FloatToPercent(this.amount) : "";
+            return name + " " + amount;
         }
     }
 }

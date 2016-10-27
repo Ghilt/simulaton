@@ -17,8 +17,10 @@ namespace Simulaton
             Engine engine = new Engine();
             Region region = new Region(0, 100, 100);
 
-            Life humanDobbs = DebugSetup.CreateHuman("Dobby", region);
-            Life humanMarco = DebugSetup.CreateHuman("Mark", region);
+            DebugSetup setup = new DebugSetup();
+            setup.SetupTestEnvironment();
+            Life humanDobbs = setup.CreateHuman("Dobby", region);
+            Life humanMarco = setup.CreateHuman("Mark", region);
 
             region.AddEntity(humanDobbs);
             region.AddEntity(humanMarco);

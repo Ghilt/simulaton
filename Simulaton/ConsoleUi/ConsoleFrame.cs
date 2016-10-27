@@ -171,6 +171,16 @@ namespace Simulaton.ConsoleUi
             return false;
         }
 
+        public void InsertIgnoreOccupied(int x, int y, string insert)
+        {
+            char[] sArray = insert.ToArray();
+            for (int pos = 0; pos < insert.Length; pos++)
+            {
+                frame[x + pos, y] = sArray[pos];
+                occupied[x + pos, y] = POS_OCCUPIED;
+            }
+        }
+
         private bool CheckFree(int x, int y, int width, int height)
         {
             for (int xOfFrame = 0; xOfFrame < width; xOfFrame++)
@@ -199,5 +209,4 @@ namespace Simulaton.ConsoleUi
             return true;
         }
     }
-
 }

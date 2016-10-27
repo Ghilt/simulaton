@@ -11,9 +11,31 @@ namespace Simulaton
 {
     class DebugSetup
     {
+
+        public const int ID_HEALTH = 0;
+        public const int ID_NOURISHMENT = 1;
+        public const int ID_ENERGY = 2;
+        public const int ID_SOCIAL_INTERACTION = 3;
+
+        public const int ID_SEARCH = 0;
+        public const int ID_SLEEP = 1;
+        public const int ID_SOCIALIZE = 2;
+
         private static GenerateRandom rand = new GenerateRandom();
 
-        internal static Life CreateHuman(string name, Region region)
+        public void SetupTestEnvironment()
+        {
+            Property.AddToEnvironment(ID_HEALTH, "Health");
+            Property.AddToEnvironment(ID_NOURISHMENT, "Food");
+            Property.AddToEnvironment(ID_ENERGY, "Energy");
+            Property.AddToEnvironment(ID_SOCIAL_INTERACTION, "Social");
+
+            Ability.AddToEnvironment(ID_SEARCH, "Search");
+            Ability.AddToEnvironment(ID_SLEEP, "Sleep");
+            Ability.AddToEnvironment(ID_SOCIALIZE, "Socialize");
+        }
+
+        internal Life CreateHuman(string name, Region region)
         {
             Life human = new Life(0, name, new Location(region, 50, 50));
 
@@ -23,7 +45,7 @@ namespace Simulaton
             return human;
         }
 
-        private static void AddAbilities(Life human)
+        private void AddAbilities(Life human)
         {
             //Effects from actions
             Interval searchPower = new Interval(0.1f, 0.3f, -1);
@@ -32,24 +54,24 @@ namespace Simulaton
             Interval sleepPower = new Interval(0.0f, 0.4f);
             Interval goodOrBadEnergy = new Interval(-0.1f, 0.1f);
             SatisfyEvent finding = new SatisfyFromResourceEvent(searchPower, human.GetLocation());
-            SatisfyEvent tieringFromWork = new SatisfyEvent(Property.ID_ENERGY, gettingTiredBy);
-            SatisfyEvent energyBoostOrSink = new SatisfyEvent(Property.ID_ENERGY, goodOrBadEnergy);
-            SatisfyEvent asleep = new SatisfyEvent(Property.ID_ENERGY, sleepPower);
-            SatisfyEvent socializing = new SatisfyEvent(Property.ID_SOCIAL_INTERACTION, socializePower);
+            SatisfyEvent tieringFromWork = new SatisfyEvent(ID_ENERGY, gettingTiredBy);
+            SatisfyEvent energyBoostOrSink = new SatisfyEvent(ID_ENERGY, goodOrBadEnergy);
+            SatisfyEvent asleep = new SatisfyEvent(ID_ENERGY, sleepPower);
+            SatisfyEvent socializing = new SatisfyEvent(ID_SOCIAL_INTERACTION, socializePower);
 
 
-            Ability search = new Ability(Ability.ID_SEARCH, human);
-            search.AddSatisfiableProperty(Property.ID_NOURISHMENT);
+            Ability search = new Ability(ID_SEARCH, human);
+            search.AddSatisfiableProperty(ID_NOURISHMENT);
             search.AddConsequence(finding);
             search.AddConsequence(tieringFromWork);
-            search.AddRequirement(new PropertyRequirement(human, Property.ID_ENERGY, 0.2f, ((x, threshold) => x > threshold)));
+            search.AddRequirement(new PropertyRequirement(human, ID_ENERGY, 0.2f, ((x, threshold) => x > threshold)));
 
-            Ability sleep = new Ability(Ability.ID_SLEEP, human);
-            sleep.AddSatisfiableProperty(Property.ID_ENERGY);
+            Ability sleep = new Ability(ID_SLEEP, human);
+            sleep.AddSatisfiableProperty(ID_ENERGY);
             sleep.AddConsequence(asleep);
 
-            InteractionAbility socialize = new InteractionAbility(Ability.ID_SOCIALIZE, human);
-            socialize.AddSatisfiableProperty(Property.ID_SOCIAL_INTERACTION);
+            InteractionAbility socialize = new InteractionAbility(ID_SOCIALIZE, human);
+            socialize.AddSatisfiableProperty(ID_SOCIAL_INTERACTION);
             socialize.AddConsequence(socializing);
             socialize.AddConsequence(energyBoostOrSink);
 
@@ -58,7 +80,7 @@ namespace Simulaton
             human.AddAbility(socialize);
         }
 
-        private static void AddProperties(Life human)
+        private void AddProperties(Life human)
         {
             //Health
             float startingHealth = (float)rand.NextDouble();
@@ -85,15 +107,15 @@ namespace Simulaton
             float socialImpact = rand.FloatNear(0.03f);
             float socialImportance = rand.FloatNear(0.7f);
 
-            Property health = new Property(Property.ID_HEALTH, startingHealth, 0);
+            Property health = new Property(ID_HEALTH, startingHealth, 0);
             TerminateEvent terminate = new TerminateEvent(health, human, 0f, 0.001f);
             health.AddEffect(terminate);
 
-            Property energy = new Property(Property.ID_ENERGY, startingEnergy, energyRate);
+            Property energy = new Property(ID_ENERGY, startingEnergy, energyRate);
             ModifyPropertyEvent decHealthMod = new ModifyPropertyEvent(energy, health, -energyImpact, energyImportance, energyThreshold, ((x, threshold) => x < threshold));
             energy.AddEffect(decHealthMod);
 
-            Property hunger = new Property(Property.ID_NOURISHMENT, startingHunger, startingRate);
+            Property hunger = new Property(ID_NOURISHMENT, startingHunger, startingRate);
             ModifyPropertyEvent dmgHealthMod = new ModifyPropertyEvent(hunger, health, hungerImpact1, hungerImportance, hungerThreshold, ((x, threshold) => x < threshold));
             ModifyPropertyEvent dmgEnergyMod = new ModifyPropertyEvent(hunger, energy, hungerImpact1, hungerImportance, hungerThreshold, ((x, threshold) => x < threshold));
             ModifyPropertyEvent healthyMod = new ModifyPropertyEvent(hunger, health, hungerImpact2, hungerImportance, 1 - hungerThreshold, ((x, threshold) => x > threshold));
@@ -101,7 +123,7 @@ namespace Simulaton
             hunger.AddEffect(dmgEnergyMod);
             hunger.AddEffect(healthyMod);
 
-            Property social = new Property(Property.ID_SOCIAL_INTERACTION, startingSocial, socialRate);
+            Property social = new Property(ID_SOCIAL_INTERACTION, startingSocial, socialRate);
             ModifyPropertyEvent drainEnergyMod = new ModifyPropertyEvent(social, energy, socialImpact, socialImportance, socialThreshold, ((x, threshold) => x < threshold));
             ModifyPropertyEvent energeticMod = new ModifyPropertyEvent(social, energy, socialImpact, socialImportance, socialThreshold, ((x, threshold) => x > threshold));
             social.AddEffect(drainEnergyMod);

@@ -64,7 +64,7 @@ namespace Simulaton.Simulation
             }
             else
             {
-                Logger.PrintInfo(this, "Tried to modify property " + Logger.Property[propertyIdTrigger] + " but Life did not have it");
+                Logger.PrintInfo(this, "Tried to modify property " + Property.Name[propertyIdTrigger] + " but Life did not have it");
             }
         }
 
@@ -80,7 +80,7 @@ namespace Simulaton.Simulation
             string info = "";
             foreach (Property n in properties.Values)
             {
-                info += " " + Logger.Property[n.id] + ": " + Logger.FloatToPercent(properties[n.id].amount);
+                info += " " + Property.Name[n.id] + ": " + Logger.FloatToPercent(properties[n.id].amount);
             }
             Logger.PrintInfo(this, info);
         }

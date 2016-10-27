@@ -33,7 +33,7 @@ namespace Simulaton.Attributes
 
             float amount = extractFromSource(realTarget);
             target.ModifyProperty(realTarget, amount);
-            Logger.PrintInfo(this, "\t " + Logger.Property[realTarget] + ", " + Logger.FloatToPercentWithSign(amount));
+            Logger.PrintInfo(this, "\t " + Property.Name[realTarget] + ", " + Logger.FloatToPercentWithSign(amount));
         }
 
         private float extractFromSource(int propertyId)

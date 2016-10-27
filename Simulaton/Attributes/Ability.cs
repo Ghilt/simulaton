@@ -8,11 +8,8 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Attributes
 {
-    public class Ability
+    public partial class Ability
     {
-        public const int ID_SEARCH = 0;
-        public const int ID_SLEEP = 1;
-        public const int ID_SOCIALIZE = 2;
 
         public int id { get; private set; }
         public Life parent { get; private set; }
@@ -36,7 +33,7 @@ namespace Simulaton.Attributes
             {
                 if (!requirement.IsFulfilled())
                 {
-                    Logger.PrintInfo(this, Logger.Ability[id] + " not possible, failing requirements");
+                    Logger.PrintInfo(this, Ability.Name[id] + " not possible, failing requirements");
                     return impact;
                 }
             }
@@ -65,7 +62,7 @@ namespace Simulaton.Attributes
 
         internal virtual void Execute(int targetPropertyId)
         {
-            Logger.PrintInfo(this, "Do " + Logger.Ability[id]);
+            Logger.PrintInfo(this, "Do " + Property.Name[id]);
 
             foreach (AbilityEvent consequence in consequences)
             {

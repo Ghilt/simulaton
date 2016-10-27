@@ -16,14 +16,14 @@ namespace Simulaton.Attributes
 
         internal override void Execute(int targetId)
         {
-            Logger.PrintInfo(this, "Look to " + Logger.Ability[id] + ", result next tick");
+            Logger.PrintInfo(this, "Look to " + Ability.Name[id] + ", result next tick");
             this.parent.GetLocation().PostEvent(new RequestEvent(targetId, this));
                 
         }
 
         internal void executeInteraction(int propertyTargetId, Life interactor)
         {
-            Logger.PrintInfo(this, parent.name + " and " + interactor.name  + " " + Logger.Ability[id]);
+            Logger.PrintInfo(this, parent.name + " and " + interactor.name  + " " + Ability.Name[id]);
             foreach (AbilityEvent consequence in consequences)
             {
                 consequence.Trigger(propertyTargetId, parent);

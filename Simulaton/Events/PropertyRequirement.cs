@@ -1,4 +1,5 @@
-﻿using Simulaton.Simulation;
+﻿using Simulaton.Attributes;
+using Simulaton.Simulation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,7 @@ namespace Simulaton.Events
         {
             float valueOfProperty;
             bool exists = target.TryGetPropertyValue(propertyId, out valueOfProperty);
-            Logger.PrintInfo(this, "Comparing "+ Logger.Property[propertyId] + " " + Logger.FloatToPercent(valueOfProperty) + " with threshold " + Logger.FloatToPercent(threshold));
+            Logger.PrintInfo(this, "Comparing "+ Property.Name[propertyId] + " " + Logger.FloatToPercent(valueOfProperty) + " with threshold " + Logger.FloatToPercent(threshold));
             return exists ? condition(valueOfProperty, threshold) : false;
         }
     }

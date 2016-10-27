@@ -57,6 +57,7 @@
     <Compile Include="ConsoleUi\LifeUiFrame.cs" />
     <Compile Include="ConsoleUi\SubFrameParams.cs" />
     <Compile Include="DebugSetup.cs" />
+    <Compile Include="Attributes\EnvironmentLibraryMethods.cs" />
     <Compile Include="Mechanics\Tick.cs" />
     <Compile Include="Simulation\EventManager.cs" />
     <Compile Include="Events\AbilityEvents\SatisfyFromResourceEvent.cs" />
