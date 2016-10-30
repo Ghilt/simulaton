@@ -29,7 +29,7 @@ namespace Simulaton
             engine.AddEntity(region);
             engine.AddEntity(humanMarco);
 
-            ConsolePresenter gui = new ConsolePresenter(Console.WindowWidth, Console.WindowHeight);
+            ConsolePresenter gui = new ConsolePresenter(Console.WindowWidth, Console.WindowHeight, engine.summaryManager);
             engine.Subscribe(gui);
             engine.Start();
         }

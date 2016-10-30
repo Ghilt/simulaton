@@ -54,6 +54,7 @@
     <Compile Include="Attributes\Resource.cs" />
     <Compile Include="ConsoleUi\ConsoleFrame.cs" />
     <Compile Include="ConsoleUi\ConsolePresenter.cs" />
+    <Compile Include="ConsoleUi\Controls.cs" />
     <Compile Include="ConsoleUi\LifeUiFrame.cs" />
     <Compile Include="ConsoleUi\SubFrameParams.cs" />
     <Compile Include="DebugSetup.cs" />

@@ -11,11 +11,13 @@ namespace Simulaton
         private const int SAVE_TICKS_HISTORY = 5;
         private Tick tick;
         private Dictionary<int, Dictionary<Entity, List<Summary>>> summaries;
+        private Dictionary<int, List<string>> logs;
 
 
         public void SetTimeTicker(Tick tick)
         {
             summaries = new Dictionary<int, Dictionary<Entity, List<Summary>>>();
+            logs = new Dictionary<int, List<string>>();
             this.tick = tick;
         }
 
@@ -42,6 +44,22 @@ namespace Simulaton
             }
         }
 
+        internal void AddLogg(string info)
+        {
+            int currentTick = tick.Current();
+            if (!logs.ContainsKey(currentTick))
+            {
+                var removeOldTicks = logs.Keys.Where(timeStamp => currentTick - timeStamp > SAVE_TICKS_HISTORY).ToList();
+                foreach (var oldTick in removeOldTicks)
+                {
+                    logs.Remove(oldTick);
+                }
+                logs.Add(currentTick, new List<string>());
+            }
+
+            logs[currentTick].Add(info);
+        }
+
         public Dictionary<Entity, List<Summary>> GetCurrentData()
         {
             Dictionary<Entity, List<Summary>> current;
@@ -52,6 +70,19 @@ namespace Simulaton
             } else
             {
                 return new Dictionary<Entity, List<Summary>>();
+            }
+        }
+
+        public List<string> GetCurrentLogs()
+        {
+            List<string> current;
+            if (logs.TryGetValue(tick.Current(), out current))
+            {
+                return current;
+            }
+            else
+            {
+                return new List<string>();
             }
         }
     }

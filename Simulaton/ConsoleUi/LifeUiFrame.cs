@@ -17,7 +17,7 @@ namespace Simulaton.ConsoleUi
         {
             this.name = name;
             this.stateSummary = stateSummary;
-            CreateBorder(width, height);
+            CreateBorder();
             string nameFormat = "   " + name + "   ";
             InsertIgnoreOccupied(width/2 - nameFormat.Length/2,0, nameFormat);
             foreach (Summary data in stateSummary)

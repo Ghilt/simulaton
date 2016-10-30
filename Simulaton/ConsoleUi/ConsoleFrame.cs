@@ -37,7 +37,7 @@ namespace Simulaton.ConsoleUi
             this.height = height;
         }
 
-        public void CreateBorder(int width, int height)
+        public void CreateBorder()
         {
             for (int x = 0; x < width; x++)
             {
@@ -104,6 +104,14 @@ namespace Simulaton.ConsoleUi
 
         public bool Insert(int x, int y, char c)
         {
+            if ( c == '\n' || c == '\t')
+            {
+                throw new ArgumentException();
+            }
+            if (x >= width || y >= height)
+            {
+                return false;
+            }
             if (occupied[x, y] != POS_FREE)
             {
                 return false;
@@ -116,8 +124,9 @@ namespace Simulaton.ConsoleUi
             }
         }
 
-        public bool Insert(int x, int y, string s)
+        public bool Insert(int x, int y, string characters)
         {
+            string s = ReplaceIllegalCharacters(characters);
 
             if (!CheckFree(x, y, s.Length, 1))
             {
@@ -129,6 +138,11 @@ namespace Simulaton.ConsoleUi
                 Insert(x + i, y, array[i]);
             }
             return true;
+        }
+
+        private string ReplaceIllegalCharacters(string s)
+        {
+            return s.Replace("\t", "    ");
         }
 
         public bool Insert(int x, int y, ConsoleFrame frame)
@@ -173,6 +187,10 @@ namespace Simulaton.ConsoleUi
 
         public void InsertIgnoreOccupied(int x, int y, string insert)
         {
+            if (x + insert.Length > this.width)
+            {
+                throw new NotImplementedException();
+            }
             char[] sArray = insert.ToArray();
             for (int pos = 0; pos < insert.Length; pos++)
             {
@@ -183,6 +201,11 @@ namespace Simulaton.ConsoleUi
 
         private bool CheckFree(int x, int y, int width, int height)
         {
+            if (x + width > this.width || y + height > this.height)
+            {
+                return false;
+            }
+
             for (int xOfFrame = 0; xOfFrame < width; xOfFrame++)
             {
                 for (int yOfFrame = 0; yOfFrame < height; yOfFrame++)

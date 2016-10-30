@@ -10,8 +10,8 @@ namespace Simulaton
     class Engine : IObservable<SummaryManager>
     {
         private Tick tick;
-        private List<IObserver<SummaryManager>> observers;
         public SummaryManager summaryManager { private set; get; }
+        private List<IObserver<SummaryManager>> observers;
         private List<Entity> entities;
 
         public Engine()
@@ -38,7 +38,6 @@ namespace Simulaton
                     sim.Tick();
                 }
 
-                observers.ForEach(observer => observer.OnNext(summaryManager));
 
                 foreach (Entity sim in entities)
                 {
@@ -54,9 +53,10 @@ namespace Simulaton
                 entitiesToRemove.ForEach(entity => entities.Remove(entity));
                 entitiesToRemove.Clear();
 
+                observers.ForEach(observer => observer.OnNext(summaryManager));
                 Logger.PrintInfo(this, "> \n");
-                Console.ReadKey(true);
             }
+
             Logger.PrintInfo(this, "finished, press enter to exit");
             Console.ReadLine();
 
