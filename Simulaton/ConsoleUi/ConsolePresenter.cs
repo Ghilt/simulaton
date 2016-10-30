@@ -43,7 +43,7 @@ namespace Simulaton
             Console.SetCursorPosition(0, 0);
             var listData = data.GetCurrentData();
             ConsoleFrame ui = CreateFullFrame();
-            ui.InsertEarliestTopLeft(controls.GetControlsFrame());
+            ui.InsertEarliestTopLeft(controls.GetControlsFrame(false));
             foreach (Entity e in listData.Keys)
             {
                 LifeUiFrame frame = new LifeUiFrame(e.name, listData[e], 50, 10);
@@ -55,22 +55,27 @@ namespace Simulaton
             controls.UserAction(data);
         }
 
-        public void ShowLog(SummaryManager data)
+        public void ShowLog(SummaryManager data, int offset)
         {
             Console.Clear();
             Console.SetCursorPosition(0, 0);
             var listData = data.GetCurrentLogs();
             ConsoleFrame ui = CreateFullFrame();
-            ui.InsertEarliestTopLeft(controls.GetControlsFrame());
+            ui.InsertEarliestTopLeft(controls.GetControlsFrame(true));
 
-            foreach (string log in listData)
+            for (int i  = 0; i < listData.Count; i++)
             {
-                bool success = ui.InsertEarliestTopLeft(log);
+                if (i < offset)
+                {
+                    continue;
+                }
+                bool success = ui.InsertEarliestTopLeft(listData[i]);
                 if (!success)
                 {
                     ui.InsertEarliestTopLeft("Logg too long");
                 }
             }
+
             string render = ui.GetFrameRender();
             Console.Write(render);
             Console.SetCursorPosition(0, windowHeight - 1);
