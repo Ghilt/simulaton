@@ -17,7 +17,7 @@ namespace Simulaton.Attributes
 
         public void Add(Need need)
         {
-            Add(need.id, need);
+            Add(need.property.id, need);
         }
 
         private void UpdateSortedList()
@@ -41,7 +41,7 @@ namespace Simulaton.Attributes
             Need outProp;
             if (TryGetValue(propertyId, out outProp))
             {
-                value = outProp.amount;
+                value = outProp.property.amount;
                 return true;
             } 
             else

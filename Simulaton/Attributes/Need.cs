@@ -6,19 +6,17 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Attributes
 {
-    public partial class Need
+    public class Need
     {
 
-        public int id { get; private set; }
-        public float amount { get; private set; }
+        public Property property { get; private set; }
         private float rate;
         private float effectImportance;
         private List<PropertyEvent> effects;
 
-        public Need(int id, float amount, float rate)
+        public Need(Property property, float rate)
         {
-            this.id = id;
-            this.amount = amount;
+            this.property = property;
             this.rate = rate;
             this.effectImportance = 0.0f;
             effects = new List<PropertyEvent>();
@@ -26,11 +24,8 @@ namespace Simulaton.Attributes
 
         public void OnTick()
         {
-            float relevantLimit = rate > 0 ? 1 : 0;
-            float newValue = amount + rate;
-            bool isOutOfLimit = relevantLimit == 1 ? newValue < relevantLimit : newValue > relevantLimit;
-            amount = isOutOfLimit ? newValue : relevantLimit;
-            Logger.PrintInfo(this,  "Tick " + Need.Name[id] + " " + Logger.FloatToPercentWithSign(rate));
+            property.ModifyAmount(rate);
+            Logger.PrintInfo(this,  "Tick " + Property.Name[property.id] + " " + Logger.FloatToPercentWithSign(rate));
             TriggerEvents();
         }
 
@@ -39,19 +34,6 @@ namespace Simulaton.Attributes
             foreach (PropertyEvent effect in effects)
             {
                 effect.Trigger();
-            }
-        }
-
-        public void Modify(float quantity)
-        {
-            amount += quantity;
-            if (amount > 1)
-            {
-                amount = 1;
-            }
-            else if (amount < 0)
-            {
-                amount = 0;
             }
         }
 
@@ -66,7 +48,7 @@ namespace Simulaton.Attributes
 
         public float GetImportance()
         {
-            return effectImportance * (1.0f - amount);
+            return effectImportance * (1.0f - property.amount);
         }
     }
 

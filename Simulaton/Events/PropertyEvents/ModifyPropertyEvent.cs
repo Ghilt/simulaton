@@ -27,14 +27,14 @@ namespace Simulaton.Attributes
 
         internal int getpropertyId()
         {
-            return target.id;
+            return target.property.id;
         }
 
         public void Trigger()
         {
-            if (condition(source.amount, threshold))
+            if (condition(source.property.amount, threshold))
             {
-                target.Modify(magnitude);
+                target.property.ModifyAmount(magnitude);
             }
         }
 

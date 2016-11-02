@@ -27,7 +27,7 @@ namespace Simulaton.Events
         {
             float valueOfProperty;
             bool exists = target.TryGetPropertyValue(propertyId, out valueOfProperty);
-            Logger.PrintInfo(this, "Comparing "+ Need.Name[propertyId] + " " + Logger.FloatToPercent(valueOfProperty) + " with threshold " + Logger.FloatToPercent(threshold));
+            Logger.PrintInfo(this, "Comparing "+ Property.Name[propertyId] + " " + Logger.FloatToPercent(valueOfProperty) + " with threshold " + Logger.FloatToPercent(threshold));
             return exists ? condition(valueOfProperty, threshold) : false;
         }
     }

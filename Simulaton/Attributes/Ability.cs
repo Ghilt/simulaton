@@ -62,7 +62,7 @@ namespace Simulaton.Attributes
 
         internal virtual void Execute(int targetPropertyId)
         {
-            Logger.PrintInfo(this, "Do " + Need.Name[id]);
+            Logger.PrintInfo(this, "Do " + Property.Name[id]);
 
             foreach (AbilityEvent consequence in consequences)
             {

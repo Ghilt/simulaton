@@ -23,7 +23,7 @@ namespace Simulaton.Attributes
 
         public void Trigger()
         {
-            if (source.amount > lowerBound  && source.amount < upperBound)
+            if (source.property.amount > lowerBound  && source.property.amount < upperBound)
             {
                 target.Terminate();
             }

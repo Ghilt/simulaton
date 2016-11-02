@@ -12,15 +12,17 @@ namespace Simulaton.Simulation
     {
 
         private Location location;
-        private Abilities actions;
-        public Needs needs { private set; get; }
         public Brain brain { private set; get; }
+        public Dictionary<int, Property> properties { private set; get; }
+        public Needs needs { private set; get; }
+        private Abilities actions;
 
         public Life(int ticksBirth, String name, Location location)
             : base(ticksBirth, name)
         {
-            this.brain = new Brain(this);
             this.location = location;
+            this.brain = new Brain(this);
+            this.properties = new Dictionary<int, Property>();
             this.needs = new Needs();
             this.actions = new Abilities();
         }
@@ -43,7 +45,7 @@ namespace Simulaton.Simulation
         public override void OnTick()
         {
             AddSummary(CreateCurrentSummary());
-            printneeds();
+            PrintNeeds();
             location.Move(); // todo remove
             needs.OnTick();
             brain.MakeDecision(needs, actions);
@@ -54,17 +56,17 @@ namespace Simulaton.Simulation
             exteriorEvent.Handle(this);
         }
 
-        internal void ModifyNeed(int propertyIdTrigger, float magnitude)
+        internal void ModifyProperty(int propertyIdTrigger, float magnitude)
         {
-            Need toModify;
-            needs.TryGetValue(propertyIdTrigger, out toModify);
+            Property toModify;
+            properties.TryGetValue(propertyIdTrigger, out toModify);
             if (toModify != null)
             {
-                toModify.Modify(magnitude);
+                toModify.ModifyAmount(magnitude);
             }
             else
             {
-                Logger.PrintInfo(this, "Tried to modify need " + Need.Name[propertyIdTrigger] + " but Life did not have it");
+                Logger.PrintInfo(this, "Tried to modify property " + Property.Name[propertyIdTrigger] + " but Life did not have it");
             }
         }
 
@@ -73,16 +75,21 @@ namespace Simulaton.Simulation
             return location;
         }
 
-        private void printneeds()
+        private void PrintNeeds()
         {
             Logger.PrintInfo(this, "_________________________________________");
             Logger.PrintInfo(this, name + ", at x: " + location.x + " y: " + location.y);
             string info = "";
             foreach (Need n in needs.Values)
             {
-                info += " " + Need.Name[n.id] + ": " + Logger.FloatToPercent(needs[n.id].amount);
+                info += " " + Property.Name[n.property.id] + ": " + Logger.FloatToPercent(needs[n.property.id].property.amount);
             }
             Logger.PrintInfo(this, info);
+        }
+
+        internal void AddProperty(Property property)
+        {
+            properties.Add(property.id, property);
         }
 
         public override void OnTerminate()
@@ -90,17 +97,20 @@ namespace Simulaton.Simulation
             Logger.PrintInfo(this, name + " died");
         }
 
-
         private Summary[] CreateCurrentSummary()
         {
             List<Summary> summaries = new List<Summary>();
-            foreach(Need p in needs.Values)
+            foreach (Need p in needs.Values)
             {
-                Summary summary = new Summary(Summary.TYPE_PROPERTY,p.id,p.amount);
+                Summary summary = new Summary(Summary.TYPE_PROPERTY, p.property.id, p.property.amount);
                 summaries.Add(summary);
             }
             return summaries.ToArray(); ;
         }
 
+        internal Property GetProperty(int propertyId)
+        {
+            return properties[propertyId];
+        }
     }
 }

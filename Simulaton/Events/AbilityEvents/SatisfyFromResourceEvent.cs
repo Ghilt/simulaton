@@ -26,8 +26,8 @@ namespace Simulaton.Attributes
             int realTarget = propertySatisfied == SATISFY_ANY ? propertyIdTrigger : propertySatisfied;
 
             float amount = extractFromSource(realTarget);
-            target.ModifyNeed(realTarget, amount);
-            Logger.PrintInfo(this, "\t " + Need.Name[realTarget] + ", +" + Logger.FloatToPercent(amount));
+            target.ModifyProperty(realTarget, amount);
+            Logger.PrintInfo(this, "\t " + Property.Name[realTarget] + ", +" + Logger.FloatToPercent(amount));
         }
 
         private float extractFromSource(int propertyId)

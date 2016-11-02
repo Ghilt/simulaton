@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Simulaton.Attributes;
+using Simulaton.Simulation;
 
 namespace Tests
 {
@@ -14,27 +15,28 @@ namespace Tests
         //[TestInitialize]
         //public void TestModifyNeedEffectOnTrigger()
         //{
-        //    testTarget = new Need(0, 1f, 0f);
-        //    effect = new ModifyNeedEffect(testTarget, 0.2f, 1f, 1f);
-        //    testTarget.addEffect(effect);
+        //    DebugSetup setup = new DebugSetup();
+        //    setup.SetupTestEnvironment();
         //}
 
         [TestMethod]
         public void TestModifyPropertyEventOnTrigger()
         {
-            testTarget = new Need(0, 1f, 0f);
+            Property p = new Property(null, 0, 1);
+            testTarget = new Need(p, 0f);
             effect = new ModifyPropertyEvent(testTarget, testTarget, -1f, 1f, 0.2f, ((x, threshold) => x < threshold));
             testTarget.AddEffect(effect);
 
             effect.Trigger();
-            Assert.AreEqual(1.0f, testTarget.amount);
+            Assert.AreEqual(1.0f, testTarget.property.amount);
         }
 
         [TestMethod]
         public void TestGetImportance()
         {
             float amount = 0.2f;
-            testTarget = new Need(0, amount, 0f);
+            Property p = new Property(null, 0, amount);
+            testTarget = new Need(p, 0f);
             float highestImportance = 0.5f;
             PropertyEvent effect1 = new ModifyPropertyEvent(testTarget, testTarget, -1f, 0.3f, 0.2f, ((x, threshold) => x > threshold));
             PropertyEvent effect2 = new ModifyPropertyEvent(testTarget, testTarget, -1f, 0.4f, 0.2f, ((x, threshold) => x > threshold));
