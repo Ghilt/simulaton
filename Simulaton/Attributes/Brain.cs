@@ -16,25 +16,25 @@ namespace Simulaton.Attributes
             this.owner = owner;
         }
 
-        public void MakeDecision(Properties properties, Abilities abilities)
+        public void MakeDecision(Needs needs, Abilities abilities)
         {
 
-            Property pressingDesire = properties.getMostImportantProperty();
-            Logger.PrintInfo(this, "Most pressing need- " + Property.Name[pressingDesire.id]);
+            Need pressingDesire = needs.getMostImportantneed();
+            Logger.PrintInfo(this, "Most pressing need- " + Need.Name[pressingDesire.id]);
             float largestValue = 0.0f;
             Ability toDo = null;
-            Property willActUpon = null;
+            Need willActUpon = null;
             foreach (Ability action in abilities.Values)
             {
-                Property target;
-                if (!TryGetBestMatch(properties, action, out target))
+                Need target;
+                if (!TryGetBestMatch(needs, action, out target))
                 {
                     continue;
                 }
 
                 List<EvaluableResult> prediction = action.GetPrediction(target.id);
                 Logger.PrintInfo(this, Ability.Name[action.id] + " is evaluated as: ");
-                float value = Evaluate(properties, prediction);
+                float value = Evaluate(needs, prediction);
 
                 if (value > largestValue)
                 {
@@ -46,7 +46,7 @@ namespace Simulaton.Attributes
             }
             if (toDo != null)
             {
-                Logger.PrintInfo(this, "Most fitting action- " + Ability.Name[toDo.id] + " to get " + Property.Name[willActUpon.id]);
+                Logger.PrintInfo(this, "Most fitting action- " + Ability.Name[toDo.id] + " to get " + Need.Name[willActUpon.id]);
                 toDo.Execute(willActUpon.id);
                 owner.AddSummary(new Summary(Summary.TYPE_ABILITY, toDo.id));
 
@@ -61,20 +61,20 @@ namespace Simulaton.Attributes
         {
             Logger.PrintInfo(this, "Interaction request for " + Ability.Name[ability.id]);
             List<EvaluableResult> prediction = ability.GetPrediction(propertyTargetId);
-            float value = Evaluate(owner.properties, prediction);
+            float value = Evaluate(owner.needs, prediction);
             if (value > 0)
             {
                 ability.executeInteraction(propertyTargetId, owner);
             }
         }
 
-        private bool TryGetBestMatch(Properties properties, Ability action, out Property match)
+        private bool TryGetBestMatch(Needs needs, Ability action, out Need match)
         {
-            foreach (Property property in properties.SortedOnImportance())
+            foreach (Need need in needs.SortedOnImportance())
             {
-                if (action.Satisfies(property.id))
+                if (action.Satisfies(need.id))
                 {
-                    match = property;
+                    match = need;
                     return true;
                 }
             }
@@ -83,7 +83,7 @@ namespace Simulaton.Attributes
 
         }
 
-        private float Evaluate(Properties properties, List<EvaluableResult> prediction)
+        private float Evaluate(Needs needs, List<EvaluableResult> prediction)
         {
             float value = 0;
             if (prediction.Count == 0)
@@ -92,9 +92,9 @@ namespace Simulaton.Attributes
             }
             foreach (EvaluableResult result in prediction)
             {
-                float change = properties[result.propertyId].GetImportance() * result.magnitude;
+                float change = needs[result.propertyId].GetImportance() * result.magnitude;
                 value += change;
-                Logger.PrintInfo(this, "\t(" + Property.Name[result.propertyId] + " effect) " + Logger.FloatToPercent(properties[result.propertyId].GetImportance()) + " * " + Logger.FloatToPercent(result.magnitude) + " = " + Logger.FloatToPercentWithSign(change));
+                Logger.PrintInfo(this, "\t(" + Need.Name[result.propertyId] + " effect) " + Logger.FloatToPercent(needs[result.propertyId].GetImportance()) + " * " + Logger.FloatToPercent(result.magnitude) + " = " + Logger.FloatToPercentWithSign(change));
             }
             return value;
         }

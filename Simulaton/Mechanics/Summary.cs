@@ -32,7 +32,7 @@ namespace Simulaton
 
         public override string ToString()
         {
-            string name = (type == TYPE_PROPERTY) ? Property.Name[id] : Ability.Name[id];
+            string name = (type == TYPE_PROPERTY) ? Need.Name[id] : Ability.Name[id];
             string amount = (type == TYPE_PROPERTY) ? Logger.FloatToPercent(this.amount) : "";
             return name + " " + amount;
         }

@@ -10,10 +10,10 @@ namespace Simulaton.Attributes
     {
         private float lowerBound;
         private float upperBound;
-        private Property source;
+        private Need source;
         private Entity target;
 
-        public TerminateEvent(Property source, Entity target, float triggerValue, float margin)
+        public TerminateEvent(Need source, Entity target, float triggerValue, float margin)
         {
             this.source = source;
             this.target = target;

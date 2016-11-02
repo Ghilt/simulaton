@@ -71,10 +71,10 @@
     <Compile Include="Interval.cs" />
     <Compile Include="Events\AbilityEvents\AbilityEvent.cs" />
     <Compile Include="Events\AbilityEvents\SatisfyEvent.cs" />
-    <Compile Include="Attributes\Properties.cs" />
+    <Compile Include="Attributes\Needs.cs" />
     <Compile Include="Events\PropertyEvents\ModifyPropertyEvent.cs" />
     <Compile Include="Events\PropertyEvents\PropertyEvent.cs" />
-    <Compile Include="Attributes\Property.cs" />
+    <Compile Include="Attributes\Need.cs" />
     <Compile Include="Events\PropertyEvents\TerminateEvent.cs" />
     <Compile Include="Mechanics\Engine.cs" />
     <Compile Include="Logger.cs" />

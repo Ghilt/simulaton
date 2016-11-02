@@ -5,10 +5,10 @@ using Simulaton.Attributes;
 namespace Tests
 {
     [TestClass]
-    public class TestProperties
+    public class TestNeeds
     {
 
-        Property testTarget;
+        Need testTarget;
         ModifyPropertyEvent effect;
 
         //[TestInitialize]
@@ -22,7 +22,7 @@ namespace Tests
         [TestMethod]
         public void TestModifyPropertyEventOnTrigger()
         {
-            testTarget = new Property(0, 1f, 0f);
+            testTarget = new Need(0, 1f, 0f);
             effect = new ModifyPropertyEvent(testTarget, testTarget, -1f, 1f, 0.2f, ((x, threshold) => x < threshold));
             testTarget.AddEffect(effect);
 
@@ -34,7 +34,7 @@ namespace Tests
         public void TestGetImportance()
         {
             float amount = 0.2f;
-            testTarget = new Property(0, amount, 0f);
+            testTarget = new Need(0, amount, 0f);
             float highestImportance = 0.5f;
             PropertyEvent effect1 = new ModifyPropertyEvent(testTarget, testTarget, -1f, 0.3f, 0.2f, ((x, threshold) => x > threshold));
             PropertyEvent effect2 = new ModifyPropertyEvent(testTarget, testTarget, -1f, 0.4f, 0.2f, ((x, threshold) => x > threshold));

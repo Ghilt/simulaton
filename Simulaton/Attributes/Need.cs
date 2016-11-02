@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Attributes
 {
-    public partial class Property
+    public partial class Need
     {
 
         public int id { get; private set; }
-        public float amount { get; private set; } // between 0 and 1
+        public float amount { get; private set; }
         private float rate;
         private float effectImportance;
         private List<PropertyEvent> effects;
 
-        public Property(int id, float amount, float rate)
+        public Need(int id, float amount, float rate)
         {
             this.id = id;
             this.amount = amount;
@@ -30,7 +30,7 @@ namespace Simulaton.Attributes
             float newValue = amount + rate;
             bool isOutOfLimit = relevantLimit == 1 ? newValue < relevantLimit : newValue > relevantLimit;
             amount = isOutOfLimit ? newValue : relevantLimit;
-            Logger.PrintInfo(this,  "Tick " + Property.Name[id] + " " + Logger.FloatToPercentWithSign(rate));
+            Logger.PrintInfo(this,  "Tick " + Need.Name[id] + " " + Logger.FloatToPercentWithSign(rate));
             TriggerEvents();
         }
 

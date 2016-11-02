@@ -6,39 +6,39 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Attributes
 {
-    public class Properties : Dictionary<int, Property>
+    public class Needs : Dictionary<int, Need>
     {
-        List<Property> sortedOnImportance;
+        List<Need> sortedOnImportance;
 
-        public Properties()
+        public Needs()
         {
             UpdateSortedList();
         }
 
-        public void Add(Property property)
+        public void Add(Need need)
         {
-            Add(property.id, property);
+            Add(need.id, need);
         }
 
         private void UpdateSortedList()
         {
             sortedOnImportance = this.ToList().Select(pair => pair.Value).ToList(); // todo refactor
-            sortedOnImportance.Sort((property1, property2) => property1.GetImportance().CompareTo(property2.GetImportance()));
+            sortedOnImportance.Sort((need1, need2) => need1.GetImportance().CompareTo(need2.GetImportance()));
             sortedOnImportance.Reverse();
         }
 
         internal void OnTick()
         {
-            foreach (Property property in this.Values)
+            foreach (Need need in this.Values)
             {
-                property.OnTick();
+                need.OnTick();
             }
             UpdateSortedList();
         }
 
         internal bool TryGetValue(int propertyId, out float value)
         {
-            Property outProp;
+            Need outProp;
             if (TryGetValue(propertyId, out outProp))
             {
                 value = outProp.amount;
@@ -51,12 +51,12 @@ namespace Simulaton.Attributes
             }
         }
 
-        internal IEnumerable<Property> SortedOnImportance()
+        internal IEnumerable<Need> SortedOnImportance()
         {
             return sortedOnImportance;
         }
 
-        internal Property getMostImportantProperty()
+        internal Need getMostImportantneed ()
         {
             return sortedOnImportance[0];
         }

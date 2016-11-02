@@ -10,12 +10,12 @@ namespace Simulaton.Attributes
     {
         private float magnitude;
         private float threshold;
-        private Property source;
-        private Property target;
+        private Need source;
+        private Need target;
         private float importance;
         private Func<float, float, bool> condition;
 
-        public ModifyPropertyEvent(Property source, Property target, float magnitude, float importance, float threshold, Func<float, float, bool> condition)
+        public ModifyPropertyEvent(Need source, Need target, float magnitude, float importance, float threshold, Func<float, float, bool> condition)
         {
             this.source = source;
             this.target = target;
