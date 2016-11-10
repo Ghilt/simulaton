@@ -12,9 +12,10 @@ namespace Simulaton
     class DebugSetup
     {
         public const int ID_PROPERTY_HEALTH = 0;
-        public const int ID_PROPERTY_NOURISHMENT = 1;
-        public const int ID_PROPERTY_ENERGY = 2;
-        public const int ID_PROPERTY_SOCIAL_INTERACTION = 3;
+        public const int ID_PROPERTY_AGE = 1;
+        public const int ID_PROPERTY_NOURISHMENT = 2;
+        public const int ID_PROPERTY_ENERGY = 3;
+        public const int ID_PROPERTY_SOCIAL_INTERACTION = 4;
 
         public const int ID_ABILITY_SEARCH = 0;
         public const int ID_ABILITY_SLEEP = 1;
@@ -25,6 +26,7 @@ namespace Simulaton
         public void SetupTestEnvironment()
         {
             Property.AddToEnvironment(ID_PROPERTY_HEALTH, "Health");
+            Property.AddToEnvironment(ID_PROPERTY_AGE, "Age");
             Property.AddToEnvironment(ID_PROPERTY_NOURISHMENT, "Food");
             Property.AddToEnvironment(ID_PROPERTY_ENERGY, "Energy");
             Property.AddToEnvironment(ID_PROPERTY_SOCIAL_INTERACTION, "Social");
@@ -49,6 +51,8 @@ namespace Simulaton
         {
             //Health
             float startingHealth = rand.FloatNear(0.55f);
+            //age
+            float startingAge = 25f;
             //Hunger
             float startingHunger = rand.FloatNear(0.55f);
             //Energy
@@ -57,11 +61,13 @@ namespace Simulaton
             float startingSocial = rand.FloatNear(0.8f);
 
             Property health = new Property(human, ID_PROPERTY_HEALTH, startingHealth);
+            Property age = new Property(human, ID_PROPERTY_AGE, startingAge, false);
             Property hunger = new Property(human, ID_PROPERTY_NOURISHMENT, startingHunger);
             Property energy = new Property(human, ID_PROPERTY_ENERGY, startingEnergy);
             Property social = new Property(human, ID_PROPERTY_SOCIAL_INTERACTION, startingSocial);
 
             human.AddProperty(health);
+            human.AddProperty(age);
             human.AddProperty(hunger);
             human.AddProperty(energy);
             human.AddProperty(social);
@@ -113,6 +119,9 @@ namespace Simulaton
             float hungerImpact2 = rand.FloatNear(0.1f);
             float hungerImportance = rand.FloatNear(0.9f);
 
+            //Age 
+            float ageDeath = 100f;
+
             //Energy
             float energyRate = rand.FloatNear(-0.05f, 0.01f);
             float energyThreshold = rand.FloatNear(0.17f);
@@ -128,6 +137,10 @@ namespace Simulaton
             Need health = new Need(human.GetProperty(ID_PROPERTY_HEALTH), 0);
             TerminateEvent terminate = new TerminateEvent(health, human, 0f, 0.001f);
             health.AddEffect(terminate);
+
+            Need aging = new Need(human.GetProperty(ID_PROPERTY_AGE), 1);
+            TerminateEvent timeUp = new TerminateEvent(aging, human, ageDeath, 0.001f);
+            aging.AddEffect(timeUp);
 
             Need energy = new Need(human.GetProperty(ID_PROPERTY_ENERGY), energyRate);
             ModifyPropertyEvent decHealthMod = new ModifyPropertyEvent(energy, health, -energyImpact, energyImportance, energyThreshold, ((x, threshold) => x < threshold));
@@ -148,6 +161,7 @@ namespace Simulaton
             social.AddEffect(energeticMod);
 
             human.AddNeed(health);
+            human.AddNeed(aging);
             human.AddNeed(hunger);
             human.AddNeed(energy);
             human.AddNeed(social);

@@ -10,28 +10,26 @@ namespace Simulaton.Attributes
     public partial class Property
     {
         private Life owner;
-
+        private bool bounded;
         public int id { get; private set; }
         public float amount { get; private set; }
 
-        public Property(Life human, int id, float amount)
+        public Property(Life human, int id, float amount, bool bounded = true)
         {
             this.owner = human;
             this.id = id;
             this.amount = amount;
+            this.bounded = bounded;
         }
 
         internal void ModifyAmount(float quantity)
         {
             amount += quantity;
-            if (amount > 1)
+            if (bounded)
             {
-                amount = 1;
-            }
-            else if (amount < 0)
-            {
-                amount = 0;
+                amount = amount > 1 ? 1 : amount < 0 ? 0 : amount;
             }
         }
+
     }
 }
