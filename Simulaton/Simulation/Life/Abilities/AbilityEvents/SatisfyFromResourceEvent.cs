@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Simulaton.Simulation;
 using Simulaton.Events;
 
-namespace Simulaton.Attributes
+namespace Simulaton.Simulation
 {
     class SatisfyFromResourceEvent : SatisfyEvent
     {

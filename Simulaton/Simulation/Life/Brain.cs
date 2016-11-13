@@ -1,4 +1,5 @@
 ﻿using Simulaton.Events;
+using Simulaton.Mechanics;
 using Simulaton.Simulation;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simulaton.Attributes
+namespace Simulaton.Simulation
 {
     public class Brain
     {
@@ -49,7 +50,6 @@ namespace Simulaton.Attributes
                 Logger.PrintInfo(this, "Most fitting action- " + Ability.Name[toDo.id] + " to get " + Property.Name[willActUpon.property.id]);
                 toDo.Execute(willActUpon.property.id);
                 owner.AddSummary(new Summary(Summary.TYPE_ABILITY, toDo.id));
-
             }
             else
             {

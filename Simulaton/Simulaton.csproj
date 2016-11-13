@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Simulation\Life\Abilities\Abilities.cs" />
     <Compile Include="Simulation\Life\Abilities\Ability.cs" />
+    <Compile Include="Simulation\Life\Abilities\AbilityModifier.cs" />
     <Compile Include="Simulation\Life\Brain.cs" />
     <Compile Include="Simulation\Life\Abilities\InteractionAbility.cs" />
     <Compile Include="Simulation\Properties\Property.cs" />

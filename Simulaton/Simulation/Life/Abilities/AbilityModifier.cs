@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Simulation
 {
-    public class Abilities : Dictionary<int, Ability>
+    class AbilityModifier
     {
-      
+        public AbilityModifier()
+        {
+
+        }
+
     }
 }

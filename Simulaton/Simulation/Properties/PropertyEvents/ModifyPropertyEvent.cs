@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Simulaton.Attributes
+namespace Simulaton.Simulation
 {
     public class ModifyPropertyEvent : PropertyEvent
     {

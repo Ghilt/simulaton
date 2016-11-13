@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Simulaton.Simulation;
 
-namespace Simulaton.Attributes
+namespace Simulaton.Simulation
 {
     public partial class Property
     {

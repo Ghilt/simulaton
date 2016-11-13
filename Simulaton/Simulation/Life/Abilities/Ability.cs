@@ -1,12 +1,9 @@
 ﻿using Simulaton.Events;
 using Simulaton.Simulation;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Simulaton.Attributes
+
+namespace Simulaton.Simulation
 {
     public partial class Ability
     {
@@ -15,6 +12,7 @@ namespace Simulaton.Attributes
         public Life parent { get; private set; }
         public List<AbilityEvent> consequences { get; private set; }
         private List<AbilityRequirement> requirements;
+        private List<AbilityModifier> modifiers;
         private HashSet<int> satisfiablePropertyIds;
 
         public Ability(int id, Life parent)
@@ -23,6 +21,7 @@ namespace Simulaton.Attributes
             this.parent = parent;
             this.consequences = new List<AbilityEvent>();
             this.requirements = new List<AbilityRequirement>();
+            this.modifiers = new List<AbilityModifier>();
             this.satisfiablePropertyIds = new HashSet<int>();
         }
 

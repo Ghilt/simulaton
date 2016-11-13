@@ -1,4 +1,6 @@
 ﻿using Simulaton.ConsoleUi;
+using Simulaton.Mechanics;
+using Simulaton.Simulation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
