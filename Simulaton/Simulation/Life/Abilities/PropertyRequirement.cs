@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Events
 {
-    class PropertyRequirement : Requirement
+    class PropertyRequirement : AbilityRequirement
     {
         private Life target;
         private int propertyId;

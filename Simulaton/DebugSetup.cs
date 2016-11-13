@@ -60,11 +60,11 @@ namespace Simulaton
             //Social Interaction
             float startingSocial = rand.FloatNear(0.8f);
 
-            Property health = new Property(human, ID_PROPERTY_HEALTH, startingHealth);
-            Property age = new Property(human, ID_PROPERTY_AGE, startingAge, false);
-            Property hunger = new Property(human, ID_PROPERTY_NOURISHMENT, startingHunger);
-            Property energy = new Property(human, ID_PROPERTY_ENERGY, startingEnergy);
-            Property social = new Property(human, ID_PROPERTY_SOCIAL_INTERACTION, startingSocial);
+            Property health = new Property(ID_PROPERTY_HEALTH, startingHealth);
+            Property age = new Property(ID_PROPERTY_AGE, startingAge, false);
+            Property hunger = new Property(ID_PROPERTY_NOURISHMENT, startingHunger);
+            Property energy = new Property(ID_PROPERTY_ENERGY, startingEnergy);
+            Property social = new Property(ID_PROPERTY_SOCIAL_INTERACTION, startingSocial);
 
             human.AddProperty(health);
             human.AddProperty(age);

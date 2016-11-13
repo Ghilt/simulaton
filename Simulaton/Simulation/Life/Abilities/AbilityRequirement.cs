@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Events
 {
-    interface Requirement
+    interface AbilityRequirement
     {
         bool IsFulfilled();
     }

@@ -14,7 +14,7 @@ namespace Simulaton.Attributes
         public int id { get; private set; }
         public Life parent { get; private set; }
         public List<AbilityEvent> consequences { get; private set; }
-        private List<Requirement> requirements;
+        private List<AbilityRequirement> requirements;
         private HashSet<int> satisfiablePropertyIds;
 
         public Ability(int id, Life parent)
@@ -22,14 +22,14 @@ namespace Simulaton.Attributes
             this.id = id;
             this.parent = parent;
             this.consequences = new List<AbilityEvent>();
-            this.requirements = new List<Requirement>();
+            this.requirements = new List<AbilityRequirement>();
             this.satisfiablePropertyIds = new HashSet<int>();
         }
 
         public List<EvaluableResult> GetPrediction(int targetId)
         {
             List<EvaluableResult> impact = new List<EvaluableResult>();
-            foreach (Requirement requirement in requirements)
+            foreach (AbilityRequirement requirement in requirements)
             {
                 if (!requirement.IsFulfilled())
                 {
@@ -55,7 +55,7 @@ namespace Simulaton.Attributes
             consequences.Add(consequence);
         }
 
-        internal void AddRequirement(Requirement requirement)
+        internal void AddRequirement(AbilityRequirement requirement)
         {
             requirements.Add(requirement);
         }

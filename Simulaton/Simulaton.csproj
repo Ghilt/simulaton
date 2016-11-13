@@ -47,12 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Simulation\Abilities\Abilities.cs" />
-    <Compile Include="Simulation\Abilities\Ability.cs" />
-    <Compile Include="Simulation\Subject\Brain.cs" />
-    <Compile Include="Simulation\Abilities\InteractionAbility.cs" />
+    <Compile Include="Simulation\Life\Abilities\Abilities.cs" />
+    <Compile Include="Simulation\Life\Abilities\Ability.cs" />
+    <Compile Include="Simulation\Life\Brain.cs" />
+    <Compile Include="Simulation\Life\Abilities\InteractionAbility.cs" />
     <Compile Include="Simulation\Properties\Property.cs" />
-    <Compile Include="Simulation\Abilities\Resource.cs" />
+    <Compile Include="Simulation\Life\Abilities\Resource.cs" />
     <Compile Include="ConsoleUi\ConsoleFrame.cs" />
     <Compile Include="ConsoleUi\ConsolePresenter.cs" />
     <Compile Include="ConsoleUi\Controls.cs" />
@@ -62,16 +62,16 @@
     <Compile Include="Simulation\EnvironmentLibraryMethods.cs" />
     <Compile Include="Mechanics\Tick.cs" />
     <Compile Include="Mechanics\EventManager.cs" />
-    <Compile Include="Simulation\Abilities\AbilityEvents\SatisfyFromResourceEvent.cs" />
-    <Compile Include="Simulation\Abilities\EvaluableResult.cs" />
+    <Compile Include="Simulation\Life\Abilities\AbilityEvents\SatisfyFromResourceEvent.cs" />
+    <Compile Include="Simulation\Life\Abilities\EvaluableResult.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\ExecuteInteractionEvent.cs" />
-    <Compile Include="Simulation\Abilities\PropertyRequirement.cs" />
+    <Compile Include="Simulation\Life\Abilities\PropertyRequirement.cs" />
     <Compile Include="Events\RequestEvent.cs" />
-    <Compile Include="Simulation\Abilities\AbilityRequirement.cs" />
+    <Compile Include="Simulation\Life\Abilities\AbilityRequirement.cs" />
     <Compile Include="Mechanics\Interval.cs" />
-    <Compile Include="Simulation\Abilities\AbilityEvents\AbilityEvent.cs" />
-    <Compile Include="Simulation\Abilities\AbilityEvents\SatisfyEvent.cs" />
+    <Compile Include="Simulation\Life\Abilities\AbilityEvents\AbilityEvent.cs" />
+    <Compile Include="Simulation\Life\Abilities\AbilityEvents\SatisfyEvent.cs" />
     <Compile Include="Simulation\Properties\Needs.cs" />
     <Compile Include="Simulation\Properties\PropertyEvents\ModifyPropertyEvent.cs" />
     <Compile Include="Simulation\Properties\PropertyEvents\PropertyEvent.cs" />
@@ -79,7 +79,7 @@
     <Compile Include="Simulation\Properties\PropertyEvents\TerminateEvent.cs" />
     <Compile Include="Mechanics\Engine.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="Simulation\Subject\Life.cs" />
+    <Compile Include="Simulation\Life\Life.cs" />
     <Compile Include="Simulation\Location.cs" />
     <Compile Include="Simulation\Region.cs" />
     <Compile Include="Simulation\Entity.cs" />

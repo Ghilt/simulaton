@@ -9,14 +9,12 @@ namespace Simulaton.Attributes
 {
     public partial class Property
     {
-        private Life owner;
         private bool bounded;
         public int id { get; private set; }
         public float amount { get; private set; }
 
-        public Property(Life human, int id, float amount, bool bounded = true)
+        public Property(int id, float amount, bool bounded = true)
         {
-            this.owner = human;
             this.id = id;
             this.amount = amount;
             this.bounded = bounded;
