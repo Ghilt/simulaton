@@ -14,8 +14,8 @@ namespace Simulaton.Attributes
         public int id { get; private set; }
         public Life parent { get; private set; }
         public List<AbilityEvent> consequences { get; private set; }
-        private HashSet<int> satisfiablePropertyIds;
         private List<Requirement> requirements;
+        private HashSet<int> satisfiablePropertyIds;
 
         public Ability(int id, Life parent)
         {

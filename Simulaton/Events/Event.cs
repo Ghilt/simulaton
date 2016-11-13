@@ -13,6 +13,7 @@ namespace Simulaton.Events
         Entity GetSender();
 
         void Handle(Life context);
+        //All handlers (visitor pattern)
 
         bool IsHandled();
     }
