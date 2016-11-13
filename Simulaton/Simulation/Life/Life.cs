@@ -32,7 +32,11 @@ namespace Simulaton.Simulation
 
         internal bool TryGetPropertyValue(int propertyId, out float value)
         {
-            return needs.TryGetValue(propertyId, out value);
+            Property property;
+            bool exist = properties.TryGetValue(propertyId, out property);
+            value = exist ? property.amount: 0;
+            return exist;
+
         }
 
         public void AddAbility(Ability action)
@@ -85,7 +89,7 @@ namespace Simulaton.Simulation
             Logger.PrintInfo(this, info);
         }
 
-        internal void AddProperty(Property property)
+        public void AddProperty(Property property)
         {
             properties.Add(property.id, property);
         }

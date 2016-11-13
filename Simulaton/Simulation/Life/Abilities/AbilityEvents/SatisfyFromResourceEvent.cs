@@ -24,7 +24,7 @@ namespace Simulaton.Simulation
         public override void Trigger(int propertyIdTrigger, Life target)
         {
             int realTarget = propertySatisfied == SATISFY_ANY ? propertyIdTrigger : propertySatisfied;
-            float effieciency = CalculateEffieciencyModifier();
+            float effieciency = CalculateEffieciencyModifier(target);
 
             float amount = extractFromSource(realTarget) * effieciency;
             target.ModifyProperty(realTarget, amount);

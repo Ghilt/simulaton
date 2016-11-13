@@ -22,9 +22,9 @@ namespace Tests
         [TestMethod]
         public void TestModifyPropertyEventOnTrigger()
         {
-            Property p = new Property(null, 0, 1);
+            Property p = new Property(0, 1);
             testTarget = new Need(p, 0f);
-            effect = new ModifyPropertyEvent(testTarget, testTarget, -1f, 1f, 0.2f, ((x, threshold) => x < threshold));
+            effect = new ModifyPropertyEvent(testTarget, testTarget, -1f, 1f, (x => x < 0.2f));
             testTarget.AddEffect(effect);
 
             effect.Trigger();
@@ -35,12 +35,12 @@ namespace Tests
         public void TestGetImportance()
         {
             float amount = 0.2f;
-            Property p = new Property(null, 0, amount);
+            Property p = new Property(0, amount);
             testTarget = new Need(p, 0f);
             float highestImportance = 0.5f;
-            PropertyEvent effect1 = new ModifyPropertyEvent(testTarget, testTarget, -1f, 0.3f, 0.2f, ((x, threshold) => x > threshold));
-            PropertyEvent effect2 = new ModifyPropertyEvent(testTarget, testTarget, -1f, 0.4f, 0.2f, ((x, threshold) => x > threshold));
-            PropertyEvent effect3 = new ModifyPropertyEvent(testTarget, testTarget, -1f, highestImportance, 0.2f, ((x, threshold) => x > threshold));
+            PropertyEvent effect1 = new ModifyPropertyEvent(testTarget, testTarget, -1f, 0.3f,  (x => x > 0.2f));
+            PropertyEvent effect2 = new ModifyPropertyEvent(testTarget, testTarget, -1f, 0.4f, (x => x > 0.2f));
+            PropertyEvent effect3 = new ModifyPropertyEvent(testTarget, testTarget, -1f, highestImportance, (x => x > 0.2f));
             testTarget.AddEffect(effect1);
             testTarget.AddEffect(effect2);
             testTarget.AddEffect(effect3);

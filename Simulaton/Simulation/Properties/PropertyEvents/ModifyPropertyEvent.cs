@@ -9,17 +9,15 @@ namespace Simulaton.Simulation
     public class ModifyPropertyEvent : PropertyEvent
     {
         private float magnitude;
-        private float threshold;
         private Need source;
         private Need target;
         private float importance;
-        private Func<float, float, bool> condition;
+        private Func<float, bool> condition;
 
-        public ModifyPropertyEvent(Need source, Need target, float magnitude, float importance, float threshold, Func<float, float, bool> condition)
+        public ModifyPropertyEvent(Need source, Need target, float magnitude, float importance, Func<float, bool> condition)
         {
             this.source = source;
             this.target = target;
-            this.threshold = threshold;
             this.magnitude = magnitude;
             this.importance = importance;
             this.condition = condition;
@@ -32,7 +30,7 @@ namespace Simulaton.Simulation
 
         public void Trigger()
         {
-            if (condition(source.property.amount, threshold))
+            if (condition(source.property.amount))
             {
                 target.property.ModifyAmount(magnitude);
             }

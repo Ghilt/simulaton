@@ -5,22 +5,22 @@ namespace Simulaton.Simulation
 {
     public abstract class AbilityEvent
     {
-        public List<AbilityModifier> modifiers { get; private set; }
+        private List<AbilityModifier> modifiers;
 
         public AbilityEvent()
         {
             this.modifiers = new List<AbilityModifier>();
         }
 
-        internal void AddModifier(AbilityModifier modifier)
+        public void AddModifier(AbilityModifier modifier)
         {
             modifiers.Add(modifier);
         }
 
-        public float CalculateEffieciencyModifier()
+        public float CalculateEffieciencyModifier(Life target)
         {
             float effieciencyModifier = 1;
-            modifiers.ForEach(modifier => effieciencyModifier *= modifier.GetModification());
+            modifiers.ForEach(modifier => effieciencyModifier *= modifier.GetModification(target));
             return effieciencyModifier;
         }
 

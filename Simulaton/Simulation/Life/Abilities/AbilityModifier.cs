@@ -8,20 +8,18 @@ namespace Simulaton.Simulation
 {
     public class AbilityModifier
     {
-        private Life target;
         private int propertyId;
         private float modifier;
         private Func<float, bool> condition;
 
-        public AbilityModifier(Life target, int propertyId, Func<float, bool> condition, float modifier)
+        public AbilityModifier(int propertyId, Func<float, bool> condition, float modifier)
         {
-            this.target = target;
             this.propertyId = propertyId;
             this.modifier = modifier;
             this.condition = condition;
         }
 
-        internal float GetModification()
+        internal float GetModification(Life target)
         {
             float valueOfProperty;
             bool exists = target.TryGetPropertyValue(propertyId, out valueOfProperty);

@@ -85,9 +85,10 @@ namespace Simulaton
 
             SatisfyEvent finding = new SatisfyFromResourceEvent(searchPower, human.GetLocation());
             SatisfyEvent tieringFromWork = new SatisfyEvent(ID_PROPERTY_ENERGY, gettingTiredBy);
-            tieringFromWork.AddModifier(new AbilityModifier(human, ID_PROPERTY_AGE, (x => x > 60), 1.1f));
+            tieringFromWork.AddModifier(new AbilityModifier(ID_PROPERTY_AGE, (x => x > 60), 2.0f));
             SatisfyEvent energyBoostOrSink = new SatisfyEvent(ID_PROPERTY_ENERGY, goodOrBadEnergy);
             SatisfyEvent asleep = new SatisfyEvent(ID_PROPERTY_ENERGY, sleepPower);
+            asleep.AddModifier(new AbilityModifier(ID_PROPERTY_NOURISHMENT, (x => x < 0.4f), 0.2f));
             SatisfyEvent socializing = new SatisfyEvent(ID_PROPERTY_SOCIAL_INTERACTION, socializePower);
 
             Ability search = new Ability(ID_ABILITY_SEARCH, human);
@@ -145,20 +146,20 @@ namespace Simulaton
 
 
             Need energy = new Need(human.GetProperty(ID_PROPERTY_ENERGY), energyRate);
-            ModifyPropertyEvent decHealthMod = new ModifyPropertyEvent(energy, health, -energyImpact, energyImportance, energyThreshold, ((x, threshold) => x < threshold));
+            ModifyPropertyEvent decHealthMod = new ModifyPropertyEvent(energy, health, -energyImpact, energyImportance, (x => x < energyThreshold));
             energy.AddEffect(decHealthMod);
 
             Need hunger = new Need(human.GetProperty(ID_PROPERTY_NOURISHMENT), startingRate);
-            ModifyPropertyEvent dmgHealthMod = new ModifyPropertyEvent(hunger, health, hungerImpact1, hungerImportance, hungerThreshold, ((x, threshold) => x < threshold));
-            ModifyPropertyEvent dmgEnergyMod = new ModifyPropertyEvent(hunger, energy, hungerImpact1, hungerImportance, hungerThreshold, ((x, threshold) => x < threshold));
-            ModifyPropertyEvent healthyMod = new ModifyPropertyEvent(hunger, health, hungerImpact2, hungerImportance, 1 - hungerThreshold, ((x, threshold) => x > threshold));
+            ModifyPropertyEvent dmgHealthMod = new ModifyPropertyEvent(hunger, health, hungerImpact1, hungerImportance, (x => x < hungerThreshold));
+            ModifyPropertyEvent dmgEnergyMod = new ModifyPropertyEvent(hunger, energy, hungerImpact1, hungerImportance, (x => x < hungerThreshold));
+            ModifyPropertyEvent healthyMod = new ModifyPropertyEvent(hunger, health, hungerImpact2, hungerImportance,  (x => x > (1 - hungerThreshold)));
             hunger.AddEffect(dmgHealthMod);
             hunger.AddEffect(dmgEnergyMod);
             hunger.AddEffect(healthyMod);
 
             Need social = new Need(human.GetProperty(ID_PROPERTY_SOCIAL_INTERACTION), socialRate);
-            ModifyPropertyEvent drainEnergyMod = new ModifyPropertyEvent(social, energy, socialImpact, socialImportance, socialThreshold, ((x, threshold) => x < threshold));
-            ModifyPropertyEvent energeticMod = new ModifyPropertyEvent(social, energy, socialImpact, socialImportance, socialThreshold, ((x, threshold) => x > threshold));
+            ModifyPropertyEvent drainEnergyMod = new ModifyPropertyEvent(social, energy, socialImpact, socialImportance, (x => x < socialThreshold));
+            ModifyPropertyEvent energeticMod = new ModifyPropertyEvent(social, energy, socialImpact, socialImportance, (x => x > socialThreshold));
             social.AddEffect(drainEnergyMod);
             social.AddEffect(energeticMod);
 

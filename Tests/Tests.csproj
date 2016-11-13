@@ -54,6 +54,7 @@
     <Compile Include="TestAbility.cs" />
     <Compile Include="TestNeed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
