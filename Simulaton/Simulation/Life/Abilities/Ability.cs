@@ -12,7 +12,6 @@ namespace Simulaton.Simulation
         public Life parent { get; private set; }
         public List<AbilityEvent> consequences { get; private set; }
         private List<AbilityRequirement> requirements;
-        private List<AbilityModifier> modifiers;
         private HashSet<int> satisfiablePropertyIds;
 
         public Ability(int id, Life parent)
@@ -21,7 +20,6 @@ namespace Simulaton.Simulation
             this.parent = parent;
             this.consequences = new List<AbilityEvent>();
             this.requirements = new List<AbilityRequirement>();
-            this.modifiers = new List<AbilityModifier>();
             this.satisfiablePropertyIds = new HashSet<int>();
         }
 
@@ -48,7 +46,6 @@ namespace Simulaton.Simulation
             satisfiablePropertyIds.Add(propertyId);
         }
 
-
         public void AddConsequence(AbilityEvent consequence)
         {
             consequences.Add(consequence);
@@ -61,7 +58,7 @@ namespace Simulaton.Simulation
 
         internal virtual void Execute(int targetPropertyId)
         {
-            Logger.PrintInfo(this, "Do " + Property.Name[id]);
+            Logger.PrintInfo(this, "Do " + Name[id] + " with target " + Property.Name[targetPropertyId]);
 
             foreach (AbilityEvent consequence in consequences)
             {

@@ -82,18 +82,19 @@ namespace Simulaton
             Interval socializePower = new Interval(0.1f, 0.2f);
             Interval sleepPower = new Interval(0.0f, 0.4f);
             Interval goodOrBadEnergy = new Interval(-0.1f, 0.1f);
+
             SatisfyEvent finding = new SatisfyFromResourceEvent(searchPower, human.GetLocation());
             SatisfyEvent tieringFromWork = new SatisfyEvent(ID_PROPERTY_ENERGY, gettingTiredBy);
+            tieringFromWork.AddModifier(new AbilityModifier(human, ID_PROPERTY_AGE, (x => x > 60), 1.1f));
             SatisfyEvent energyBoostOrSink = new SatisfyEvent(ID_PROPERTY_ENERGY, goodOrBadEnergy);
             SatisfyEvent asleep = new SatisfyEvent(ID_PROPERTY_ENERGY, sleepPower);
             SatisfyEvent socializing = new SatisfyEvent(ID_PROPERTY_SOCIAL_INTERACTION, socializePower);
-
 
             Ability search = new Ability(ID_ABILITY_SEARCH, human);
             search.AddSatisfiableProperty(ID_PROPERTY_NOURISHMENT);
             search.AddConsequence(finding);
             search.AddConsequence(tieringFromWork);
-            search.AddRequirement(new PropertyRequirement(human, ID_PROPERTY_ENERGY, 0.2f, ((x, threshold) => x > threshold)));
+            search.AddRequirement(new RequirePropertyAmount(human, ID_PROPERTY_ENERGY, 0.2f, ((x, threshold) => x > threshold)));
 
             Ability sleep = new Ability(ID_ABILITY_SLEEP, human);
             sleep.AddSatisfiableProperty(ID_PROPERTY_ENERGY);
@@ -141,6 +142,7 @@ namespace Simulaton
             Need aging = new Need(human.GetProperty(ID_PROPERTY_AGE), 1);
             TerminateEvent timeUp = new TerminateEvent(aging, human, ageDeath, 0.001f);
             aging.AddEffect(timeUp);
+
 
             Need energy = new Need(human.GetProperty(ID_PROPERTY_ENERGY), energyRate);
             ModifyPropertyEvent decHealthMod = new ModifyPropertyEvent(energy, health, -energyImpact, energyImportance, energyThreshold, ((x, threshold) => x < threshold));

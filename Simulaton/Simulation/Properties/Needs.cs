@@ -56,7 +56,7 @@ namespace Simulaton.Simulation
             return sortedOnImportance;
         }
 
-        internal Need getMostImportantneed ()
+        internal Need getMostImportantNeed ()
         {
             return sortedOnImportance[0];
         }

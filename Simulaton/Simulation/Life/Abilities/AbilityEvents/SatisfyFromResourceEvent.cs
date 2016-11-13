@@ -24,10 +24,11 @@ namespace Simulaton.Simulation
         public override void Trigger(int propertyIdTrigger, Life target)
         {
             int realTarget = propertySatisfied == SATISFY_ANY ? propertyIdTrigger : propertySatisfied;
+            float effieciency = CalculateEffieciencyModifier();
 
-            float amount = extractFromSource(realTarget);
+            float amount = extractFromSource(realTarget) * effieciency;
             target.ModifyProperty(realTarget, amount);
-            Logger.PrintInfo(this, "\t " + Property.Name[realTarget] + ", +" + Logger.FloatToPercent(amount));
+            Logger.PrintInfo(this, "\t " + Property.Name[realTarget] + ", " + Logger.FloatToPercentWithSign(amount) + " Efficiency: " + Logger.FloatToPercent(effieciency));
         }
 
         private float extractFromSource(int propertyId)

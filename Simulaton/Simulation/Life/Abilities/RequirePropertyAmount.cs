@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Simulation
 {
-    class PropertyRequirement : AbilityRequirement
+    class RequirePropertyAmount : AbilityRequirement
     {
         private Life target;
         private int propertyId;
         private float threshold;
         private Func<float, float, bool> condition;
 
-        public PropertyRequirement(Life target, int propertyId, float threshold, Func<float, float, bool> condition)
+        public RequirePropertyAmount(Life target, int propertyId, float threshold, Func<float, float, bool> condition)
         {
             this.target = target;
             this.propertyId = propertyId;

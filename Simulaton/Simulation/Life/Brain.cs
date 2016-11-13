@@ -20,7 +20,7 @@ namespace Simulaton.Simulation
         public void MakeDecision(Needs needs, Abilities abilities)
         {
 
-            Need pressingDesire = needs.getMostImportantneed();
+            Need pressingDesire = needs.getMostImportantNeed();
             Logger.PrintInfo(this, "Most pressing need- " + Property.Name[pressingDesire.property.id]);
             float largestValue = 0.0f;
             Ability toDo = null;

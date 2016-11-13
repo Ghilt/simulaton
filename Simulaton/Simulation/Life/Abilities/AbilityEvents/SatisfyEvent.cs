@@ -27,13 +27,14 @@ namespace Simulaton.Simulation
             this.propertySatisfied = SATISFY_ANY;
         }
 
-        public virtual void Trigger(int propertyIdTrigger, Life target)
+        public override void Trigger(int propertyIdTrigger, Life target)
         {
             int realTarget = propertySatisfied == SATISFY_ANY ? propertyIdTrigger : propertySatisfied;
+            float effieciency = CalculateEffieciencyModifier();
 
-            float amount = extractFromSource(realTarget);
+            float amount = extractFromSource(realTarget) * effieciency;
             target.ModifyProperty(realTarget, amount);
-            Logger.PrintInfo(this, "\t " + Property.Name[realTarget] + ", " + Logger.FloatToPercentWithSign(amount));
+            Logger.PrintInfo(this, "\t " + Property.Name[realTarget] + ", " + Logger.FloatToPercentWithSign(amount) + " Efficiency: " + Logger.FloatToPercent(effieciency));
         }
 
         private float extractFromSource(int propertyId)
@@ -42,12 +43,12 @@ namespace Simulaton.Simulation
             return amountSatisfiedModifier;
         }
 
-        public float GetMagnitude()
+        public override float GetMagnitude()
         {
             return magnitude.getPowerLevel();
         }
 
-        public EvaluableResult EvaluateResult(int targetpropertyId)
+        public override EvaluableResult EvaluateResult(int targetpropertyId)
         {
             int realTarget = propertySatisfied == SATISFY_ANY ? targetpropertyId : propertySatisfied;
             return new EvaluableResult(realTarget, GetMagnitude());

@@ -67,7 +67,7 @@
     <Compile Include="Simulation\Life\Abilities\EvaluableResult.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\ExecuteInteractionEvent.cs" />
-    <Compile Include="Simulation\Life\Abilities\PropertyRequirement.cs" />
+    <Compile Include="Simulation\Life\Abilities\RequirePropertyAmount.cs" />
     <Compile Include="Events\RequestEvent.cs" />
     <Compile Include="Simulation\Life\Abilities\AbilityRequirement.cs" />
     <Compile Include="Mechanics\Interval.cs" />
