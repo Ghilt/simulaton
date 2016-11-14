@@ -73,10 +73,10 @@
     <Compile Include="Mechanics\Interval.cs" />
     <Compile Include="Simulation\Life\Abilities\AbilityEvents\AbilityEvent.cs" />
     <Compile Include="Simulation\Life\Abilities\AbilityEvents\SatisfyEvent.cs" />
-    <Compile Include="Simulation\Properties\Needs.cs" />
+    <Compile Include="Simulation\Properties\PropertyUpdaters.cs" />
     <Compile Include="Simulation\Properties\PropertyEvents\ModifyPropertyEvent.cs" />
     <Compile Include="Simulation\Properties\PropertyEvents\PropertyEvent.cs" />
-    <Compile Include="Simulation\Properties\Need.cs" />
+    <Compile Include="Simulation\Properties\PropertyUpdater.cs" />
     <Compile Include="Simulation\Properties\PropertyEvents\TerminateEvent.cs" />
     <Compile Include="Mechanics\Engine.cs" />
     <Compile Include="Logger.cs" />

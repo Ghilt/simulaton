@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Simulation
 {
-    public class Need
+    public class PropertyUpdater
     {
 
         public Property property { get; private set; }
@@ -14,7 +14,7 @@ namespace Simulaton.Simulation
         private float effectImportance;
         private List<PropertyEvent> effects;
 
-        public Need(Property property, float rate)
+        public PropertyUpdater(Property property, float rate)
         {
             this.property = property;
             this.rate = rate;

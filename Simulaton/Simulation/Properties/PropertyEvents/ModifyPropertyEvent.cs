@@ -9,12 +9,12 @@ namespace Simulaton.Simulation
     public class ModifyPropertyEvent : PropertyEvent
     {
         private float magnitude;
-        private Need source;
-        private Need target;
+        private PropertyUpdater source;
+        private PropertyUpdater target;
         private float importance;
         private Func<float, bool> condition;
 
-        public ModifyPropertyEvent(Need source, Need target, float magnitude, float importance, Func<float, bool> condition)
+        public ModifyPropertyEvent(PropertyUpdater source, PropertyUpdater target, float magnitude, float importance, Func<float, bool> condition)
         {
             this.source = source;
             this.target = target;

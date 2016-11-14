@@ -41,7 +41,7 @@ namespace Simulaton
             Life human = new Life(0, name, new Location(region, 50, 50));
 
             AddProperties(human);
-            AddNeeds(human);
+            AddPropertyUpdaters(human);
             AddAbilities(human);
 
             return human;
@@ -111,7 +111,7 @@ namespace Simulaton
             human.AddAbility(socialize);
         }
 
-        private void AddNeeds(Life human)
+        private void AddPropertyUpdaters(Life human)
         {
 
             //Hunger
@@ -136,20 +136,20 @@ namespace Simulaton
             float socialImpact = rand.FloatNear(0.03f);
             float socialImportance = rand.FloatNear(0.7f);
 
-            Need health = new Need(human.GetProperty(ID_PROPERTY_HEALTH), 0);
+            PropertyUpdater health = new PropertyUpdater(human.GetProperty(ID_PROPERTY_HEALTH), 0);
             TerminateEvent terminate = new TerminateEvent(health, human, 0f, 0.001f);
             health.AddEffect(terminate);
 
-            Need aging = new Need(human.GetProperty(ID_PROPERTY_AGE), 1);
+            PropertyUpdater aging = new PropertyUpdater(human.GetProperty(ID_PROPERTY_AGE), 1);
             TerminateEvent timeUp = new TerminateEvent(aging, human, ageDeath, 0.001f);
             aging.AddEffect(timeUp);
 
 
-            Need energy = new Need(human.GetProperty(ID_PROPERTY_ENERGY), energyRate);
+            PropertyUpdater energy = new PropertyUpdater(human.GetProperty(ID_PROPERTY_ENERGY), energyRate);
             ModifyPropertyEvent decHealthMod = new ModifyPropertyEvent(energy, health, -energyImpact, energyImportance, (x => x < energyThreshold));
             energy.AddEffect(decHealthMod);
 
-            Need hunger = new Need(human.GetProperty(ID_PROPERTY_NOURISHMENT), startingRate);
+            PropertyUpdater hunger = new PropertyUpdater(human.GetProperty(ID_PROPERTY_NOURISHMENT), startingRate);
             ModifyPropertyEvent dmgHealthMod = new ModifyPropertyEvent(hunger, health, hungerImpact1, hungerImportance, (x => x < hungerThreshold));
             ModifyPropertyEvent dmgEnergyMod = new ModifyPropertyEvent(hunger, energy, hungerImpact1, hungerImportance, (x => x < hungerThreshold));
             ModifyPropertyEvent healthyMod = new ModifyPropertyEvent(hunger, health, hungerImpact2, hungerImportance,  (x => x > (1 - hungerThreshold)));
@@ -157,17 +157,17 @@ namespace Simulaton
             hunger.AddEffect(dmgEnergyMod);
             hunger.AddEffect(healthyMod);
 
-            Need social = new Need(human.GetProperty(ID_PROPERTY_SOCIAL_INTERACTION), socialRate);
+            PropertyUpdater social = new PropertyUpdater(human.GetProperty(ID_PROPERTY_SOCIAL_INTERACTION), socialRate);
             ModifyPropertyEvent drainEnergyMod = new ModifyPropertyEvent(social, energy, socialImpact, socialImportance, (x => x < socialThreshold));
             ModifyPropertyEvent energeticMod = new ModifyPropertyEvent(social, energy, socialImpact, socialImportance, (x => x > socialThreshold));
             social.AddEffect(drainEnergyMod);
             social.AddEffect(energeticMod);
 
-            human.AddNeed(health);
-            human.AddNeed(aging);
-            human.AddNeed(hunger);
-            human.AddNeed(energy);
-            human.AddNeed(social);
+            human.AddPropertyUpdater(health);
+            human.AddPropertyUpdater(aging);
+            human.AddPropertyUpdater(hunger);
+            human.AddPropertyUpdater(energy);
+            human.AddPropertyUpdater(social);
         }
     }
 

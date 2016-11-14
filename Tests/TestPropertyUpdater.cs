@@ -6,14 +6,14 @@ using Simulaton.Simulation;
 namespace Tests
 {
     [TestClass]
-    public class TestNeeds
+    public class TestPropertyUpdaters
     {
 
-        Need testTarget;
+        PropertyUpdater testTarget;
         ModifyPropertyEvent effect;
 
         //[TestInitialize]
-        //public void TestModifyNeedEffectOnTrigger()
+        //public void TestModifyPropertyUpdaterEffectOnTrigger()
         //{
         //    DebugSetup setup = new DebugSetup();
         //    setup.SetupTestEnvironment();
@@ -23,7 +23,7 @@ namespace Tests
         public void TestModifyPropertyEventOnTrigger()
         {
             Property p = new Property(0, 1);
-            testTarget = new Need(p, 0f);
+            testTarget = new PropertyUpdater(p, 0f);
             effect = new ModifyPropertyEvent(testTarget, testTarget, -1f, 1f, (x => x < 0.2f));
             testTarget.AddEffect(effect);
 
@@ -36,7 +36,7 @@ namespace Tests
         {
             float amount = 0.2f;
             Property p = new Property(0, amount);
-            testTarget = new Need(p, 0f);
+            testTarget = new PropertyUpdater(p, 0f);
             float highestImportance = 0.5f;
             PropertyEvent effect1 = new ModifyPropertyEvent(testTarget, testTarget, -1f, 0.3f,  (x => x > 0.2f));
             PropertyEvent effect2 = new ModifyPropertyEvent(testTarget, testTarget, -1f, 0.4f, (x => x > 0.2f));

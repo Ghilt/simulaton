@@ -17,25 +17,25 @@ namespace Simulaton.Simulation
             this.owner = owner;
         }
 
-        public void MakeDecision(Needs needs, Abilities abilities)
+        public void MakeDecision(PropertyUpdaters propertyUpdaters, Abilities abilities)
         {
 
-            Need pressingDesire = needs.getMostImportantNeed();
-            Logger.PrintInfo(this, "Most pressing need- " + Property.Name[pressingDesire.property.id]);
+            PropertyUpdater pressingDesire = propertyUpdaters.getMostImportantPropertyUpdater();
+            Logger.PrintInfo(this, "Most pressing propertyUpdater- " + Property.Name[pressingDesire.property.id]);
             float largestValue = 0.0f;
             Ability toDo = null;
-            Need willActUpon = null;
+            PropertyUpdater willActUpon = null;
             foreach (Ability action in abilities.Values)
             {
-                Need target;
-                if (!TryGetBestMatch(needs, action, out target))
+                PropertyUpdater target;
+                if (!TryGetBestMatch(propertyUpdaters, action, out target))
                 {
                     continue;
                 }
 
                 List<EvaluableResult> prediction = action.GetPrediction(target.property.id);
                 Logger.PrintInfo(this, Ability.Name[action.id] + " is evaluated as: ");
-                float value = Evaluate(needs, prediction);
+                float value = Evaluate(propertyUpdaters, prediction);
 
                 if (value > largestValue)
                 {
@@ -61,20 +61,20 @@ namespace Simulaton.Simulation
         {
             Logger.PrintInfo(this, "Interaction request for " + Ability.Name[ability.id]);
             List<EvaluableResult> prediction = ability.GetPrediction(propertyTargetId);
-            float value = Evaluate(owner.needs, prediction);
+            float value = Evaluate(owner.propertyUpdaters, prediction);
             if (value > 0)
             {
                 ability.executeInteraction(propertyTargetId, owner);
             }
         }
 
-        private bool TryGetBestMatch(Needs needs, Ability action, out Need match)
+        private bool TryGetBestMatch(PropertyUpdaters propertyUpdaters, Ability action, out PropertyUpdater match)
         {
-            foreach (Need need in needs.SortedOnImportance())
+            foreach (PropertyUpdater propertyUpdater in propertyUpdaters.SortedOnImportance())
             {
-                if (action.Satisfies(need.property.id))
+                if (action.Satisfies(propertyUpdater.property.id))
                 {
-                    match = need;
+                    match = propertyUpdater;
                     return true;
                 }
             }
@@ -83,7 +83,7 @@ namespace Simulaton.Simulation
 
         }
 
-        private float Evaluate(Needs needs, List<EvaluableResult> prediction)
+        private float Evaluate(PropertyUpdaters propertyUpdaters, List<EvaluableResult> prediction)
         {
             float value = 0;
             if (prediction.Count == 0)
@@ -92,9 +92,9 @@ namespace Simulaton.Simulation
             }
             foreach (EvaluableResult result in prediction)
             {
-                float change = needs[result.propertyId].GetImportance() * result.magnitude;
+                float change = propertyUpdaters[result.propertyId].GetImportance() * result.magnitude;
                 value += change;
-                Logger.PrintInfo(this, "\t(" + Property.Name[result.propertyId] + " effect) " + Logger.FloatToPercent(needs[result.propertyId].GetImportance()) + " * " + Logger.FloatToPercent(result.magnitude) + " = " + Logger.FloatToPercentWithSign(change));
+                Logger.PrintInfo(this, "\t(" + Property.Name[result.propertyId] + " effect) " + Logger.FloatToPercent(propertyUpdaters[result.propertyId].GetImportance()) + " * " + Logger.FloatToPercent(result.magnitude) + " = " + Logger.FloatToPercentWithSign(change));
             }
             return value;
         }

@@ -12,7 +12,7 @@ namespace Simulaton.Simulation
         private Location location;
         public Brain brain { private set; get; }
         public Dictionary<int, Property> properties { private set; get; }
-        public Needs needs { private set; get; }
+        public PropertyUpdaters propertyUpdaters { private set; get; }
         private Abilities actions;
 
         public Life(int ticksBirth, String name, Location location)
@@ -21,13 +21,13 @@ namespace Simulaton.Simulation
             this.location = location;
             this.brain = new Brain(this);
             this.properties = new Dictionary<int, Property>();
-            this.needs = new Needs();
+            this.propertyUpdaters = new PropertyUpdaters();
             this.actions = new Abilities();
         }
 
-        public void AddNeed(Need need)
+        public void AddPropertyUpdater(PropertyUpdater propertyUpdater)
         {
-            needs.Add(need);
+            propertyUpdaters.Add(propertyUpdater);
         }
 
         internal bool TryGetPropertyValue(int propertyId, out float value)
@@ -47,10 +47,10 @@ namespace Simulaton.Simulation
         public override void OnTick()
         {
             AddSummary(CreateCurrentSummary());
-            PrintNeeds();
+            PrintPropertyUpdaters();
             location.Move(); // todo remove
-            needs.OnTick();
-            brain.MakeDecision(needs, actions);
+            propertyUpdaters.OnTick();
+            brain.MakeDecision(propertyUpdaters, actions);
         }
 
         public override void OnEvent(Event exteriorEvent)
@@ -77,14 +77,14 @@ namespace Simulaton.Simulation
             return location;
         }
 
-        private void PrintNeeds()
+        private void PrintPropertyUpdaters()
         {
             Logger.PrintInfo(this, "_________________________________________");
             Logger.PrintInfo(this, name + ", at x: " + location.x + " y: " + location.y);
             string info = "";
-            foreach (Need n in needs.Values)
+            foreach (PropertyUpdater n in propertyUpdaters.Values)
             {
-                info += " " + Property.Name[n.property.id] + ": " + Logger.FloatToPercent(needs[n.property.id].property.amount);
+                info += " " + Property.Name[n.property.id] + ": " + Logger.FloatToPercent(propertyUpdaters[n.property.id].property.amount);
             }
             Logger.PrintInfo(this, info);
         }
@@ -102,7 +102,7 @@ namespace Simulaton.Simulation
         private Summary[] CreateCurrentSummary()
         {
             List<Summary> summaries = new List<Summary>();
-            foreach (Need p in needs.Values)
+            foreach (PropertyUpdater p in propertyUpdaters.Values)
             {
                 Summary summary = new Summary(Summary.TYPE_PROPERTY, p.property.id, p.property.amount);
                 summaries.Add(summary);

@@ -6,39 +6,39 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Simulation
 {
-    public class Needs : Dictionary<int, Need>
+    public class PropertyUpdaters : Dictionary<int, PropertyUpdater>
     {
-        List<Need> sortedOnImportance;
+        List<PropertyUpdater> sortedOnImportance;
 
-        public Needs()
+        public PropertyUpdaters()
         {
             UpdateSortedList();
         }
 
-        public void Add(Need need)
+        public void Add(PropertyUpdater propertyUpdater)
         {
-            Add(need.property.id, need);
+            Add(propertyUpdater.property.id, propertyUpdater);
         }
 
         private void UpdateSortedList()
         {
             sortedOnImportance = this.ToList().Select(pair => pair.Value).ToList(); // todo refactor
-            sortedOnImportance.Sort((need1, need2) => need1.GetImportance().CompareTo(need2.GetImportance()));
+            sortedOnImportance.Sort((propertyUpdater1, propertyUpdater2) => propertyUpdater1.GetImportance().CompareTo(propertyUpdater2.GetImportance()));
             sortedOnImportance.Reverse();
         }
 
         internal void OnTick()
         {
-            foreach (Need need in this.Values)
+            foreach (PropertyUpdater propertyUpdater in this.Values)
             {
-                need.OnTick();
+                propertyUpdater.OnTick();
             }
             UpdateSortedList();
         }
 
         internal bool TryGetValue(int propertyId, out float value)
         {
-            Need outProp;
+            PropertyUpdater outProp;
             if (TryGetValue(propertyId, out outProp))
             {
                 value = outProp.property.amount;
@@ -51,12 +51,12 @@ namespace Simulaton.Simulation
             }
         }
 
-        internal IEnumerable<Need> SortedOnImportance()
+        internal IEnumerable<PropertyUpdater> SortedOnImportance()
         {
             return sortedOnImportance;
         }
 
-        internal Need getMostImportantNeed ()
+        internal PropertyUpdater getMostImportantPropertyUpdater ()
         {
             return sortedOnImportance[0];
         }
