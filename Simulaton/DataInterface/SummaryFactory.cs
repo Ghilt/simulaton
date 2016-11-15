@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Simulaton.Simulation;
 
-namespace Simulaton.Mechanics
+namespace Simulaton
 {
     class SummaryFactory
     {
