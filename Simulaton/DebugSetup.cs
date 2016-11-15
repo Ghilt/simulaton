@@ -137,11 +137,11 @@ namespace Simulaton
             float socialImportance = rand.FloatNear(0.7f);
 
             PropertyUpdater health = new PropertyUpdater(human.GetProperty(ID_PROPERTY_HEALTH), 0);
-            TerminateEvent terminate = new TerminateEvent(health, human, 0f, 0.001f);
+            TerminateEvent terminate = new TerminateEvent(health, human, (x => x < 0.01));
             health.AddEffect(terminate);
 
-            PropertyUpdater aging = new PropertyUpdater(human.GetProperty(ID_PROPERTY_AGE), 1);
-            TerminateEvent timeUp = new TerminateEvent(aging, human, ageDeath, 0.001f);
+            PropertyUpdater aging = new PropertyUpdater(human.GetProperty(ID_PROPERTY_AGE), 0.34f);
+            TerminateEvent timeUp = new TerminateEvent(aging, human, (x => x > ageDeath));
             aging.AddEffect(timeUp);
 
 
