@@ -47,6 +47,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mechanics\AbilitySummary.cs" />
+    <Compile Include="Mechanics\PropertySummary.cs" />
+    <Compile Include="Mechanics\SummaryFactory.cs" />
     <Compile Include="Simulation\Life\Abilities\Abilities.cs" />
     <Compile Include="Simulation\Life\Abilities\Ability.cs" />
     <Compile Include="Simulation\Life\Abilities\AbilityModifier.cs" />

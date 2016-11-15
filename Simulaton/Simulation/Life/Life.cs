@@ -102,9 +102,9 @@ namespace Simulaton.Simulation
         private Summary[] CreateCurrentSummary()
         {
             List<Summary> summaries = new List<Summary>();
-            foreach (PropertyUpdater p in propertyUpdaters.Values)
+            foreach (Property p in properties.Values)
             {
-                Summary summary = new Summary(Summary.TYPE_PROPERTY, p.property.id, p.property.amount);
+                Summary summary = SummaryFactory.CreateSummary(p);
                 summaries.Add(summary);
             }
             return summaries.ToArray(); ;

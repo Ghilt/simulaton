@@ -49,7 +49,7 @@ namespace Simulaton.Simulation
             {
                 Logger.PrintInfo(this, "Most fitting action- " + Ability.Name[toDo.id] + " to get " + Property.Name[willActUpon.property.id]);
                 toDo.Execute(willActUpon.property.id);
-                owner.AddSummary(new Summary(Summary.TYPE_ABILITY, toDo.id));
+                owner.AddSummary(SummaryFactory.CreateSummary(toDo));
             }
             else
             {

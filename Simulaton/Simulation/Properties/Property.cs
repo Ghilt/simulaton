@@ -29,5 +29,10 @@ namespace Simulaton.Simulation
             }
         }
 
+        internal bool IsBounded()
+        {
+            return bounded;
+        }
+
     }
 }
