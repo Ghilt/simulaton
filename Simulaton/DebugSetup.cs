@@ -87,10 +87,10 @@ namespace Simulaton
 
             SatisfyEvent finding = new SatisfyFromResourceEvent(searchPower, human.GetLocation());
             SatisfyEvent tieringFromWork = new SatisfyEvent(ID_PROPERTY_ENERGY, gettingTiredBy);
-            tieringFromWork.AddModifier(new AbilityModifier(ID_PROPERTY_AGE, (x => x > 60), 2.0f));
+            tieringFromWork.AddModifier(new AbilityModifier(ID_PROPERTY_AGE, new LargerThanThreshold(60,2,1)));
             SatisfyEvent energyBoostOrSink = new SatisfyEvent(ID_PROPERTY_ENERGY, goodOrBadEnergy);
             SatisfyEvent asleep = new SatisfyEvent(ID_PROPERTY_ENERGY, sleepPower);
-            asleep.AddModifier(new AbilityModifier(ID_PROPERTY_NOURISHMENT, (x => x < 0.4f), 0.2f));
+            asleep.AddModifier(new AbilityModifier(ID_PROPERTY_NOURISHMENT, new SmallerThanThreshold(0.4f,0.2f,1f)));
             SatisfyEvent socializing = new SatisfyEvent(ID_PROPERTY_SOCIAL_INTERACTION, socializePower);
 
             Ability search = new Ability(ID_ABILITY_SEARCH, human);

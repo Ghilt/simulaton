@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Simulaton.Mechanics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,21 +10,26 @@ namespace Simulaton.Simulation
     public class AbilityModifier
     {
         private int propertyId;
-        private float modifier;
-        private Func<float, bool> condition;
+        private TransformFunction<float, float> function;
 
-        public AbilityModifier(int propertyId, Func<float, bool> condition, float modifier)
+        public AbilityModifier(int propertyId, TransformFunction<float, float> function)
         {
             this.propertyId = propertyId;
-            this.modifier = modifier;
-            this.condition = condition;
+            this.function = function;
         }
 
         internal float GetModification(Life target)
         {
             float valueOfProperty;
             bool exists = target.TryGetPropertyValue(propertyId, out valueOfProperty);
-            return (exists && condition(valueOfProperty) ? modifier : 1f);
+            
+            if(exists){
+                return 1;
+            }
+            else
+            {
+                return function.Transform(valueOfProperty);
+            }
         }
     }
 }

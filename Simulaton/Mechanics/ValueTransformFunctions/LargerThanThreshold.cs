@@ -9,7 +9,8 @@ namespace Simulaton.Mechanics
 {
     class LargerThanThreshold : GenericTransform
     {
-        public LargerThanThreshold(float threshold, float modifyBy) : base (x => (x > threshold) ? modifyBy : 0f)
+        public LargerThanThreshold(float threshold, float aboveThresholdValue, float belowThresholdValue = 0f)
+            : base(x => (x > threshold) ? aboveThresholdValue : belowThresholdValue)
         {
         }
 

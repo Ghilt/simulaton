@@ -9,7 +9,8 @@ namespace Simulaton.Mechanics.ValueTransformFunctions
     class SmallerThanThreshold : GenericTransform
     {
 
-        public SmallerThanThreshold(float threshold, float modifyBy) : base((x => (x < threshold) ? modifyBy : 0f))
+        public SmallerThanThreshold(float threshold, float aboveThresholdValue, float belowThresholdValue = 0f)
+            : base(x => (x < threshold) ? aboveThresholdValue : belowThresholdValue)
         {
         }
     }
