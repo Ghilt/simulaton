@@ -18,7 +18,7 @@ namespace Simulaton.Mechanics.ValueTransformFunctions
         public float Transform(float x)
         {
             float result = function(x);
-            Logger.PrintInfo(this, "\t transform " + Logger.FloatToPercentWithSign(x) + " -> " + Logger.FloatToPercentWithSign(result));
+            //Logger.PrintInfo(this, "\t transform " + Logger.FloatToPercentWithSign(x) + " -> " + Logger.FloatToPercentWithSign(result));
             return result;
         }
     }
