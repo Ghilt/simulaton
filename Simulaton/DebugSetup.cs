@@ -1,5 +1,7 @@
 ﻿using Simulaton.Attributes;
 using Simulaton.Events;
+using Simulaton.Mechanics;
+using Simulaton.Mechanics.ValueTransformFunctions;
 using Simulaton.Simulation;
 using System;
 using System.Collections.Generic;
@@ -146,20 +148,21 @@ namespace Simulaton
 
 
             PropertyUpdater energy = new PropertyUpdater(human.GetProperty(ID_PROPERTY_ENERGY), energyRate);
-            ModifyPropertyEvent decHealthMod = new ModifyPropertyEvent(energy, health, -energyImpact, energyImportance, (x => x < energyThreshold));
+
+            ModifyPropertyEvent decHealthMod = new ModifyPropertyEvent(energy, health, -energyImpact, energyImportance, new SmallerThanThreshold(energyThreshold, -energyImpact));
             energy.AddEffect(decHealthMod);
 
             PropertyUpdater hunger = new PropertyUpdater(human.GetProperty(ID_PROPERTY_NOURISHMENT), startingRate);
-            ModifyPropertyEvent dmgHealthMod = new ModifyPropertyEvent(hunger, health, hungerImpact1, hungerImportance, (x => x < hungerThreshold));
-            ModifyPropertyEvent dmgEnergyMod = new ModifyPropertyEvent(hunger, energy, hungerImpact1, hungerImportance, (x => x < hungerThreshold));
-            ModifyPropertyEvent healthyMod = new ModifyPropertyEvent(hunger, health, hungerImpact2, hungerImportance,  (x => x > (1 - hungerThreshold)));
+            ModifyPropertyEvent dmgHealthMod = new ModifyPropertyEvent(hunger, health, hungerImpact1, hungerImportance, new SmallerThanThreshold(hungerThreshold, hungerImpact1));
+            ModifyPropertyEvent dmgEnergyMod = new ModifyPropertyEvent(hunger, energy, hungerImpact1, hungerImportance, new SmallerThanThreshold(hungerThreshold, hungerImpact1));
+            ModifyPropertyEvent healthyMod = new ModifyPropertyEvent(hunger, health, hungerImpact2, hungerImportance, new LargerThanThreshold(1 - hungerThreshold, hungerImpact2));
             hunger.AddEffect(dmgHealthMod);
             hunger.AddEffect(dmgEnergyMod);
             hunger.AddEffect(healthyMod);
 
             PropertyUpdater social = new PropertyUpdater(human.GetProperty(ID_PROPERTY_SOCIAL_INTERACTION), socialRate);
-            ModifyPropertyEvent drainEnergyMod = new ModifyPropertyEvent(social, energy, socialImpact, socialImportance, (x => x < socialThreshold));
-            ModifyPropertyEvent energeticMod = new ModifyPropertyEvent(social, energy, socialImpact, socialImportance, (x => x > socialThreshold));
+            ModifyPropertyEvent drainEnergyMod = new ModifyPropertyEvent(social, energy, socialImpact, socialImportance, new SmallerThanThreshold(socialThreshold, socialImpact));
+            ModifyPropertyEvent energeticMod = new ModifyPropertyEvent(social, energy, socialImpact, socialImportance, new LargerThanThreshold(socialThreshold, socialImpact));
             social.AddEffect(drainEnergyMod);
             social.AddEffect(energeticMod);
 

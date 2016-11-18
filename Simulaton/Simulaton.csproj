@@ -50,6 +50,9 @@
     <Compile Include="DataInterface\AbilitySummary.cs" />
     <Compile Include="DataInterface\PropertySummary.cs" />
     <Compile Include="DataInterface\SummaryFactory.cs" />
+    <Compile Include="Mechanics\ValueTransformFunctions\GenericTransform.cs" />
+    <Compile Include="Mechanics\ValueTransformFunctions\SmallerThanThreshold.cs" />
+    <Compile Include="Mechanics\ValueTransformFunctions\LargerThanThreshold.cs" />
     <Compile Include="Simulation\Life\Abilities\Abilities.cs" />
     <Compile Include="Simulation\Life\Abilities\Ability.cs" />
     <Compile Include="Simulation\Life\Abilities\AbilityModifier.cs" />
@@ -76,6 +79,7 @@
     <Compile Include="Mechanics\Interval.cs" />
     <Compile Include="Simulation\Life\Abilities\AbilityEvents\AbilityEvent.cs" />
     <Compile Include="Simulation\Life\Abilities\AbilityEvents\SatisfyEvent.cs" />
+    <Compile Include="Mechanics\ValueTransformFunctions\TransformFunction.cs" />
     <Compile Include="Simulation\Properties\PropertyUpdaters.cs" />
     <Compile Include="Simulation\Properties\PropertyEvents\ModifyPropertyEvent.cs" />
     <Compile Include="Simulation\Properties\PropertyEvents\PropertyEvent.cs" />
