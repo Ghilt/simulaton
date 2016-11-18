@@ -15,7 +15,7 @@ namespace Simulaton.Simulation
         private float threshold;
         private Func<float, float, bool> condition;
 
-        public RequirePropertyAmount(Life target, int propertyId, float cc, Func<float, float, bool> condition)
+        public RequirePropertyAmount(Life target, int propertyId, float threshold, Func<float, float, bool> condition)
         {
             this.target = target;
             this.propertyId = propertyId;
