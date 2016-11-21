@@ -51,6 +51,7 @@
     <Compile Include="DataInterface\PropertySummary.cs" />
     <Compile Include="DataInterface\SummaryFactory.cs" />
     <Compile Include="Mechanics\ValueTransformFunctions\GenericTransform.cs" />
+    <Compile Include="Mechanics\ValueTransformFunctions\LinearTransform.cs" />
     <Compile Include="Mechanics\ValueTransformFunctions\SmallerThanThreshold.cs" />
     <Compile Include="Mechanics\ValueTransformFunctions\LargerThanThreshold.cs" />
     <Compile Include="Simulation\Life\Abilities\Abilities.cs" />
