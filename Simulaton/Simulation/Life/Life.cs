@@ -39,7 +39,6 @@ namespace Simulaton.Simulation
             bool exist = properties.TryGetValue(propertyId, out property);
             value = exist ? property.amount: 0;
             return exist;
-
         }
 
         public void AddAbility(Ability action)
@@ -50,7 +49,7 @@ namespace Simulaton.Simulation
         public override void OnTick()
         {
             AddSummary(CreateCurrentSummary());
-            PrintPropertyUpdaters();
+            PrintProperties();
             location.Move(); // todo remove
             propertyUpdaters.OnTick();
             brain.MakeDecision(propertyUpdaters, actions);
@@ -80,14 +79,14 @@ namespace Simulaton.Simulation
             return location;
         }
 
-        private void PrintPropertyUpdaters()
+        private void PrintProperties()
         {
             Logger.PrintInfo(this, "_________________________________________");
             Logger.PrintInfo(this, name + ", at x: " + location.x + " y: " + location.y);
             string info = "";
-            foreach (PropertyUpdater n in propertyUpdaters.Values)
+            foreach (Property n in properties.Values)
             {
-                info += " " + Property.Name[n.property.id] + ": " + Logger.FloatToPercent(propertyUpdaters[n.property.id].property.amount);
+                info += " " + Property.Name[n.id] + ": " + Logger.FloatToPercent(properties[n.id].amount);
             }
             Logger.PrintInfo(this, info);
         }
