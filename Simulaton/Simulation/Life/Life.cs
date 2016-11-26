@@ -13,8 +13,8 @@ namespace Simulaton.Simulation
         private Location location;
         public Brain brain { private set; get; }
         public Dictionary<int, Property> properties { private set; get; }
-        public ItemManager itemManager;
         public PropertyUpdaters propertyUpdaters { private set; get; }
+        private ItemManager itemManager;
         private Abilities actions;
 
         public Life(int ticksBirth, String name, Location location)
@@ -121,5 +121,11 @@ namespace Simulaton.Simulation
         {
             return itemManager.AccessToItem(itemId, amount);
         }
+
+        internal bool TryGetItem(int itemId, out Item item)
+        {
+            return itemManager.TryGetItem(itemId, out item);
+        }
+
     }
 }

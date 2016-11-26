@@ -23,6 +23,8 @@ namespace Simulaton
         public const int ID_ABILITY_SLEEP = 1;
         public const int ID_ABILITY_SOCIALIZE = 2;
 
+        public const int ID_ITEM_BED = 1;
+
         private static GenerateRandom rand = new GenerateRandom();
 
         public void SetupTestEnvironment()
@@ -36,6 +38,8 @@ namespace Simulaton
             Ability.AddToEnvironment(ID_ABILITY_SEARCH, "Search");
             Ability.AddToEnvironment(ID_ABILITY_SLEEP, "Sleep");
             Ability.AddToEnvironment(ID_ABILITY_SOCIALIZE, "Socialize");
+
+            Item.AddToEnvironment(ID_ITEM_BED, "Bed");
         }
 
         internal Life CreateHuman(string name, Region region)
@@ -45,6 +49,7 @@ namespace Simulaton
             AddProperties(human);
             AddPropertyUpdaters(human);
             AddAbilities(human);
+            AddStartingItems(human);
 
             return human;
         }
@@ -87,10 +92,10 @@ namespace Simulaton
 
             SatisfyEvent finding = new SatisfyFromResourceEvent(searchPower, human.GetLocation());
             SatisfyEvent tieringFromWork = new SatisfyEvent(ID_PROPERTY_ENERGY, gettingTiredBy);
-            tieringFromWork.AddModifier(new AbilityModifier(ID_PROPERTY_AGE, new LargerThanThreshold(60,2,1)));
+            tieringFromWork.AddModifier(new ModifyByProperty(ID_PROPERTY_AGE, new LargerThanThreshold(60,2,1)));
             SatisfyEvent energyBoostOrSink = new SatisfyEvent(ID_PROPERTY_ENERGY, goodOrBadEnergy);
             SatisfyEvent asleep = new SatisfyEvent(ID_PROPERTY_ENERGY, sleepPower);
-            asleep.AddModifier(new AbilityModifier(ID_PROPERTY_NOURISHMENT, new SmallerThanThreshold(0.4f,0.2f,1f)));
+            asleep.AddModifier(new ModifyByProperty(ID_PROPERTY_NOURISHMENT, new SmallerThanThreshold(0.4f,0.2f,1f)));
             SatisfyEvent socializing = new SatisfyEvent(ID_PROPERTY_SOCIAL_INTERACTION, socializePower);
 
             Ability search = new Ability(ID_ABILITY_SEARCH, human);
@@ -171,6 +176,11 @@ namespace Simulaton
             human.AddPropertyUpdater(hunger);
             human.AddPropertyUpdater(energy);
             human.AddPropertyUpdater(social);
+        }
+
+        private void AddStartingItems(Life human)
+        {
+            //Todo
         }
     }
 

@@ -58,8 +58,10 @@
     <Compile Include="Simulation\Item\ItemManager.cs" />
     <Compile Include="Simulation\Life\Abilities\Abilities.cs" />
     <Compile Include="Simulation\Life\Abilities\Ability.cs" />
-    <Compile Include="Simulation\Life\Abilities\AbilityModifier.cs" />
-    <Compile Include="Simulation\Life\Abilities\RequireItem.cs" />
+    <Compile Include="Simulation\Life\Abilities\AbilityModifiers\AbilityModifier.cs" />
+    <Compile Include="Simulation\Life\Abilities\AbilityModifiers\ModifyByItem.cs" />
+    <Compile Include="Simulation\Life\Abilities\AbilityModifiers\ModifyByProperty.cs" />
+    <Compile Include="Simulation\Life\Abilities\AbilityRequirements\RequireItem.cs" />
     <Compile Include="Simulation\Life\Brain.cs" />
     <Compile Include="Simulation\Life\Abilities\InteractionAbility.cs" />
     <Compile Include="Simulation\Properties\Property.cs" />
@@ -77,9 +79,9 @@
     <Compile Include="Simulation\Life\Abilities\EvaluableResult.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Events\ExecuteInteractionEvent.cs" />
-    <Compile Include="Simulation\Life\Abilities\RequirePropertyAmount.cs" />
+    <Compile Include="Simulation\Life\Abilities\AbilityRequirements\RequirePropertyAmount.cs" />
     <Compile Include="Events\RequestEvent.cs" />
-    <Compile Include="Simulation\Life\Abilities\AbilityRequirement.cs" />
+    <Compile Include="Simulation\Life\Abilities\AbilityRequirements\AbilityRequirement.cs" />
     <Compile Include="Mechanics\Interval.cs" />
     <Compile Include="Simulation\Life\Abilities\AbilityEvents\AbilityEvent.cs" />
     <Compile Include="Simulation\Life\Abilities\AbilityEvents\SatisfyEvent.cs" />

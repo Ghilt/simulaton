@@ -10,10 +10,12 @@ namespace Simulaton.Simulation
     public partial class Item : Entity
     {
         public int id { get; private set; }
+        public float quality { get; private set; }
 
-        public Item(int id, int ticksBirth, string name) : base(ticksBirth, name)
+        public Item(int id, int ticksBirth, string name, float quality) : base(ticksBirth, name)
         {
             this.id = id;
+            this.quality = quality;
         }
 
         public override void OnTick()
