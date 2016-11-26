@@ -8,13 +8,15 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Events
 {
-    public interface Event
+    public abstract class Event
     {
-        Entity GetSender();
+        public abstract Entity GetSender();
 
-        void Handle(Life context);
-        //All handlers (visitor pattern)
+        //All handlers (visitor pattern), standard behaviod do nothing
+        public virtual void Handle(Life context) { }
 
-        bool IsHandled();
+        public virtual void Handle(Item item) { }
+
+        public abstract bool IsHandled();
     }
 }

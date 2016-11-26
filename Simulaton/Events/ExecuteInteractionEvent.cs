@@ -21,18 +21,18 @@ namespace Simulaton.Events
             isHandled = false;
         }
 
-        public Entity GetSender()
+        public override Entity GetSender()
         {
             return ability.parent;
         }
 
-        public void Handle(Life context)
+        public override void Handle(Life context)
         {
             ability.executeInteraction(targetPropertyId, context);
             isHandled = true;
         }
 
-        public bool IsHandled()
+        public override bool IsHandled()
         {
             return isHandled;
         }

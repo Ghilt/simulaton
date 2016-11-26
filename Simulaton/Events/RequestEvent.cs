@@ -25,18 +25,18 @@ namespace Simulaton.Events
             this.interactionAbility = interactionAbility;
         }
 
-        public Entity GetSender()
+        public override Entity GetSender()
         {
             return interactionAbility.parent;
         }
 
-        public void Handle(Life context)
+        public override void Handle(Life context)
         {
             context.brain.MakeDecision(propertyTargetId, interactionAbility);
             handled = true;
         }
 
-        public bool IsHandled()
+        public override bool IsHandled()
         {
             return handled;
         }

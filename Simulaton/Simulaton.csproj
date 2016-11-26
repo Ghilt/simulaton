@@ -54,6 +54,7 @@
     <Compile Include="Mechanics\ValueTransformFunctions\LinearTransform.cs" />
     <Compile Include="Mechanics\ValueTransformFunctions\SmallerThanThreshold.cs" />
     <Compile Include="Mechanics\ValueTransformFunctions\LargerThanThreshold.cs" />
+    <Compile Include="Simulation\Item.cs" />
     <Compile Include="Simulation\Life\Abilities\Abilities.cs" />
     <Compile Include="Simulation\Life\Abilities\Ability.cs" />
     <Compile Include="Simulation\Life\Abilities\AbilityModifier.cs" />
