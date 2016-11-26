@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Simulaton.Events;
 using Simulaton.Mechanics;
+using Simulaton.Simulation;
 
 namespace Simulaton.Simulation
 {
@@ -12,6 +13,7 @@ namespace Simulaton.Simulation
         private Location location;
         public Brain brain { private set; get; }
         public Dictionary<int, Property> properties { private set; get; }
+        public ItemManager itemManager;
         public PropertyUpdaters propertyUpdaters { private set; get; }
         private Abilities actions;
 
@@ -20,6 +22,7 @@ namespace Simulaton.Simulation
         {
             this.location = location;
             this.brain = new Brain(this);
+            this.itemManager = new ItemManager(this);
             this.properties = new Dictionary<int, Property>();
             this.propertyUpdaters = new PropertyUpdaters();
             this.actions = new Abilities();
@@ -113,6 +116,11 @@ namespace Simulaton.Simulation
         internal Property GetProperty(int propertyId)
         {
             return properties[propertyId];
+        }
+
+        internal bool AccessToItem(int itemId, float amount)
+        {
+            return itemManager.AccessToItem(itemId, amount);
         }
     }
 }
