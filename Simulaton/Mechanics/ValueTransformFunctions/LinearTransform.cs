@@ -47,7 +47,7 @@ namespace Simulaton.Mechanics.ValueTransformFunctions
         public float Transform(float x)
         {
             float result = x;
-            for (int i = points.Count; i >= 0; i--)
+            for (int i = points.Count-1; i >= 0; i--)
             {
                 if (x >= points.Keys[i])
                 {

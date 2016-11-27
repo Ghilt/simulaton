@@ -15,13 +15,13 @@ namespace Simulaton.Simulation
         private int length;
         private Interval resourcesAvailable;
 
-        private List<Entity> entities;
+        private List<ProteanEntity> entities;
 
         public Region(int ticksBirth, int width, int length) : base(ticksBirth, "Plain plains, Nevada")
         {
             this.width = width;
             this.length = length;
-            entities = new List<Entity>();
+            entities = new List<ProteanEntity>();
             resourcesAvailable = new Interval(0.1f, 0.9f);
         }
 
@@ -46,9 +46,14 @@ namespace Simulaton.Simulation
             return length;
         }
 
-        public void AddEntity(Entity entity)
+        public void AddEntity(ProteanEntity entity)
         {
             entities.Add(entity);
+        }
+
+        public void RemoveEntity(ProteanEntity entity)
+        {
+            entities.Remove(entity);
         }
 
         public override void OnTick()

@@ -10,18 +10,16 @@ namespace Simulaton.Simulation
     {
         private Life target;
         private int itemId;
-        private float amount;
 
-        public RequireItem(Life target, int itemId, float amount)
+        public RequireItem(Life target, int itemId)
         {
             this.target = target;
             this.itemId = itemId;
-            this.amount = amount;
         }
 
         public bool IsFulfilled()
         {
-            return target.AccessToItem(itemId, amount);
+            return target.AccessToItem(itemId);
         }
     }
 }

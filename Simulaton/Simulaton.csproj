@@ -54,6 +54,8 @@
     <Compile Include="Mechanics\ValueTransformFunctions\LinearTransform.cs" />
     <Compile Include="Mechanics\ValueTransformFunctions\SmallerThanThreshold.cs" />
     <Compile Include="Mechanics\ValueTransformFunctions\LargerThanThreshold.cs" />
+    <Compile Include="Simulation\AttachedEntitiesList.cs" />
+    <Compile Include="Simulation\Holder.cs" />
     <Compile Include="Simulation\Item\Item.cs" />
     <Compile Include="Simulation\Item\ItemManager.cs" />
     <Compile Include="Simulation\Life\Abilities\Abilities.cs" />
@@ -64,6 +66,8 @@
     <Compile Include="Simulation\Life\Abilities\AbilityRequirements\RequireItem.cs" />
     <Compile Include="Simulation\Life\Brain.cs" />
     <Compile Include="Simulation\Life\Abilities\InteractionAbility.cs" />
+    <Compile Include="Simulation\Location\AttachedLocation.cs" />
+    <Compile Include="Simulation\Location\RegionLocation.cs" />
     <Compile Include="Simulation\Properties\Property.cs" />
     <Compile Include="Simulation\Life\Abilities\Resource.cs" />
     <Compile Include="ConsoleUi\ConsoleFrame.cs" />
@@ -94,7 +98,8 @@
     <Compile Include="Mechanics\Engine.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Simulation\Life\Life.cs" />
-    <Compile Include="Simulation\Location.cs" />
+    <Compile Include="Simulation\Location\Location.cs" />
+    <Compile Include="Simulation\ProteanEntity.cs" />
     <Compile Include="Simulation\Region.cs" />
     <Compile Include="Simulation\Entity.cs" />
     <Compile Include="Program.cs" />

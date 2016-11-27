@@ -1,21 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Simulaton.Events;
 
 namespace Simulaton.Simulation
 {
-    public partial class Item : Entity
+    public partial class Item : ProteanEntity
     {
         public int id { get; private set; }
         public float quality { get; private set; }
 
-        public Item(int id, int ticksBirth, string name, float quality) : base(ticksBirth, name)
+        public Item(int id, int ticksBirth, string name, float quality, Location location) : base(ticksBirth, name, location)
         {
             this.id = id;
             this.quality = quality;
+            location.OnEnter(this);
         }
 
         public override void OnTick()
@@ -33,5 +30,14 @@ namespace Simulaton.Simulation
             Logger.PrintInfo(this, name + " terminated");
         }
 
+        public override void OnAttach(AttachedEntitiesList attachedEntities)
+        {
+            attachedEntities.Attach(this);
+        }
+
+        public override void OnDetach(AttachedEntitiesList attachedEntities)
+        {
+            attachedEntities.Detach(this);
+        }
     }
 }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Simulation
 {
-    public interface Resource
+    public interface Holder
     {
-        float Extract(int propertyId);
+        void Attach(ProteanEntity proteanEntity);
+        void Detach(ProteanEntity proteanEntity);
     }
 }

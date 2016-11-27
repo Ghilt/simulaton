@@ -1,10 +1,5 @@
-﻿using Simulaton.Attributes;
-using Simulaton.Simulation;
+﻿using Simulaton.Simulation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Simulaton
 {
@@ -22,10 +17,10 @@ namespace Simulaton
             Life humanDobbs = setup.CreateHuman("Dobby", region);
             Life humanMarco = setup.CreateHuman("Mark", region);
 
-            region.AddEntity(humanDobbs);
-            region.AddEntity(humanMarco);
+            Item sleepingBag = setup.GiveSleepingBag(humanDobbs);
 
             engine.AddEntity(humanDobbs);
+            engine.AddEntity(sleepingBag);
             engine.AddEntity(region);
             engine.AddEntity(humanMarco);
 

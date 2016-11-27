@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Simulaton.Simulation
 {
-    class ModifyByItem
+    class ModifyByItem : AbilityModifier
     {
         private int itemId;
         private TransformFunction<float, float> function;

@@ -1,13 +1,7 @@
-﻿using Simulaton.Attributes;
-using Simulaton.Events;
-using Simulaton.Mechanics;
+﻿using Simulaton.Mechanics;
 using Simulaton.Mechanics.ValueTransformFunctions;
 using Simulaton.Simulation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Simulaton
 {
@@ -21,9 +15,10 @@ namespace Simulaton
 
         public const int ID_ABILITY_SEARCH = 0;
         public const int ID_ABILITY_SLEEP = 1;
+
         public const int ID_ABILITY_SOCIALIZE = 2;
 
-        public const int ID_ITEM_BED = 1;
+        public const int ID_ITEM_SLEEPING_BAG = 1;
 
         private static GenerateRandom rand = new GenerateRandom();
 
@@ -39,18 +34,16 @@ namespace Simulaton
             Ability.AddToEnvironment(ID_ABILITY_SLEEP, "Sleep");
             Ability.AddToEnvironment(ID_ABILITY_SOCIALIZE, "Socialize");
 
-            Item.AddToEnvironment(ID_ITEM_BED, "Bed");
+            Item.AddToEnvironment(ID_ITEM_SLEEPING_BAG, "Bed");
         }
 
         internal Life CreateHuman(string name, Region region)
         {
-            Life human = new Life(0, name, new Location(region, 50, 50));
+            Life human = new Life(0, name, new RegionLocation(region, 50, 50));
 
             AddProperties(human);
             AddPropertyUpdaters(human);
             AddAbilities(human);
-            AddStartingItems(human);
-
             return human;
         }
 
@@ -92,10 +85,11 @@ namespace Simulaton
 
             SatisfyEvent finding = new SatisfyFromResourceEvent(searchPower, human.GetLocation());
             SatisfyEvent tieringFromWork = new SatisfyEvent(ID_PROPERTY_ENERGY, gettingTiredBy);
-            tieringFromWork.AddModifier(new ModifyByProperty(ID_PROPERTY_AGE, new LargerThanThreshold(60,2,1)));
+            tieringFromWork.AddModifier(new ModifyByProperty(ID_PROPERTY_AGE, new LargerThanThreshold(60, 2, 1)));
             SatisfyEvent energyBoostOrSink = new SatisfyEvent(ID_PROPERTY_ENERGY, goodOrBadEnergy);
             SatisfyEvent asleep = new SatisfyEvent(ID_PROPERTY_ENERGY, sleepPower);
-            asleep.AddModifier(new ModifyByProperty(ID_PROPERTY_NOURISHMENT, new SmallerThanThreshold(0.4f,0.2f,1f)));
+            asleep.AddModifier(new ModifyByProperty(ID_PROPERTY_NOURISHMENT, new SmallerThanThreshold(0.4f, 0.2f, 1f)));
+            asleep.AddModifier(new ModifyByItem(ID_ITEM_SLEEPING_BAG, new LinearTransform(1.1f, 1.9f)));
             SatisfyEvent socializing = new SatisfyEvent(ID_PROPERTY_SOCIAL_INTERACTION, socializePower);
 
             Ability search = new Ability(ID_ABILITY_SEARCH, human);
@@ -178,9 +172,11 @@ namespace Simulaton
             human.AddPropertyUpdater(social);
         }
 
-        private void AddStartingItems(Life human)
+        internal Item GiveSleepingBag(ProteanEntity holderOfBag)
         {
-            //Todo
+            Location location = new AttachedLocation(holderOfBag);
+            Item sleepingBag = new Item(ID_ITEM_SLEEPING_BAG, 0, "Sleeping Bag", 1.0f, location);
+            return sleepingBag;
         }
     }
 
