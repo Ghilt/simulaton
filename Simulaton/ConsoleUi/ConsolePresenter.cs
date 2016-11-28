@@ -46,9 +46,9 @@ namespace Simulaton
             var listData = data.GetCurrentData();
             ConsoleFrame ui = CreateFullFrame();
             ui.InsertEarliestTopLeft(controls.GetControlsFrame(false));
-            foreach (Entity e in listData.Keys)
+            foreach (Guid e in listData.Keys)
             {
-                LifeUiFrame frame = new LifeUiFrame(e.name, listData[e], 50, 10);
+                EntityUiFrame frame = new EntityUiFrame(e.ToString(), listData[e], 50, 10);
                 ui.InsertEarliestTopLeft(frame);
             }
             string render = ui.GetFrameRender();

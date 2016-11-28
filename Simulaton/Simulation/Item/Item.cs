@@ -1,5 +1,6 @@
 ﻿using System;
 using Simulaton.Events;
+using Simulaton.DataInterface;
 
 namespace Simulaton.Simulation
 {
@@ -17,7 +18,7 @@ namespace Simulaton.Simulation
 
         public override void OnTick()
         {
-
+            AddSummary(new TextSummary(Item.Name[id]));
         }
 
         public override void OnEvent(Event exteriorEvent)

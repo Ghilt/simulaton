@@ -11,18 +11,18 @@ namespace Simulaton
     {
         private const int SAVE_TICKS_HISTORY = 5;
         private Tick tick;
-        private Dictionary<int, Dictionary<Entity, List<Summary>>> summaries;
+        private Dictionary<int, Dictionary<Guid, List<Summary>>> summaries;
         private Dictionary<int, List<string>> logs;
 
 
         public void SetTimeTicker(Tick tick)
         {
-            summaries = new Dictionary<int, Dictionary<Entity, List<Summary>>>();
+            summaries = new Dictionary<int, Dictionary<Guid, List<Summary>>>();
             logs = new Dictionary<int, List<string>>();
             this.tick = tick;
         }
 
-        public void AddSummary(Entity owner, params Summary[] summaryList)
+        public void AddSummary(Guid ownerGuid, params Summary[] summaryList)
         {
             int currentTick = tick.Current();
             if (!summaries.ContainsKey(currentTick))
@@ -32,16 +32,16 @@ namespace Simulaton
                 {
                     summaries.Remove(oldTick);
                 }
-                summaries.Add(currentTick, new Dictionary<Entity, List<Summary>>());
+                summaries.Add(currentTick, new Dictionary<Guid, List<Summary>>());
             }
-            if (!summaries[currentTick].ContainsKey(owner))
+            if (!summaries[currentTick].ContainsKey(ownerGuid))
             {
-                summaries[currentTick].Add(owner, new List<Summary>());
+                summaries[currentTick].Add(ownerGuid, new List<Summary>());
             }
 
             foreach (Summary summary in summaryList)
             {
-                summaries[currentTick][owner].Add(summary);
+                summaries[currentTick][ownerGuid].Add(summary);
             }
         }
 
@@ -61,16 +61,16 @@ namespace Simulaton
             logs[currentTick].Add(info);
         }
 
-        public Dictionary<Entity, List<Summary>> GetCurrentData()
+        public Dictionary<Guid, List<Summary>> GetCurrentData()
         {
-            Dictionary<Entity, List<Summary>> current;
+            Dictionary<Guid, List<Summary>> current;
             if (summaries.TryGetValue(tick.Current(), out current))
             {
                 return current;
 
             } else
             {
-                return new Dictionary<Entity, List<Summary>>();
+                return new Dictionary<Guid, List<Summary>>();
             }
         }
 

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Simulaton.ConsoleUi
 {
-    class LifeUiFrame : ConsoleFrame
+    class EntityUiFrame : ConsoleFrame
     {
         private List<Summary> stateSummary;
         private string name;
 
-        public LifeUiFrame(string name, List<Summary> stateSummary, int width, int height) : base(width, height)
+        public EntityUiFrame(string name, List<Summary> stateSummary, int width, int height) : base(width, height)
         {
             this.name = name;
             this.stateSummary = stateSummary;

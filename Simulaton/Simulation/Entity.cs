@@ -1,5 +1,6 @@
 ﻿using Simulaton.Events;
 using Simulaton.Mechanics;
+using System;
 
 namespace Simulaton.Simulation
 {
@@ -8,9 +9,10 @@ namespace Simulaton.Simulation
         public static int SIMULATION_STATUS_ALIVE = 0;
         public static int SIMULATION_STATUS_TERMINATED = 1;
 
+        private readonly Guid guid;
         private readonly int ticksBirth;
         private int ticksAlive;
-        private bool loggActive;
+        private bool logActive;
         private int simulationStatus;
         private EventManager eventManager;
         private SummaryManager summaryManager;
@@ -19,11 +21,12 @@ namespace Simulaton.Simulation
 
         public Entity(int ticksBirth, string name)
         {
+            guid = Guid.NewGuid();
             eventManager = new EventManager(this);
             this.name = name;
             this.ticksBirth = ticksBirth;
             simulationStatus = SIMULATION_STATUS_ALIVE;
-            loggActive = true;
+            logActive = true;
         }
 
         public void Tick()
@@ -67,7 +70,7 @@ namespace Simulaton.Simulation
 
         internal void AddSummary(params Summary[] summaries)
         {
-            summaryManager.AddSummary(this, summaries);
+            summaryManager.AddSummary(guid, summaries);
         }
     }
 }

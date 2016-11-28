@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataInterface\AbilitySummary.cs" />
+    <Compile Include="DataInterface\TextSummary.cs" />
     <Compile Include="DataInterface\PropertySummary.cs" />
     <Compile Include="DataInterface\SummaryFactory.cs" />
     <Compile Include="Mechanics\ValueTransformFunctions\GenericTransform.cs" />
@@ -73,7 +74,7 @@
     <Compile Include="ConsoleUi\ConsoleFrame.cs" />
     <Compile Include="ConsoleUi\ConsolePresenter.cs" />
     <Compile Include="ConsoleUi\Controls.cs" />
-    <Compile Include="ConsoleUi\LifeUiFrame.cs" />
+    <Compile Include="ConsoleUi\EntityUiFrame.cs" />
     <Compile Include="ConsoleUi\SubFrameParams.cs" />
     <Compile Include="DebugSetup.cs" />
     <Compile Include="Simulation\EnvironmentLibraryMethods.cs" />
