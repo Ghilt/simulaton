@@ -14,15 +14,26 @@ namespace Simulaton
 
             DebugSetup setup = new DebugSetup();
             setup.SetupTestEnvironment();
-            Life humanDobbs = setup.CreateHuman("Dobby", region);
-            Life humanMarco = setup.CreateHuman("Mark", region);
 
-            Item sleepingBag = setup.GiveSleepingBag(humanDobbs);
+            Life[] test = new Life[8];
+            test[0] = setup.CreateHuman("Dobby", region);
+            test[1] = setup.CreateHuman("Mark", region);
+            test[2] = setup.CreateHuman("Jez", region);
+            test[3] = setup.CreateHuman("Alan", region);
+            test[4] = setup.CreateHuman("Sophie", region);
+            test[5] = setup.CreateHuman("Jeff", region);
+            test[6] = setup.CreateHuman("Super Hans", region);
+            test[7] = setup.CreateHuman("Gerrard", region);
 
-            engine.AddEntity(humanDobbs);
+            Item sleepingBag = setup.GiveSleepingBag(test[0]);
+
+
+            foreach (Life l in test)
+            {
+                engine.AddEntity(l);
+            }
             engine.AddEntity(sleepingBag);
             engine.AddEntity(region);
-            engine.AddEntity(humanMarco);
 
             ConsolePresenter gui = new ConsolePresenter(Console.WindowWidth, Console.WindowHeight, engine.summaryManager);
             engine.Subscribe(gui);

@@ -39,18 +39,26 @@ namespace Simulaton
             controls.NextTick(data);
         }
 
-        public void RenderCurrentTick(SummaryManager data)
+        public void RenderCurrentTick(SummaryManager data, int offset)
         {
             Console.Clear();
             Console.SetCursorPosition(0, 0);
-            var listData = data.GetCurrentData();
+            var listData = data.GetCurrentData().ToList();
             ConsoleFrame ui = CreateFullFrame();
-            ui.InsertEarliestTopLeft(controls.GetControlsFrame(false));
-            foreach (Guid e in listData.Keys)
+            ui.InsertEarliest(controls.GetControlsFrame());
+            if (offset > listData.Count) offset = 0;
+
+            for (int i = offset; i < listData.Count; i++ )
             {
-                EntityUiFrame frame = new EntityUiFrame(e.ToString(), listData[e], 50, 10);
-                ui.InsertEarliestTopLeft(frame);
+                EntityUiFrame frame = new EntityUiFrame(listData[i].Key.ToString(), listData[i].Value, 50, 10);
+                ui.InsertEarliest(frame);
             }
+            for (int i = 0; i < offset; i++)
+            {
+                EntityUiFrame frame = new EntityUiFrame(listData[i].Key.ToString(), listData[i].Value, 50, 10);
+                ui.InsertEarliest(frame);
+            }
+
             string render = ui.GetFrameRender();
             Console.Write(render);
             Console.SetCursorPosition(0, windowHeight - 1);
@@ -61,9 +69,10 @@ namespace Simulaton
         {
             Console.Clear();
             Console.SetCursorPosition(0, 0);
+            int logStartXOffset = 0;
             var listData = data.GetCurrentLogs();
             ConsoleFrame ui = CreateFullFrame();
-            ui.InsertEarliestTopLeft(controls.GetControlsFrame(true));
+            ui.InsertEarliest(controls.GetControlsFrame());
 
             for (int i  = 0; i < listData.Count; i++)
             {
@@ -71,10 +80,10 @@ namespace Simulaton
                 {
                     continue;
                 }
-                bool success = ui.InsertEarliestTopLeft(listData[i]);
+                bool success = ui.InsertEarliestAlongColumn(listData[i], logStartXOffset);
                 if (!success)
                 {
-                    ui.InsertEarliestTopLeft("Logg too long");
+                    ui.InsertEarliestAlongColumn("Logg too long", logStartXOffset);
                 }
             }
 

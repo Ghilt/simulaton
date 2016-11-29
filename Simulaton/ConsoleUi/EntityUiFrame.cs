@@ -21,7 +21,7 @@ namespace Simulaton.ConsoleUi
             InsertIgnoreOccupied(width/2 - nameFormat.Length/2,0, nameFormat);
             foreach (Summary data in stateSummary)
             {
-                InsertEarliestTopLeft(data.ToString());
+                InsertEarliest(data.ToString());
             }
         }
     }

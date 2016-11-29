@@ -155,9 +155,9 @@ namespace Simulaton.ConsoleUi
             return true;
         }
 
-        public bool InsertEarliestTopLeft(string s)
+        public bool InsertEarliest(string s)
         {
-            for (int x = 0; x < height; x++)
+            for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
@@ -170,9 +170,33 @@ namespace Simulaton.ConsoleUi
             return false;
         }
 
-        public bool InsertEarliestTopLeft(ConsoleFrame frame)
+        public bool InsertEarliestAlongColumn(string s, int x)
         {
-            for (int x = 0; x < height; x++)
+            for (int y = 0; y < height; y++)
+            {
+                if (Insert(x, y, s))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool InsertEarliestAlongRow(string s, int y)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                if (Insert(x, y, s))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool InsertEarliest(ConsoleFrame frame)
+        {
+            for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
