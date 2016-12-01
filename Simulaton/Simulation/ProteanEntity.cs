@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Simulaton.Simulation.AttachedEntitiesList;
 
 namespace Simulaton.Simulation
 {
@@ -88,16 +89,15 @@ namespace Simulaton.Simulation
 
         internal void Attach(ProteanEntity proteanEntity) // visitor pattern is confusing, why would this be preferred over anti-patterns
         {
-            proteanEntity.OnAttach(attachedEntities);
+            proteanEntity.OnSelfAttached(attachedEntities.attacher);
         }
 
         internal void Detach(ProteanEntity proteanEntity)
         {
-            proteanEntity.OnAttach(attachedEntities);
+            proteanEntity.OnSelfAttached(attachedEntities.detacher);
         }
 
-        public abstract void OnAttach(AttachedEntitiesList list);
-        public abstract void OnDetach(AttachedEntitiesList list);
+        public abstract void OnSelfAttached(AttachDelegate attachDelegate);
 
     }
 }

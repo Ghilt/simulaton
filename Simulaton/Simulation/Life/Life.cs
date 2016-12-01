@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Simulaton.Events;
+using static Simulaton.Simulation.AttachedEntitiesList;
 
 namespace Simulaton.Simulation
 {
@@ -65,14 +66,9 @@ namespace Simulaton.Simulation
             return itemManager.TryGetItem(itemId, out item);
         }
 
-        public override void OnAttach(AttachedEntitiesList attachedEntities)
+        public override void OnSelfAttached(AttachDelegate attachDelegate)
         {
-            attachedEntities.Attach(this); 
-        }
-
-        public override void OnDetach(AttachedEntitiesList attachedEntities)
-        {
-            attachedEntities.Detach(this);
+            attachDelegate.Action(this);
         }
     }
 }

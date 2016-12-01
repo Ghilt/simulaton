@@ -1,6 +1,7 @@
 ﻿using System;
 using Simulaton.Events;
 using Simulaton.DataInterface;
+using static Simulaton.Simulation.AttachedEntitiesList;
 
 namespace Simulaton.Simulation
 {
@@ -31,14 +32,9 @@ namespace Simulaton.Simulation
             Logger.PrintInfo(this, name + " terminated");
         }
 
-        public override void OnAttach(AttachedEntitiesList attachedEntities)
+        public override void OnSelfAttached(AttachDelegate attachDelegate)
         {
-            attachedEntities.Attach(this);
-        }
-
-        public override void OnDetach(AttachedEntitiesList attachedEntities)
-        {
-            attachedEntities.Detach(this);
+            attachDelegate.Action(this);
         }
     }
 }

@@ -8,39 +8,55 @@ namespace Simulaton.Simulation
 {
     public class AttachedEntitiesList
     {
-        List<Life> attachedLife = new List<Life>();
-        Dictionary<int, List<Item>> attachedItems = new Dictionary<int, List<Item>>();
+        private List<Life> attachedLife = new List<Life>();
+        private Dictionary<int, List<Item>> attachedItems = new Dictionary<int, List<Item>>();
+        public AttachDelegate detacher { get; private set; }
+        public AttachDelegate attacher { get; private set; }
 
-        public void Attach(Life life)
+        public AttachedEntitiesList()
         {
-            attachedLife.Add(life);
+            detacher = new AttachDelegate(x => attachedLife.Remove(x), x => attachedItems.Remove(x.id));
+            attacher = new AttachDelegate(attachedLife.Add, AddItem);
         }
 
-        public void Detach(Life life)
-        {
-            attachedLife.Remove(life);
-        }
-
-        public void Attach(Item item)
+        public void AddItem(Item item)
         {
             List<Item> list;
             if (attachedItems.TryGetValue(item.id, out list))
             {
                 list.Add(item);
-            } else
+            }
+            else
             {
                 attachedItems.Add(item.id, new List<Item> { item });
             }
         }
 
-        public void Detach(Item item)
-        {
-            attachedItems.Remove(item.id);
-        }
-
         internal bool TryGetItem(int itemId, out List<Item> item)
         {
             return attachedItems.TryGetValue(itemId, out item);
+        }
+
+        public class AttachDelegate
+        {
+            private Action<Item> itemAction;
+            private Action<Life> lifeAction;
+
+            public AttachDelegate(Action<Life>  actionOnLifeList, Action<Item> actionOnItemList)
+            {
+                this.itemAction = actionOnItemList;
+                this.lifeAction = actionOnLifeList;
+            }
+
+            public void Action(Life life)
+            {
+                lifeAction(life);
+            }
+
+            public void Action(Item item)
+            {
+                itemAction(item);
+            }
         }
     }
 }
